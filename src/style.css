@@ -68,6 +68,9 @@ h3,
   color: #fff;
 }
 
+.text-dark { color: var(--text-dark) !important; }
+.text-light { color: #fff !important; }
+
 /* Floating Navbar */
 .navbar {
   position: fixed;
@@ -567,6 +570,10 @@ h3,
   .split-pane {
     border-radius: 0 !important;
     flex: 1;
+  }
+  
+  .project-desc {
+    padding: 1.5rem 1.5rem !important;
   }
 
   .desktop-tabs {
