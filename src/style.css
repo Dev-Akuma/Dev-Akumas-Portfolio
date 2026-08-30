@@ -20,6 +20,7 @@
 
 html {
   scroll-behavior: smooth;
+  background-color: var(--bg-dark);
 }
 
 body {
@@ -61,7 +62,7 @@ h3,
 }
 
 .section-title {
-  font-size: 3rem;
+  font-size: clamp(2rem, 5vw, 3rem);
   margin-bottom: 2rem;
 }
 
@@ -166,14 +167,14 @@ h3,
 }
 
 .hero-title {
-  font-size: 4rem;
+  font-size: clamp(2.5rem, 6vw, 4rem);
   margin-bottom: 0.5rem;
   max-width: 900px;
   line-height: 1.1;
 }
 
 .hero-subtitle {
-  font-size: 1.25rem;
+  font-size: clamp(1rem, 3vw, 1.25rem);
   margin-bottom: 4rem;
 }
 
@@ -562,4 +563,50 @@ h3,
   transform: translate(-50%, -50%) scale(0.8);
   background: #fff;
   color: #000;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+  .navbar {
+    display: none;
+  }
+  
+  .drag-cursor {
+    display: none !important;
+  }
+  
+  .hero-content {
+    padding-top: 5rem;
+  }
+  
+  .split-card {
+    flex-direction: column;
+    min-height: auto;
+    border-radius: 0;
+    box-shadow: none !important;
+  }
+  
+  .split-pane {
+    flex: none;
+    width: 100%;
+  }
+
+  .about-intro, .about-details {
+    padding: 2rem !important;
+  }
+  
+  .pane-medium {
+    min-height: 250px;
+  }
+  
+  .footer-grid {
+    grid-template-columns: 1fr;
+    text-align: center;
+    gap: 1.5rem;
+  }
+  
+  .footer-col {
+    align-items: center !important;
+    text-align: center !important;
+  }
 }

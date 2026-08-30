@@ -64,28 +64,37 @@
         <div class="about-panel-container">
           <div class="container">
             <h2 class="section-title">ABOUT ME</h2>
-              <div class="tabs-viewport">
-                
-                <!-- Dynamic Arrows -->
-                <button class="nav-arrow nav-arrow-left" id="nav-arrow-left" aria-label="Previous tab">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>
-                </button>
-                <button class="nav-arrow nav-arrow-right" id="nav-arrow-right" aria-label="Next tab">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
-                </button>
+            <div class="tabs-viewport">
 
-                <div class="tabs-track" id="tabs-track">
+              <!-- Dynamic Arrows -->
+              <button class="nav-arrow nav-arrow-left" id="nav-arrow-left" aria-label="Previous tab">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
+              </button>
+              <button class="nav-arrow nav-arrow-right" id="nav-arrow-right" aria-label="Next tab">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+              </button>
+
+              <div class="tabs-track" id="tabs-track">
 
                 <!-- Tab 1 -->
-                  <div class="tab-slide" id="tab-personality">
-                    <div class="split-card">
-                      <div class="split-pane pane-light about-intro parallax-content" style="flex-direction: column; justify-content: center; align-items: flex-start; text-align: left;">
-                        <div style="margin-bottom: 2rem;">
-                          <h3 style="font-size: 2.5rem; font-weight: 700; font-family: var(--font-heading); color: var(--accent); letter-spacing: -1px;">Personality</h3>
-                        </div>
-                        <p style="font-size: 1.25rem;">Curious by nature, experimental by choice. I like turning strange ideas into things that work, exploring the intersection of technology, design, games, and AI—usually with a few 3 AM ideas along the way.</p>
+                <div class="tab-slide" id="tab-personality">
+                  <div class="split-card">
+                    <div class="split-pane pane-light about-intro parallax-content"
+                      style="flex-direction: column; justify-content: center; align-items: flex-start; text-align: left;">
+                      <div style="margin-bottom: 2rem;">
+                        <h3
+                          style="font-size: 2.5rem; font-weight: 700; font-family: var(--font-heading); color: var(--accent); letter-spacing: -1px;">
+                          Personality</h3>
                       </div>
-                      <div class="split-pane pane-dark about-details parallax-content">
+                      <p style="font-size: 1.25rem;">Curious by nature, experimental by choice. I like turning strange
+                        ideas into things that work, exploring the intersection of technology, design, games, and
+                        AI—usually with a few 3 AM ideas along the way.</p>
+                    </div>
+                    <div class="split-pane pane-dark about-details parallax-content">
                       <div class="pros-cons">
                         <div class="pros">
                           <h3>Strengths</h3>
@@ -110,106 +119,137 @@
                   </div>
                 </div>
 
-                  <!-- Tab 2 -->
-                  <div class="tab-slide" id="tab-career">
-                    <div class="split-card">
-                      <!-- Swapped colors for seamless drag from Tab 1 (which ends in dark) -->
-                      <div class="split-pane pane-dark about-details parallax-content" style="display: flex; align-items: center; justify-content: center; flex-direction: column; text-align: left;">
-                        <div style="width: 100%; margin-bottom: 1.5rem;">
-                          <h3 style="font-size: 2.5rem; font-weight: 700; font-family: var(--font-heading); color: #fff; letter-spacing: -1px;">Career Objective</h3>
+                <!-- Tab 2 -->
+                <div class="tab-slide" id="tab-career">
+                  <div class="split-card">
+                    <!-- Swapped colors for seamless drag from Tab 1 (which ends in dark) -->
+                    <div class="split-pane pane-dark about-details parallax-content"
+                      style="display: flex; align-items: center; justify-content: center; flex-direction: column; text-align: left;">
+                      <div style="width: 100%; margin-bottom: 1.5rem;">
+                        <h3
+                          style="font-size: 2.5rem; font-weight: 700; font-family: var(--font-heading); color: #fff; letter-spacing: -1px;">
+                          Career Objective</h3>
+                      </div>
+                      <p style="font-size: 1.5rem; line-height: 1.6;">I want to build things that are both technically
+                        interesting and genuinely enjoyable to use. I'm looking to grow as an engineer while exploring
+                        the intersection of software, design, AI, and creative technology.</p>
+                    </div>
+                    <div class="split-pane pane-light about-intro parallax-content" style="justify-content: center;">
+                      <a href="/src/assets/23BAI70549_M.Devasis.Singh.pdf" target="_blank" class="resume-sticky">
+                        <div class="resume-sticky-icon">📎</div>
+                        <div class="resume-sticky-text">
+                          <h3>Resume.pdf</h3>
+                          <p>Click to open</p>
                         </div>
-                        <p style="font-size: 1.5rem; line-height: 1.6;">I want to build things that are both technically interesting and genuinely enjoyable to use. I'm looking to grow as an engineer while exploring the intersection of software, design, AI, and creative technology.</p>
-                      </div>
-                      <div class="split-pane pane-light about-intro parallax-content" style="justify-content: center;">
-                        <a href="/src/assets/23BAI70549_M.Devasis.Singh.pdf" target="_blank" class="resume-sticky">
-                          <div class="resume-sticky-icon">📎</div>
-                          <div class="resume-sticky-text">
-                            <h3>Resume.pdf</h3>
-                            <p>Click to open</p>
-                          </div>
-                        </a>
-                      </div>
+                      </a>
                     </div>
                   </div>
+                </div>
 
-                  <!-- Tab 3 (Achievements) -->
-                  <div class="tab-slide" id="tab-achievements">
-                    <div class="split-card">
-                      <!-- Seamless drag from Tab 2 (which ends in light) -->
-                      <div class="split-pane pane-light about-intro parallax-content" style="justify-content: center;">
-                        <a href="#" target="_blank" class="resume-sticky" style="background-color: #ffd700; transform: rotate(2deg);">
-                          <div class="resume-sticky-icon">🏆</div>
-                          <div class="resume-sticky-text">
-                            <h3>Certificate.pdf</h3>
-                            <p>Click to view credential</p>
+                <!-- Tab 3 (Achievements) -->
+                <div class="tab-slide" id="tab-achievements">
+                  <div class="split-card">
+                    <!-- Seamless drag from Tab 2 (which ends in light) -->
+                    <div class="split-pane pane-light about-intro parallax-content" style="justify-content: center;">
+                      <a href="#" target="_blank" class="resume-sticky"
+                        style="background-color: #ffd700; transform: rotate(2deg);">
+                        <div class="resume-sticky-icon">🏆</div>
+                        <div class="resume-sticky-text">
+                          <h3>Certificate.pdf</h3>
+                          <p>Click to view credential</p>
+                        </div>
+                      </a>
+                    </div>
+                    <div class="split-pane pane-dark about-details parallax-content">
+                      <div class="pros-cons">
+                        <div class="pros" style="width: 100%;">
+                          <div style="width: 100%; margin-bottom: 1.5rem;">
+                            <h3
+                              style="font-size: 2.5rem; font-weight: 700; font-family: var(--font-heading); color: #fff; letter-spacing: -1px; text-transform: none;">
+                              Achievements</h3>
                           </div>
-                        </a>
-                      </div>
-                      <div class="split-pane pane-dark about-details parallax-content">
-                        <div class="pros-cons">
-                          <div class="pros" style="width: 100%;">
-                            <div style="width: 100%; margin-bottom: 1.5rem;">
-                              <h3 style="font-size: 2.5rem; font-weight: 700; font-family: var(--font-heading); color: #fff; letter-spacing: -1px;">Achievements</h3>
-                            </div>
-                            <ul>
-                              <li><strong>Hackathons</strong> — Participated in several Hackathons and won several accolades for building creative tech solutions.</li>
-                              <li><strong>Open Source</strong> — Contributed to multiple repositories and built tools loved by developers.</li>
-                            </ul>
-                          </div>
+                          <ul>
+                            <li><strong>Hackathons</strong> — Participated in several Hackathons and won several
+                              accolades for building creative tech solutions.</li>
+                            <li><strong>Open Source</strong> — Contributed to multiple repositories and built tools
+                              loved by developers.</li>
+                          </ul>
                         </div>
                       </div>
                     </div>
                   </div>
+                </div>
 
               </div>
             </div>
           </div>
         </div>
-    </section>
+      </section>
     </div>
 
     <!-- Projects -->
     <section id="work" class="section dark-bg">
       <div class="container">
         <h2 class="section-title reveal-on-scroll">PROJECTS</h2>
-        <div class="split-card reveal-on-scroll">
-          <div class="split-pane pane-medium"></div>
-          <div class="split-pane pane-light"></div>
-        </div>
-        <div class="carousel-indicator-wrapper reveal-on-scroll">
-          <div class="carousel-indicator inline">
-            <span class="carousel-label">Squarey Maze</span>
-            <div class="dots">
-              <span class="dot active"></span>
-              <span class="dot"></span>
-              <span class="dot"></span>
-              <span class="dot"></span>
-              <span class="dot"></span>
-              <span class="dot"></span>
+        <div class="tabs-viewport reveal-on-scroll">
+          <div class="tabs-track" style="width: 200%;">
+            
+            <div class="tab-slide" style="width: 50%;">
+              <div class="split-card" style="box-shadow: none; background: transparent;">
+                <div class="split-pane pane-medium" style="background-image: url('https://placehold.co/600x400/222/555'); background-size: cover; background-position: center; border-radius: 12px;"></div>
+                <div class="split-pane pane-dark about-details parallax-content" style="background: transparent; padding: 2rem 0;">
+                  <h3 style="font-size: 2rem; font-weight: 700; color: #fff; margin-bottom: 1rem;">Squarey Maze</h3>
+                  <p style="font-size: 1.1rem; opacity: 0.8;">A challenging 2D puzzle game where you navigate through intricate mazes, avoiding traps and finding the optimal path.</p>
+                </div>
+              </div>
             </div>
+
+            <div class="tab-slide" style="width: 50%;">
+              <div class="split-card" style="box-shadow: none; background: transparent;">
+                <div class="split-pane pane-medium" style="background-image: url('https://placehold.co/600x400/222/555'); background-size: cover; background-position: center; border-radius: 12px;"></div>
+                <div class="split-pane pane-dark about-details parallax-content" style="background: transparent; padding: 2rem 0;">
+                  <h3 style="font-size: 2rem; font-weight: 700; color: #fff; margin-bottom: 1rem;">Neon Drift</h3>
+                  <p style="font-size: 1.1rem; opacity: 0.8;">A high-speed cybernetic racing game featuring neon-lit tracks, synthwave music, and intense drifting mechanics.</p>
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
       </div>
     </section>
 
+
+
     <!-- Experience -->
     <section id="experience" class="section light-bg">
       <div class="container">
         <h2 class="section-title">EXPERIENCE</h2>
-        <div class="split-card">
-          <div class="split-pane pane-medium"></div>
-          <div class="split-pane pane-light"></div>
-        </div>
-        <div class="carousel-indicator-wrapper">
-          <div class="carousel-indicator inline-dark">
-            <span class="carousel-label">Company 1</span>
-            <div class="dots">
-              <span class="dot active"></span>
-              <span class="dot"></span>
-              <span class="dot"></span>
-              <span class="dot"></span>
-              <span class="dot"></span>
+        <div class="tabs-viewport">
+          <div class="tabs-track" style="width: 200%;">
+            
+            <div class="tab-slide" style="width: 50%;">
+              <div class="split-card" style="box-shadow: none; background: transparent;">
+                <div class="split-pane pane-medium" style="background-image: url('https://placehold.co/600x400/ddd/888'); background-size: cover; background-position: center; border-radius: 12px;"></div>
+                <div class="split-pane pane-light about-details parallax-content" style="background: transparent; padding: 2rem 0;">
+                  <h3 style="font-size: 2rem; font-weight: 700; color: var(--accent); margin-bottom: 0.5rem;">Software Engineer Intern</h3>
+                  <h4 style="font-size: 1.25rem; margin-bottom: 1rem; opacity: 0.8;">Tech Corp Inc.</h4>
+                  <p style="font-size: 1.1rem;">Developed core features for the main web application, improving performance by 20% and implementing responsive design systems.</p>
+                </div>
+              </div>
             </div>
+
+            <div class="tab-slide" style="width: 50%;">
+              <div class="split-card" style="box-shadow: none; background: transparent;">
+                <div class="split-pane pane-medium" style="background-image: url('https://placehold.co/600x400/ddd/888'); background-size: cover; background-position: center; border-radius: 12px;"></div>
+                <div class="split-pane pane-light about-details parallax-content" style="background: transparent; padding: 2rem 0;">
+                  <h3 style="font-size: 2rem; font-weight: 700; color: var(--accent); margin-bottom: 0.5rem;">Freelance Developer</h3>
+                  <h4 style="font-size: 1.25rem; margin-bottom: 1rem; opacity: 0.8;">Self-Employed</h4>
+                  <p style="font-size: 1.1rem;">Built custom e-commerce solutions for local businesses, focusing on UX/UI design and modern web frameworks.</p>
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
       </div>
@@ -217,15 +257,26 @@
   </main>
 
   <!-- Footer -->
-  <footer id="contact" class="footer dark-bg">
+  <footer id="contact" class="footer dark-bg reveal-on-scroll">
     <div class="footer-grid">
-      <div class="footer-col">
-        <h3>Email Address</h3>
-        <p>Contact Details</p>
+      <div class="footer-col" style="grid-column: 1 / -1; align-items: center; text-align: center;">
+        <h3 style="font-size: clamp(2rem, 5vw, 3rem); font-family: var(--font-heading); font-weight: 700; margin-bottom: 1.5rem; letter-spacing: -1px; color: #fff;">Let's Build Something Amazing!</h3>
+        <a href="mailto:m.devasis.singh@gmail.com" style="display: inline-flex; align-items: center; gap: 0.75rem; color: #00d2ff; text-decoration: none; font-size: 1.25rem; font-weight: 500; transition: color 0.2s ease; margin-bottom: 2rem;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+          m.devasis.singh@gmail.com
+        </a>
+        <div style="display: flex; gap: 2rem; justify-content: center;">
+          <a href="https://github.com/Dev-Akuma" target="_blank" style="color: inherit; text-decoration: none; transition: opacity 0.2s ease; opacity: 0.8;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.8'">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
+          </a>
+          <a href="https://www.linkedin.com/in/m-devasis-7108bb290" target="_blank" style="color: inherit; text-decoration: none; transition: opacity 0.2s ease; opacity: 0.8;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.8'">
+            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+          </a>
+        </div>
       </div>
-      <div class="footer-col">
-        <h3>Social Media Sites</h3>
-      </div>
+    </div>
+    <div style="text-align: center; margin-top: 4rem; opacity: 0.5; font-size: 0.9rem;">
+      <p>&copy; 2024 Dev Akuma. Designed and Built with ❤️</p>
     </div>
   </footer>
 
@@ -234,4 +285,5 @@
 
   <script type="module" src="/src/main.ts"></script>
 </body>
+
 </html>

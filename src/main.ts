@@ -101,38 +101,49 @@ document.addEventListener('DOMContentLoaded', () => {
   // Trigger scroll event once to set initial states
   window.dispatchEvent(new Event('scroll'));
 
-  // Tab Sliding System
-  const track = document.getElementById('tabs-track');
-  const parallaxContents = document.querySelectorAll('.parallax-content');
-  const slides = document.querySelectorAll('.tab-slide');
-
-  let isDragging = false;
-  let startX = 0;
-  let currentTranslate = 0;
-  let prevTranslate = 0;
-  let animationID = 0;
-  let currentIndex = 0;
-
   // Custom Drag Cursor Logic
   const dragCursor = document.getElementById('drag-cursor');
-  const tabsViewport = document.querySelector('.tabs-viewport');
+  const tabsViewports = document.querySelectorAll('.tabs-viewport');
 
-  if (dragCursor && tabsViewport) {
-    tabsViewport.addEventListener('mousemove', (e: Event) => {
-      const mouseEvent = e as MouseEvent;
-      dragCursor.style.left = mouseEvent.clientX + 'px';
-      dragCursor.style.top = mouseEvent.clientY + 'px';
-    });
-    tabsViewport.addEventListener('mouseenter', () => {
-      dragCursor.classList.add('active');
-    });
-    tabsViewport.addEventListener('mouseleave', () => {
-      dragCursor.classList.remove('active');
-      dragCursor.classList.remove('dragging');
+  if (dragCursor) {
+    tabsViewports.forEach(tabsViewport => {
+      tabsViewport.addEventListener('mousemove', (e: Event) => {
+        if (window.innerWidth <= 768) return; // Disable cursor on mobile
+        const mouseEvent = e as MouseEvent;
+        dragCursor.style.left = mouseEvent.clientX + 'px';
+        dragCursor.style.top = mouseEvent.clientY + 'px';
+      });
+      tabsViewport.addEventListener('mouseenter', () => {
+        if (window.innerWidth <= 768) return;
+        dragCursor.classList.add('active');
+      });
+      tabsViewport.addEventListener('mouseleave', () => {
+        dragCursor.classList.remove('active');
+        dragCursor.classList.remove('dragging');
+      });
     });
   }
 
-  if (track) {
+  // Tab Sliding System (Multiple Tracks)
+  const tracks = document.querySelectorAll('.tabs-track');
+
+  tracks.forEach(trackElement => {
+    const track = trackElement as HTMLElement;
+    const parallaxContents = track.querySelectorAll('.parallax-content');
+    const slides = track.querySelectorAll('.tab-slide');
+    if (!slides.length) return;
+
+    let isDragging = false;
+    let startX = 0;
+    let currentTranslate = 0;
+    let prevTranslate = 0;
+    let animationID = 0;
+    let currentIndex = 0;
+
+    const parentViewport = track.closest('.tabs-viewport');
+    const navArrowLeft = parentViewport?.querySelector('.nav-arrow-left') as HTMLElement | null;
+    const navArrowRight = parentViewport?.querySelector('.nav-arrow-right') as HTMLElement | null;
+
     // Touch Events
     track.addEventListener('touchstart', touchStart, { passive: true });
     track.addEventListener('touchend', touchEnd);
@@ -143,55 +154,54 @@ document.addEventListener('DOMContentLoaded', () => {
     track.addEventListener('mouseup', touchEnd);
     track.addEventListener('mouseleave', touchEnd);
     track.addEventListener('mousemove', touchMove);
-  }
 
-  function getSlideWidth() {
-    const firstSlide = document.querySelector('.tab-slide');
-    return firstSlide ? (firstSlide as HTMLElement).offsetWidth : window.innerWidth;
-  }
-
-  function touchStart(e: TouchEvent | MouseEvent) {
-    isDragging = true;
-    startX = getPositionX(e);
-    if (track) track.classList.add('dragging');
-    if (dragCursor) dragCursor.classList.add('dragging');
-    animationID = requestAnimationFrame(animation);
-  }
-
-  function touchEnd() {
-    isDragging = false;
-    cancelAnimationFrame(animationID);
-    if (track) track.classList.remove('dragging');
-    if (dragCursor) dragCursor.classList.remove('dragging');
-
-    // Determine nearest slide
-    const movedBy = currentTranslate - prevTranslate;
-
-    // Threshold to switch slide
-    if (movedBy < -100 && currentIndex < slides.length - 1) currentIndex += 1;
-    if (movedBy > 100 && currentIndex > 0) currentIndex -= 1;
-
-    updateTabState(currentIndex);
-  }
-
-  function touchMove(e: TouchEvent | MouseEvent) {
-    if (isDragging) {
-      const currentPosition = getPositionX(e);
-      currentTranslate = prevTranslate + currentPosition - startX;
+    function getSlideWidth() {
+      const firstSlide = slides[0] as HTMLElement;
+      return firstSlide ? firstSlide.offsetWidth : window.innerWidth;
     }
-  }
 
-  function getPositionX(event: TouchEvent | MouseEvent) {
-    return event.type.includes('mouse') ? (event as MouseEvent).pageX : (event as TouchEvent).touches[0].clientX;
-  }
+    function touchStart(e: TouchEvent | MouseEvent) {
+      isDragging = true;
+      startX = getPositionX(e);
+      track.classList.add('dragging');
+      if (dragCursor && window.innerWidth > 768) dragCursor.classList.add('dragging');
+      animationID = requestAnimationFrame(animation);
+    }
 
-  function animation() {
-    setSliderPosition();
-    if (isDragging) requestAnimationFrame(animation);
-  }
+    function touchEnd() {
+      if (!isDragging) return;
+      isDragging = false;
+      cancelAnimationFrame(animationID);
+      track.classList.remove('dragging');
+      if (dragCursor) dragCursor.classList.remove('dragging');
 
-  function setSliderPosition() {
-    if (track) {
+      // Determine nearest slide
+      const movedBy = currentTranslate - prevTranslate;
+
+      // Threshold to switch slide
+      if (movedBy < -100 && currentIndex < slides.length - 1) currentIndex += 1;
+      if (movedBy > 100 && currentIndex > 0) currentIndex -= 1;
+
+      updateTabState(currentIndex);
+    }
+
+    function touchMove(e: TouchEvent | MouseEvent) {
+      if (isDragging) {
+        const currentPosition = getPositionX(e);
+        currentTranslate = prevTranslate + currentPosition - startX;
+      }
+    }
+
+    function getPositionX(event: TouchEvent | MouseEvent) {
+      return event.type.includes('mouse') ? (event as MouseEvent).pageX : (event as TouchEvent).touches[0].clientX;
+    }
+
+    function animation() {
+      setSliderPosition();
+      if (isDragging) requestAnimationFrame(animation);
+    }
+
+    function setSliderPosition() {
       track.style.transform = `translateX(${currentTranslate}px)`;
 
       // Parallax effect
@@ -205,71 +215,66 @@ document.addEventListener('DOMContentLoaded', () => {
         (content as HTMLElement).style.transform = `translateX(${-relativeTranslate * 0.15}px)`;
       });
     }
-  }
 
-  // Dynamic Arrows Logic
-  const navArrowLeft = document.getElementById('nav-arrow-left');
-  const navArrowRight = document.getElementById('nav-arrow-right');
+    // Update State when clicking dots or releasing drag
+    function updateTabState(index: number) {
+      currentIndex = index;
+      const slideWidth = getSlideWidth();
+      prevTranslate = currentIndex * -slideWidth;
+      currentTranslate = prevTranslate;
 
-  if (navArrowLeft) {
-    navArrowLeft.addEventListener('click', () => {
-      if (currentIndex > 0) updateTabState(currentIndex - 1);
-    });
-  }
-  if (navArrowRight) {
-    navArrowRight.addEventListener('click', () => {
-      if (currentIndex < slides.length - 1) updateTabState(currentIndex + 1);
-    });
-  }
-
-  // Update State when clicking dots or releasing drag
-  function updateTabState(index: number) {
-    currentIndex = index;
-    const slideWidth = getSlideWidth();
-    prevTranslate = currentIndex * -slideWidth;
-    currentTranslate = prevTranslate;
-
-    if (track) {
       track.style.transform = `translateX(${currentTranslate}px)`;
+
+      // Reset parallax contents cleanly
+      parallaxContents.forEach(content => {
+        (content as HTMLElement).style.transform = `translateX(0px)`;
+      });
+
+      // Update Dynamic Arrows (if any)
+      const totalTabs = slides.length;
+      
+      if (navArrowLeft) {
+        const tabsLeft = index;
+        if (tabsLeft === 0) {
+          navArrowLeft.style.transform = 'translateY(-50%) scale(0)';
+          navArrowLeft.style.opacity = '0';
+        } else {
+          const scale = 0.8 + (tabsLeft * 0.2);
+          navArrowLeft.style.transform = `translateY(-50%) scale(${scale})`;
+          navArrowLeft.style.opacity = '1';
+        }
+      }
+      
+      if (navArrowRight) {
+        const tabsRight = (totalTabs - 1) - index;
+        if (tabsRight === 0) {
+          navArrowRight.style.transform = 'translateY(-50%) scale(0)';
+          navArrowRight.style.opacity = '0';
+        } else {
+          const scale = 0.8 + (tabsRight * 0.2);
+          navArrowRight.style.transform = `translateY(-50%) scale(${scale})`;
+          navArrowRight.style.opacity = '1';
+        }
+      }
     }
 
-    // Reset parallax contents cleanly
-    parallaxContents.forEach(content => {
-      (content as HTMLElement).style.transform = `translateX(0px)`;
-    });
-
-    // Update Dynamic Arrows
-    const totalTabs = slides.length;
-    
+    // Dynamic Arrows Click Logic
     if (navArrowLeft) {
-      const tabsLeft = index;
-      if (tabsLeft === 0) {
-        navArrowLeft.style.transform = 'translateY(-50%) scale(0)';
-        navArrowLeft.style.opacity = '0';
-      } else {
-        const scale = 0.8 + (tabsLeft * 0.2); // grows based on tabs left
-        navArrowLeft.style.transform = `translateY(-50%) scale(${scale})`;
-        navArrowLeft.style.opacity = '1';
-      }
+      navArrowLeft.addEventListener('click', () => {
+        if (currentIndex > 0) updateTabState(currentIndex - 1);
+      });
     }
-    
     if (navArrowRight) {
-      const tabsRight = (totalTabs - 1) - index;
-      if (tabsRight === 0) {
-        navArrowRight.style.transform = 'translateY(-50%) scale(0)';
-        navArrowRight.style.opacity = '0';
-      } else {
-        const scale = 0.8 + (tabsRight * 0.2);
-        navArrowRight.style.transform = `translateY(-50%) scale(${scale})`;
-        navArrowRight.style.opacity = '1';
-      }
+      navArrowRight.addEventListener('click', () => {
+        if (currentIndex < slides.length - 1) updateTabState(currentIndex + 1);
+      });
     }
-  }
 
-  // Initial call to set up arrows
-  updateTabState(currentIndex);
-
-  window.addEventListener('resize', () => {
+    // Initial call to set up track
     updateTabState(currentIndex);
+
+    window.addEventListener('resize', () => {
+      updateTabState(currentIndex);
+    });
   });
 });
