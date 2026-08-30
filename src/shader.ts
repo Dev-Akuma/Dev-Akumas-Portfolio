@@ -16,7 +16,8 @@ export function initShader() {
 
   const uniforms = {
     u_time: { value: 0 },
-    u_resolution: { value: new THREE.Vector2(parent.clientWidth, parent.clientHeight) }
+    u_resolution: { value: new THREE.Vector2(parent.clientWidth, parent.clientHeight) },
+    u_mouse: { value: new THREE.Vector2(0, 0) }
   };
 
   const vertexShader = `
@@ -30,6 +31,7 @@ export function initShader() {
   const fragmentShader = `
     uniform float u_time;
     uniform vec2 u_resolution;
+    uniform vec2 u_mouse;
     varying vec2 vUv;
 
     // Simplex noise function (Ashima Arts)
@@ -64,23 +66,38 @@ export function initShader() {
     void main() {
       vec2 st = gl_FragCoord.xy / u_resolution.xy;
       
-      // Create large fluid shapes
+      // Handle aspect ratio
+      st.x *= u_resolution.x / u_resolution.y;
+
+      vec2 mouse = u_mouse.xy / u_resolution.xy;
+      mouse.x *= u_resolution.x / u_resolution.y;
+
+      // Mouse interaction
+      float dist = distance(st, mouse);
+      float interaction = smoothstep(0.5, 0.0, dist);
+      
+      // Create large fluid shapes, displaced by mouse interaction
       vec2 pos = st * 1.5;
+      pos += interaction * 0.3; // Push fluid away from mouse
       
       float n1 = snoise(pos + u_time * 0.1);
-      float n2 = snoise(pos + vec2(u_time * 0.15, -u_time * 0.1));
-      float n3 = snoise(pos + vec2(-u_time * 0.05, u_time * 0.2));
+      float n2 = snoise(pos + vec2(u_time * 0.15, -u_time * 0.1) - interaction * 0.4);
+      float n3 = snoise(pos + vec2(-u_time * 0.05, u_time * 0.2) + interaction * 0.2);
 
       // Colors inspired by the reference image
       vec3 colYellow = vec3(1.0, 0.95, 0.4);
       vec3 colCyan = vec3(0.4, 0.9, 0.95);
       vec3 colGreen = vec3(0.55, 0.95, 0.55);
       vec3 colLight = vec3(0.85, 0.95, 1.0);
+      vec3 colHover = vec3(1.0, 0.5, 0.7); // Add a warm pink glow around the mouse
 
       // Mix colors using noise
       vec3 color = mix(colLight, colYellow, smoothstep(-0.6, 0.6, n1));
       color = mix(color, colCyan, smoothstep(0.0, 1.2, n2));
       color = mix(color, colGreen, smoothstep(0.3, 1.0, n3));
+      
+      // Mix in hover effect
+      color = mix(color, colHover, interaction * 0.6);
 
       gl_FragColor = vec4(color, 1.0);
     }
@@ -98,6 +115,19 @@ export function initShader() {
   window.addEventListener('resize', () => {
     renderer.setSize(parent.clientWidth, parent.clientHeight);
     uniforms.u_resolution.value.set(parent.clientWidth, parent.clientHeight);
+  });
+
+  window.addEventListener('mousemove', (e) => {
+    // Determine the mouse position relative to the hero section bounding box
+    const rect = parent.getBoundingClientRect();
+    if (e.clientX >= rect.left && e.clientX <= rect.right &&
+        e.clientY >= rect.top && e.clientY <= rect.bottom) {
+      
+      const mouseX = e.clientX - rect.left;
+      // WebGL coordinates y is inverted
+      const mouseY = parent.clientHeight - (e.clientY - rect.top);
+      uniforms.u_mouse.value.set(mouseX, mouseY);
+    }
   });
 
   function animate(time: number) {

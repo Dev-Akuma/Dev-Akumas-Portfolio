@@ -1,0 +1,1 @@
+I want to build things that are both technically interesting and genuinely enjoyable to use. I'm looking to grow as an engineer while exploring the intersection of software, design, AI, and creative technology.

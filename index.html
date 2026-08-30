@@ -1,47 +1,57 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Dev-Akuma's Portfolio - A Creative Developer who likes ideating and building cool things." />
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=VT323&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/src/style.css">
-    <title>Dev-Akuma's Portfolio</title>
-  </head>
-  <body>
-    <!-- Navbar -->
-    <nav class="navbar">
-      <div class="logo">
-        <svg width="40" height="40" viewBox="0 0 74 74" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="1.5" y="1.5" width="71" height="71" rx="11.5" fill="white" stroke="black" stroke-width="3"/>
-          <path d="M62.5558 58.6345H28.7365L30.7706 53.4138C31.3826 52.9966 31.973 52.5569 32.5382 52.0945C34.9883 50.0898 36.9319 47.7098 38.2579 45.0906C39.5839 42.4713 40.2667 39.6639 40.2667 36.8289C40.2667 34.9601 39.9678 33.1041 39.3859 31.3054L45.6466 15.24L62.5558 58.6345ZM13.88 15.24C17.3451 15.24 20.7763 15.7986 23.9777 16.8835C27.179 17.9685 30.088 19.5585 32.5382 21.5632C34.9884 23.5679 36.9319 25.9479 38.2579 28.5671C38.7099 29.4599 39.085 30.3754 39.3859 31.3054L30.7706 53.4138C28.7296 54.8053 26.4406 55.9405 23.9777 56.7751C20.7763 57.86 17.3451 58.4177 13.88 58.4177V15.24Z" fill="black"/>
-        </svg>
-        <span class="logo-text">Dev.Akuma's Portfolio</span>
-      </div>
-      <ul class="nav-links">
-        <li><a href="#about">About</a></li>
-        <li><a href="#work">Work</a></li>
-        <li><a href="#experience">Experience</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-    </nav>
 
-    <main>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="Dev-Akuma's Portfolio - A Creative Developer who likes ideating and building cool things." />
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="/src/style.css">
+  <title>Dev-Akuma's Portfolio</title>
+</head>
+
+<body>
+  <!-- Navbar -->
+  <nav class="navbar" id="floating-navbar">
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#work">Work</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <div class="shader-background-wrapper">
+      <canvas id="shader-canvas"></canvas>
+
       <!-- Hero -->
       <section id="hero" class="hero">
-        <canvas id="shader-canvas"></canvas>
+        <div class="hero-logo">
+          <svg width="40" height="40" viewBox="0 0 74 74" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="1.5" y="1.5" width="71" height="71" rx="11.5" fill="white" stroke="black" stroke-width="3" />
+            <path
+              d="M62.5558 58.6345H28.7365L30.7706 53.4138C31.3826 52.9966 31.973 52.5569 32.5382 52.0945C34.9883 50.0898 36.9319 47.7098 38.2579 45.0906C39.5839 42.4713 40.2667 39.6639 40.2667 36.8289C40.2667 34.9601 39.9678 33.1041 39.3859 31.3054L45.6466 15.24L62.5558 58.6345ZM13.88 15.24C17.3451 15.24 20.7763 15.7986 23.9777 16.8835C27.179 17.9685 30.088 19.5585 32.5382 21.5632C34.9884 23.5679 36.9319 25.9479 38.2579 28.5671C38.7099 29.4599 39.085 30.3754 39.3859 31.3054L30.7706 53.4138C28.7296 54.8053 26.4406 55.9405 23.9777 56.7751C20.7763 57.86 17.3451 58.4177 13.88 58.4177V15.24Z"
+              fill="black" />
+          </svg>
+          <span class="logo-text">Dev.Akuma's Portfolio</span>
+        </div>
         <div class="hero-content">
           <h1 class="hero-title">MAYENGBAM DEVASIS SINGH * DEV-AKUMA</h1>
           <h2 class="hero-subtitle">THINKER - DESIGNER - DEVELOPER</h2>
-          
+
           <div class="hero-card-wrapper">
             <div class="hero-card">
               <p>A Creative Developer who likes ideating and building cool things.</p>
               <br>
-              <p>Interested in game-development, cool designs, artificial intelligence and machine learning, and reading random philosophical ideas to keep myself up at 3-o-clock contemplating my life decisions.</p>
+              <p>Interested in game-development, cool designs, artificial intelligence and machine learning, and reading
+                random philosophical ideas to keep myself up at 3-o-clock contemplating my life decisions.</p>
             </div>
             <div class="hero-orb"></div>
           </div>
@@ -49,89 +59,147 @@
       </section>
 
       <!-- About Me -->
-      <section id="about" class="section light-bg">
-        <div class="container">
-          <h2 class="section-title">ABOUT ME</h2>
-          <div class="split-card">
-            <div class="split-pane pane-light"></div>
-            <div class="split-pane pane-dark"></div>
-          </div>
-          <div class="carousel-indicator-wrapper">
-            <div class="carousel-indicator pill">
-              <span class="carousel-label">Career Objective</span>
-              <div class="dots">
-                <span class="dot active"></span>
-                <span class="dot"></span>
-                <span class="dot"></span>
-                <span class="dot"></span>
-                <span class="dot"></span>
+      <section id="about" class="section">
+        <div class="about-panel-container">
+          <div class="container">
+            <h2 class="section-title">ABOUT ME</h2>
+            <div class="tabs-viewport">
+              <div class="tabs-track" id="tabs-track">
+
+                <!-- Tab 1 -->
+                <div class="tab-slide" id="tab-personality">
+                  <div class="split-card">
+                    <div class="split-pane pane-light about-intro parallax-content">
+                      <p>Curious by nature, experimental by choice. I like turning strange ideas into things that work,
+                        exploring the intersection of technology, design, games, and AI—usually with a few 3 AM ideas
+                        along the way.</p>
+                    </div>
+                    <div class="split-pane pane-dark about-details parallax-content">
+                      <div class="pros-cons">
+                        <div class="pros">
+                          <h3>Strengths</h3>
+                          <ul>
+                            <li><strong>Curiosity</strong> — I enjoy exploring unfamiliar ideas and figuring out how
+                              they work.</li>
+                            <li><strong>Builder mindset</strong> — I like taking an idea from concept to something
+                              functional.</li>
+                          </ul>
+                        </div>
+                        <div class="cons">
+                          <h3>Weaknesses</h3>
+                          <ul>
+                            <li><strong>Too curious sometimes</strong> — I can get distracted exploring an interesting
+                              idea.</li>
+                            <li><strong>Overthinking</strong> — I sometimes spend too much time considering different
+                              approaches.</li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Tab 2 -->
+                <div class="tab-slide" id="tab-career">
+                  <div class="split-card">
+                    <div class="split-pane pane-light about-intro parallax-content" style="justify-content: center;">
+                      <a href="/src/assets/23BAI70549_M.Devasis.Singh.pdf" target="_blank" download
+                        class="resume-sticky">
+                        <div class="resume-sticky-icon">📎</div>
+                        <div class="resume-sticky-text">
+                          <h3>Resume.pdf</h3>
+                          <p>Click to open / download</p>
+                        </div>
+                      </a>
+                    </div>
+                    <div class="split-pane pane-dark about-details parallax-content">
+                      <p style="font-size: 1.5rem; line-height: 1.6;">I want to build things that are both technically
+                        interesting and genuinely enjoyable to use. I'm looking to grow as an engineer while exploring
+                        the intersection of software, design, AI, and creative technology.</p>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <div class="carousel-indicator-wrapper">
+              <div class="carousel-indicator pill">
+                <span class="carousel-label" id="active-tab-label">Personality</span>
+                <div class="dots">
+                  <span class="dot active" data-tab="tab-personality" data-label="Personality"></span>
+                  <span class="dot" data-tab="tab-career" data-label="Career Objective"></span>
+                </div>
               </div>
             </div>
           </div>
         </div>
-      </section>
+    </div>
+    </section>
+    </div>
 
-      <!-- Projects -->
-      <section id="work" class="section dark-bg">
-        <div class="container">
-          <h2 class="section-title">PROJECTS</h2>
-          <div class="split-card">
-            <div class="split-pane pane-medium"></div>
-            <div class="split-pane pane-light"></div>
-          </div>
-          <div class="carousel-indicator-wrapper">
-            <div class="carousel-indicator inline">
-              <span class="carousel-label">Squarey Maze</span>
-              <div class="dots">
-                <span class="dot active"></span>
-                <span class="dot"></span>
-                <span class="dot"></span>
-                <span class="dot"></span>
-                <span class="dot"></span>
-                <span class="dot"></span>
-              </div>
+    <!-- Projects -->
+    <section id="work" class="section dark-bg">
+      <div class="container">
+        <h2 class="section-title reveal-on-scroll">PROJECTS</h2>
+        <div class="split-card reveal-on-scroll">
+          <div class="split-pane pane-medium"></div>
+          <div class="split-pane pane-light"></div>
+        </div>
+        <div class="carousel-indicator-wrapper reveal-on-scroll">
+          <div class="carousel-indicator inline">
+            <span class="carousel-label">Squarey Maze</span>
+            <div class="dots">
+              <span class="dot active"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
             </div>
           </div>
-        </div>
-      </section>
-
-      <!-- Experience -->
-      <section id="experience" class="section light-bg">
-        <div class="container">
-          <h2 class="section-title">EXPERIENCE</h2>
-          <div class="split-card">
-            <div class="split-pane pane-medium"></div>
-            <div class="split-pane pane-light"></div>
-          </div>
-          <div class="carousel-indicator-wrapper">
-            <div class="carousel-indicator inline-dark">
-              <span class="carousel-label">Company 1</span>
-              <div class="dots">
-                <span class="dot active"></span>
-                <span class="dot"></span>
-                <span class="dot"></span>
-                <span class="dot"></span>
-                <span class="dot"></span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-    </main>
-
-    <!-- Footer -->
-    <footer id="contact" class="footer dark-bg">
-      <div class="footer-grid">
-        <div class="footer-col">
-          <h3>Email Address</h3>
-          <p>Contact Details</p>
-        </div>
-        <div class="footer-col">
-          <h3>Social Media Sites</h3>
         </div>
       </div>
-    </footer>
+    </section>
 
-    <script type="module" src="/src/main.ts"></script>
-  </body>
+    <!-- Experience -->
+    <section id="experience" class="section light-bg">
+      <div class="container">
+        <h2 class="section-title">EXPERIENCE</h2>
+        <div class="split-card">
+          <div class="split-pane pane-medium"></div>
+          <div class="split-pane pane-light"></div>
+        </div>
+        <div class="carousel-indicator-wrapper">
+          <div class="carousel-indicator inline-dark">
+            <span class="carousel-label">Company 1</span>
+            <div class="dots">
+              <span class="dot active"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+              <span class="dot"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer -->
+  <footer id="contact" class="footer dark-bg">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h3>Email Address</h3>
+        <p>Contact Details</p>
+      </div>
+      <div class="footer-col">
+        <h3>Social Media Sites</h3>
+      </div>
+    </div>
+  </footer>
+
+  <script type="module" src="/src/main.ts"></script>
+</body>
+
 </html>
