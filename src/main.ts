@@ -1,24 +1,52 @@
 import * as THREE from 'three';
 import './style.css';
-import { initShader } from './shader';
+import { initShader, changeTheme } from './shader';
 
 document.addEventListener('DOMContentLoaded', () => {
   console.log('Portfolio loaded');
   initShader();
 
-  // Scroll Reveal Observer for other sections
+  // Logo Theme Changer
+  const heroLogo = document.querySelector('.hero-logo');
+  if (heroLogo) {
+    heroLogo.addEventListener('click', () => {
+      changeTheme();
+    });
+  }
+
+  // Scroll Reveal Observer
   const revealElements = document.querySelectorAll('.reveal-on-scroll');
   const revealObserver = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
-      if (entry.isIntersecting) {
+      if (entry.isIntersecting && !entry.target.classList.contains('revealed')) {
         entry.target.classList.add('revealed');
-        // Optional: stop observing once revealed
-        revealObserver.unobserve(entry.target);
       }
     });
   }, { threshold: 0.15, rootMargin: "0px 0px -50px 0px" });
 
   revealElements.forEach(el => revealObserver.observe(el));
+
+  // Navbar ScrollSpy
+  const sections = document.querySelectorAll('section, footer');
+  const navLinks = document.querySelectorAll('.nav-links a');
+
+  const scrollSpyObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.getAttribute('id');
+        navLinks.forEach(link => {
+          link.classList.remove('active');
+          if (link.getAttribute('href') === `#${id}`) {
+            link.classList.add('active');
+          }
+        });
+      }
+    });
+  }, { rootMargin: '-50% 0px -50% 0px' });
+
+  sections.forEach(section => {
+    scrollSpyObserver.observe(section);
+  });
 
   // Scroll Scrubbing for Hero and About
   const heroContent = document.querySelector('.hero-content') as HTMLElement;
@@ -28,12 +56,22 @@ document.addEventListener('DOMContentLoaded', () => {
   window.addEventListener('scroll', () => {
     const scrollY = window.scrollY;
 
-    // Hero: fade out as we scroll down (0 to 600px)
+    // Hero: Left-Right fade out as we scroll down (0 to 600px)
     if (heroContent) {
-      const heroOpacity = Math.max(0, 1 - (scrollY / 600));
+      const heroProgress = Math.min(1, Math.max(0, scrollY / 600)); // 0 to 1
       const heroTranslate = scrollY * 0.4; // Slight parallax up
-      heroContent.style.opacity = heroOpacity.toString();
+      
       heroContent.style.transform = `translateY(${heroTranslate}px)`;
+
+      heroContent.style.webkitMaskImage = `linear-gradient(to right, transparent 0%, transparent 33.33%, black 66.66%, black 100%)`;
+      heroContent.style.maskImage = `linear-gradient(to right, transparent 0%, transparent 33.33%, black 66.66%, black 100%)`;
+      heroContent.style.webkitMaskSize = `300% 100%`;
+      heroContent.style.maskSize = `300% 100%`;
+      
+      // Calculate mask position (100% -> visible, 0% -> hidden)
+      const maskPos = (1 - heroProgress) * 100;
+      heroContent.style.webkitMaskPosition = `${maskPos}% 0`;
+      heroContent.style.maskPosition = `${maskPos}% 0`;
     }
 
     // About: fade in as we scroll down
@@ -63,11 +101,10 @@ document.addEventListener('DOMContentLoaded', () => {
   // Trigger scroll event once to set initial states
   window.dispatchEvent(new Event('scroll'));
 
-  // Draggable Tabs Logic
+  // Tab Sliding System
   const track = document.getElementById('tabs-track');
-  const dots = document.querySelectorAll('.dot[data-tab]');
-  const label = document.getElementById('active-tab-label');
   const parallaxContents = document.querySelectorAll('.parallax-content');
+  const slides = document.querySelectorAll('.tab-slide');
 
   let isDragging = false;
   let startX = 0;
@@ -75,6 +112,25 @@ document.addEventListener('DOMContentLoaded', () => {
   let prevTranslate = 0;
   let animationID = 0;
   let currentIndex = 0;
+
+  // Custom Drag Cursor Logic
+  const dragCursor = document.getElementById('drag-cursor');
+  const tabsViewport = document.querySelector('.tabs-viewport');
+
+  if (dragCursor && tabsViewport) {
+    tabsViewport.addEventListener('mousemove', (e: Event) => {
+      const mouseEvent = e as MouseEvent;
+      dragCursor.style.left = mouseEvent.clientX + 'px';
+      dragCursor.style.top = mouseEvent.clientY + 'px';
+    });
+    tabsViewport.addEventListener('mouseenter', () => {
+      dragCursor.classList.add('active');
+    });
+    tabsViewport.addEventListener('mouseleave', () => {
+      dragCursor.classList.remove('active');
+      dragCursor.classList.remove('dragging');
+    });
+  }
 
   if (track) {
     // Touch Events
@@ -90,13 +146,15 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function getSlideWidth() {
-    return track && track.parentElement ? track.parentElement.offsetWidth : window.innerWidth;
+    const firstSlide = document.querySelector('.tab-slide');
+    return firstSlide ? (firstSlide as HTMLElement).offsetWidth : window.innerWidth;
   }
 
   function touchStart(e: TouchEvent | MouseEvent) {
     isDragging = true;
     startX = getPositionX(e);
     if (track) track.classList.add('dragging');
+    if (dragCursor) dragCursor.classList.add('dragging');
     animationID = requestAnimationFrame(animation);
   }
 
@@ -104,12 +162,13 @@ document.addEventListener('DOMContentLoaded', () => {
     isDragging = false;
     cancelAnimationFrame(animationID);
     if (track) track.classList.remove('dragging');
+    if (dragCursor) dragCursor.classList.remove('dragging');
 
     // Determine nearest slide
     const movedBy = currentTranslate - prevTranslate;
 
     // Threshold to switch slide
-    if (movedBy < -100 && currentIndex < dots.length - 1) currentIndex += 1;
+    if (movedBy < -100 && currentIndex < slides.length - 1) currentIndex += 1;
     if (movedBy > 100 && currentIndex > 0) currentIndex -= 1;
 
     updateTabState(currentIndex);
@@ -148,6 +207,21 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  // Dynamic Arrows Logic
+  const navArrowLeft = document.getElementById('nav-arrow-left');
+  const navArrowRight = document.getElementById('nav-arrow-right');
+
+  if (navArrowLeft) {
+    navArrowLeft.addEventListener('click', () => {
+      if (currentIndex > 0) updateTabState(currentIndex - 1);
+    });
+  }
+  if (navArrowRight) {
+    navArrowRight.addEventListener('click', () => {
+      if (currentIndex < slides.length - 1) updateTabState(currentIndex + 1);
+    });
+  }
+
   // Update State when clicking dots or releasing drag
   function updateTabState(index: number) {
     currentIndex = index;
@@ -164,23 +238,36 @@ document.addEventListener('DOMContentLoaded', () => {
       (content as HTMLElement).style.transform = `translateX(0px)`;
     });
 
-    // Update dots
-    dots.forEach((dot, i) => {
-      if (i === currentIndex) {
-        dot.classList.add('active');
-        if (label) label.textContent = dot.getAttribute('data-label');
+    // Update Dynamic Arrows
+    const totalTabs = slides.length;
+    
+    if (navArrowLeft) {
+      const tabsLeft = index;
+      if (tabsLeft === 0) {
+        navArrowLeft.style.transform = 'translateY(-50%) scale(0)';
+        navArrowLeft.style.opacity = '0';
       } else {
-        dot.classList.remove('active');
+        const scale = 0.8 + (tabsLeft * 0.2); // grows based on tabs left
+        navArrowLeft.style.transform = `translateY(-50%) scale(${scale})`;
+        navArrowLeft.style.opacity = '1';
       }
-    });
+    }
+    
+    if (navArrowRight) {
+      const tabsRight = (totalTabs - 1) - index;
+      if (tabsRight === 0) {
+        navArrowRight.style.transform = 'translateY(-50%) scale(0)';
+        navArrowRight.style.opacity = '0';
+      } else {
+        const scale = 0.8 + (tabsRight * 0.2);
+        navArrowRight.style.transform = `translateY(-50%) scale(${scale})`;
+        navArrowRight.style.opacity = '1';
+      }
+    }
   }
 
-  // Dot Click Logic
-  dots.forEach((dot, index) => {
-    dot.addEventListener('click', () => {
-      updateTabState(index);
-    });
-  });
+  // Initial call to set up arrows
+  updateTabState(currentIndex);
 
   window.addEventListener('resize', () => {
     updateTabState(currentIndex);

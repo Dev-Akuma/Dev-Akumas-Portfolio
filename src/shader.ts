@@ -1,5 +1,15 @@
 import * as THREE from 'three';
 
+let shaderUniforms: any;
+let currentTheme = 0;
+
+export function changeTheme() {
+  currentTheme = (currentTheme + 1) % 3;
+  if (shaderUniforms) {
+    shaderUniforms.u_theme.value = currentTheme;
+  }
+}
+
 export function initShader() {
   const canvas = document.getElementById('shader-canvas') as HTMLCanvasElement;
   const parent = canvas?.parentElement;
@@ -17,8 +27,11 @@ export function initShader() {
   const uniforms = {
     u_time: { value: 0 },
     u_resolution: { value: new THREE.Vector2(parent.clientWidth, parent.clientHeight) },
-    u_mouse: { value: new THREE.Vector2(0, 0) }
+    u_mouse: { value: new THREE.Vector2(0, 0) },
+    u_theme: { value: 0 }
   };
+  
+  shaderUniforms = uniforms;
 
   const vertexShader = `
     varying vec2 vUv;
@@ -32,6 +45,7 @@ export function initShader() {
     uniform float u_time;
     uniform vec2 u_resolution;
     uniform vec2 u_mouse;
+    uniform int u_theme;
     varying vec2 vUv;
 
     // Simplex noise function (Ashima Arts)
@@ -84,12 +98,31 @@ export function initShader() {
       float n2 = snoise(pos + vec2(u_time * 0.15, -u_time * 0.1) - interaction * 0.4);
       float n3 = snoise(pos + vec2(-u_time * 0.05, u_time * 0.2) + interaction * 0.2);
 
-      // Colors inspired by the reference image
-      vec3 colYellow = vec3(1.0, 0.95, 0.4);
-      vec3 colCyan = vec3(0.4, 0.9, 0.95);
-      vec3 colGreen = vec3(0.55, 0.95, 0.55);
-      vec3 colLight = vec3(0.85, 0.95, 1.0);
-      vec3 colHover = vec3(1.0, 0.5, 0.7); // Add a warm pink glow around the mouse
+      // Colors based on theme
+      vec3 colYellow, colCyan, colGreen, colLight, colHover;
+
+      if (u_theme == 0) {
+        // Theme 1: Bright / Pastel
+        colYellow = vec3(1.0, 0.95, 0.4);
+        colCyan = vec3(0.4, 0.9, 0.95);
+        colGreen = vec3(0.55, 0.95, 0.55);
+        colLight = vec3(0.85, 0.95, 1.0);
+        colHover = vec3(1.0, 0.5, 0.7); 
+      } else if (u_theme == 1) {
+        // Theme 2: Dark / Neon Synthwave
+        colYellow = vec3(0.9, 0.1, 0.6);
+        colCyan = vec3(0.2, 0.0, 0.8);
+        colGreen = vec3(0.0, 0.8, 0.9);
+        colLight = vec3(0.05, 0.02, 0.1);
+        colHover = vec3(1.0, 0.8, 0.2);
+      } else {
+        // Theme 3: Monochromatic / Cyber
+        colYellow = vec3(0.3, 0.3, 0.3);
+        colCyan = vec3(0.1, 0.1, 0.1);
+        colGreen = vec3(0.6, 0.6, 0.6);
+        colLight = vec3(0.9, 0.9, 0.9);
+        colHover = vec3(1.0, 0.2, 0.2);
+      }
 
       // Mix colors using noise
       vec3 color = mix(colLight, colYellow, smoothstep(-0.6, 0.6, n1));

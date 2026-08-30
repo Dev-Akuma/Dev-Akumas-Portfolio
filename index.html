@@ -20,6 +20,7 @@
   <!-- Navbar -->
   <nav class="navbar" id="floating-navbar">
     <ul class="nav-links">
+      <li><a href="#hero">Home</a></li>
       <li><a href="#about">About</a></li>
       <li><a href="#work">Work</a></li>
       <li><a href="#experience">Experience</a></li>
@@ -63,18 +64,28 @@
         <div class="about-panel-container">
           <div class="container">
             <h2 class="section-title">ABOUT ME</h2>
-            <div class="tabs-viewport">
-              <div class="tabs-track" id="tabs-track">
+              <div class="tabs-viewport">
+                
+                <!-- Dynamic Arrows -->
+                <button class="nav-arrow nav-arrow-left" id="nav-arrow-left" aria-label="Previous tab">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                </button>
+                <button class="nav-arrow nav-arrow-right" id="nav-arrow-right" aria-label="Next tab">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </button>
+
+                <div class="tabs-track" id="tabs-track">
 
                 <!-- Tab 1 -->
-                <div class="tab-slide" id="tab-personality">
-                  <div class="split-card">
-                    <div class="split-pane pane-light about-intro parallax-content">
-                      <p>Curious by nature, experimental by choice. I like turning strange ideas into things that work,
-                        exploring the intersection of technology, design, games, and AI—usually with a few 3 AM ideas
-                        along the way.</p>
-                    </div>
-                    <div class="split-pane pane-dark about-details parallax-content">
+                  <div class="tab-slide" id="tab-personality">
+                    <div class="split-card">
+                      <div class="split-pane pane-light about-intro parallax-content" style="flex-direction: column; justify-content: center; align-items: flex-start; text-align: left;">
+                        <div style="margin-bottom: 2rem;">
+                          <h3 style="font-size: 2.5rem; font-weight: 700; font-family: var(--font-heading); color: var(--accent); letter-spacing: -1px;">Personality</h3>
+                        </div>
+                        <p style="font-size: 1.25rem;">Curious by nature, experimental by choice. I like turning strange ideas into things that work, exploring the intersection of technology, design, games, and AI—usually with a few 3 AM ideas along the way.</p>
+                      </div>
+                      <div class="split-pane pane-dark about-details parallax-content">
                       <div class="pros-cons">
                         <div class="pros">
                           <h3>Strengths</h3>
@@ -99,42 +110,61 @@
                   </div>
                 </div>
 
-                <!-- Tab 2 -->
-                <div class="tab-slide" id="tab-career">
-                  <div class="split-card">
-                    <div class="split-pane pane-light about-intro parallax-content" style="justify-content: center;">
-                      <a href="/src/assets/23BAI70549_M.Devasis.Singh.pdf" target="_blank" download
-                        class="resume-sticky">
-                        <div class="resume-sticky-icon">📎</div>
-                        <div class="resume-sticky-text">
-                          <h3>Resume.pdf</h3>
-                          <p>Click to open / download</p>
+                  <!-- Tab 2 -->
+                  <div class="tab-slide" id="tab-career">
+                    <div class="split-card">
+                      <!-- Swapped colors for seamless drag from Tab 1 (which ends in dark) -->
+                      <div class="split-pane pane-dark about-details parallax-content" style="display: flex; align-items: center; justify-content: center; flex-direction: column; text-align: left;">
+                        <div style="width: 100%; margin-bottom: 1.5rem;">
+                          <h3 style="font-size: 2.5rem; font-weight: 700; font-family: var(--font-heading); color: #fff; letter-spacing: -1px;">Career Objective</h3>
                         </div>
-                      </a>
-                    </div>
-                    <div class="split-pane pane-dark about-details parallax-content">
-                      <p style="font-size: 1.5rem; line-height: 1.6;">I want to build things that are both technically
-                        interesting and genuinely enjoyable to use. I'm looking to grow as an engineer while exploring
-                        the intersection of software, design, AI, and creative technology.</p>
+                        <p style="font-size: 1.5rem; line-height: 1.6;">I want to build things that are both technically interesting and genuinely enjoyable to use. I'm looking to grow as an engineer while exploring the intersection of software, design, AI, and creative technology.</p>
+                      </div>
+                      <div class="split-pane pane-light about-intro parallax-content" style="justify-content: center;">
+                        <a href="/src/assets/23BAI70549_M.Devasis.Singh.pdf" target="_blank" class="resume-sticky">
+                          <div class="resume-sticky-icon">📎</div>
+                          <div class="resume-sticky-text">
+                            <h3>Resume.pdf</h3>
+                            <p>Click to open</p>
+                          </div>
+                        </a>
+                      </div>
                     </div>
                   </div>
-                </div>
 
-              </div>
-            </div>
+                  <!-- Tab 3 (Achievements) -->
+                  <div class="tab-slide" id="tab-achievements">
+                    <div class="split-card">
+                      <!-- Seamless drag from Tab 2 (which ends in light) -->
+                      <div class="split-pane pane-light about-intro parallax-content" style="justify-content: center;">
+                        <a href="#" target="_blank" class="resume-sticky" style="background-color: #ffd700; transform: rotate(2deg);">
+                          <div class="resume-sticky-icon">🏆</div>
+                          <div class="resume-sticky-text">
+                            <h3>Certificate.pdf</h3>
+                            <p>Click to view credential</p>
+                          </div>
+                        </a>
+                      </div>
+                      <div class="split-pane pane-dark about-details parallax-content">
+                        <div class="pros-cons">
+                          <div class="pros" style="width: 100%;">
+                            <div style="width: 100%; margin-bottom: 1.5rem;">
+                              <h3 style="font-size: 2.5rem; font-weight: 700; font-family: var(--font-heading); color: #fff; letter-spacing: -1px;">Achievements</h3>
+                            </div>
+                            <ul>
+                              <li><strong>Hackathons</strong> — Participated in several Hackathons and won several accolades for building creative tech solutions.</li>
+                              <li><strong>Open Source</strong> — Contributed to multiple repositories and built tools loved by developers.</li>
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
 
-            <div class="carousel-indicator-wrapper">
-              <div class="carousel-indicator pill">
-                <span class="carousel-label" id="active-tab-label">Personality</span>
-                <div class="dots">
-                  <span class="dot active" data-tab="tab-personality" data-label="Personality"></span>
-                  <span class="dot" data-tab="tab-career" data-label="Career Objective"></span>
-                </div>
               </div>
             </div>
           </div>
         </div>
-    </div>
     </section>
     </div>
 
@@ -199,7 +229,9 @@
     </div>
   </footer>
 
+  <!-- Custom Drag Cursor -->
+  <div class="drag-cursor" id="drag-cursor"><span>DRAG</span></div>
+
   <script type="module" src="/src/main.ts"></script>
 </body>
-
 </html>
