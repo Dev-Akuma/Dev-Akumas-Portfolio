@@ -65,7 +65,7 @@ h3,
 .section-title {
   font-size: clamp(2rem, 5vw, 3rem);
   margin-bottom: 2rem;
-  color: var(--text-dark);
+  color: #fff;
 }
 
 /* Floating Navbar */
@@ -538,6 +538,37 @@ h3,
 
 /* Mobile Responsiveness */
 @media (max-width: 768px) {
+  /* Make tab sections full width */
+  .about-panel-container .container,
+  .projects-section .container,
+  .experience-section .container {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  
+  .section-title {
+    padding-left: 5%;
+    padding-right: 5%;
+  }
+
+  .tab-slide {
+    display: flex;
+    align-items: stretch;
+  }
+
+  .split-card {
+    flex-direction: column;
+    height: 100%;
+    border-radius: 0;
+    box-shadow: none;
+    flex: 1;
+  }
+
+  .split-pane {
+    border-radius: 0 !important;
+    flex: 1;
+  }
+
   .desktop-tabs {
     display: none;
   }
