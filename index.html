@@ -64,9 +64,8 @@
         <div class="about-panel-container">
           <div class="container">
             <h2 class="section-title">ABOUT ME</h2>
-            <div class="tabs-viewport">
-
-              <!-- Dynamic Arrows -->
+            <div class="tabs-viewport desktop-tabs">
+              <!-- Dynamic Arrows (Desktop) -->
               <button class="nav-arrow nav-arrow-left" id="nav-arrow-left" aria-label="Previous tab">
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <polyline points="15 18 9 12 15 6"></polyline>
@@ -78,40 +77,30 @@
                 </svg>
               </button>
 
-              <div class="tabs-track" id="tabs-track">
-
+              <div class="tabs-track" id="tabs-track-desktop">
                 <!-- Tab 1 -->
                 <div class="tab-slide" id="tab-personality">
                   <div class="split-card">
-                    <div class="split-pane pane-light about-intro parallax-content"
-                      style="flex-direction: column; justify-content: center; align-items: flex-start; text-align: left;">
+                    <div class="split-pane pane-light about-intro parallax-content" style="flex-direction: column; justify-content: center; align-items: flex-start; text-align: left;">
                       <div style="margin-bottom: 2rem;">
-                        <h3
-                          style="font-size: 2.5rem; font-weight: 700; font-family: var(--font-heading); color: var(--accent); letter-spacing: -1px;">
-                          Personality</h3>
+                        <h3 style="font-size: 2.5rem; font-weight: 700; font-family: var(--font-heading); color: var(--text-dark); letter-spacing: -1px;">Personality</h3>
                       </div>
-                      <p style="font-size: 1.25rem;">Curious by nature, experimental by choice. I like turning strange
-                        ideas into things that work, exploring the intersection of technology, design, games, and
-                        AI—usually with a few 3 AM ideas along the way.</p>
+                      <p style="font-size: 1.25rem;">Curious by nature, experimental by choice. I like turning strange ideas into things that work, exploring the intersection of technology, design, games, and AI—usually with a few 3 AM ideas along the way.</p>
                     </div>
                     <div class="split-pane pane-dark about-details parallax-content">
                       <div class="pros-cons">
                         <div class="pros">
                           <h3>Strengths</h3>
                           <ul>
-                            <li><strong>Curiosity</strong> — I enjoy exploring unfamiliar ideas and figuring out how
-                              they work.</li>
-                            <li><strong>Builder mindset</strong> — I like taking an idea from concept to something
-                              functional.</li>
+                            <li><strong>Curiosity</strong> — I enjoy exploring unfamiliar ideas and figuring out how they work.</li>
+                            <li><strong>Builder mindset</strong> — I like taking an idea from concept to something functional.</li>
                           </ul>
                         </div>
                         <div class="cons">
                           <h3>Weaknesses</h3>
                           <ul>
-                            <li><strong>Too curious sometimes</strong> — I can get distracted exploring an interesting
-                              idea.</li>
-                            <li><strong>Overthinking</strong> — I sometimes spend too much time considering different
-                              approaches.</li>
+                            <li><strong>Too curious sometimes</strong> — I can get distracted exploring an interesting idea.</li>
+                            <li><strong>Overthinking</strong> — I sometimes spend too much time considering different approaches.</li>
                           </ul>
                         </div>
                       </div>
@@ -122,20 +111,14 @@
                 <!-- Tab 2 -->
                 <div class="tab-slide" id="tab-career">
                   <div class="split-card">
-                    <!-- Swapped colors for seamless drag from Tab 1 (which ends in dark) -->
-                    <div class="split-pane pane-dark about-details parallax-content"
-                      style="display: flex; align-items: center; justify-content: center; flex-direction: column; text-align: left;">
+                    <div class="split-pane pane-dark about-details parallax-content" style="display: flex; align-items: center; justify-content: center; flex-direction: column; text-align: left;">
                       <div style="width: 100%; margin-bottom: 1.5rem;">
-                        <h3
-                          style="font-size: 2.5rem; font-weight: 700; font-family: var(--font-heading); color: #fff; letter-spacing: -1px;">
-                          Career Objective</h3>
+                        <h3 style="font-size: 2.5rem; font-weight: 700; font-family: var(--font-heading); color: #fff; letter-spacing: -1px;">Career Objective</h3>
                       </div>
-                      <p style="font-size: 1.5rem; line-height: 1.6;">I want to build things that are both technically
-                        interesting and genuinely enjoyable to use. I'm looking to grow as an engineer while exploring
-                        the intersection of software, design, AI, and creative technology.</p>
+                      <p style="font-size: 1.5rem; line-height: 1.6;">I want to build things that are both technically interesting and genuinely enjoyable to use. I'm looking to grow as an engineer while exploring the intersection of software, design, AI, and creative technology.</p>
                     </div>
                     <div class="split-pane pane-light about-intro parallax-content" style="justify-content: center;">
-                      <a href="/src/assets/23BAI70549_M.Devasis.Singh.pdf" target="_blank" class="resume-sticky">
+                      <a href="/23BAI70549_M.Devasis.Singh.pdf" target="_blank" class="resume-sticky">
                         <div class="resume-sticky-icon">📎</div>
                         <div class="resume-sticky-text">
                           <h3>Resume.pdf</h3>
@@ -149,10 +132,8 @@
                 <!-- Tab 3 (Achievements) -->
                 <div class="tab-slide" id="tab-achievements">
                   <div class="split-card">
-                    <!-- Seamless drag from Tab 2 (which ends in light) -->
                     <div class="split-pane pane-light about-intro parallax-content" style="justify-content: center;">
-                      <a href="#" target="_blank" class="resume-sticky"
-                        style="background-color: #ffd700; transform: rotate(2deg);">
+                      <a href="#" target="_blank" class="resume-sticky" style="background-color: #ffd700; transform: rotate(2deg);">
                         <div class="resume-sticky-icon">🏆</div>
                         <div class="resume-sticky-text">
                           <h3>Certificate.pdf</h3>
@@ -164,18 +145,89 @@
                       <div class="pros-cons">
                         <div class="pros" style="width: 100%;">
                           <div style="width: 100%; margin-bottom: 1.5rem;">
-                            <h3
-                              style="font-size: 2.5rem; font-weight: 700; font-family: var(--font-heading); color: #fff; letter-spacing: -1px; text-transform: none;">
-                              Achievements</h3>
+                            <h3 style="font-size: 2.5rem; font-weight: 700; font-family: var(--font-heading); color: #fff; letter-spacing: -1px; text-transform: none;">Achievements</h3>
                           </div>
                           <ul>
-                            <li><strong>Hackathons</strong> — Participated in several Hackathons and won several
-                              accolades for building creative tech solutions.</li>
-                            <li><strong>Open Source</strong> — Contributed to multiple repositories and built tools
-                              loved by developers.</li>
+                            <li><strong>Hackathons</strong> — Participated in several Hackathons and won several accolades for building creative tech solutions.</li>
+                            <li><strong>Open Source</strong> — Contributed to multiple repositories and built tools loved by developers.</li>
                           </ul>
                         </div>
                       </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Mobile Layout (4 Tabs) -->
+            <div class="tabs-viewport mobile-tabs">
+              <!-- Dynamic Arrows (Mobile) -->
+              <button class="nav-arrow nav-arrow-left" aria-label="Previous tab">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="15 18 9 12 15 6"></polyline>
+                </svg>
+              </button>
+              <button class="nav-arrow nav-arrow-right" aria-label="Next tab">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polyline points="9 18 15 12 9 6"></polyline>
+                </svg>
+              </button>
+
+              <div class="tabs-track" style="width: 400%;">
+                
+                <!-- Slide 1: Personality -->
+                <div class="tab-slide" style="width: 25%;">
+                  <div class="split-card" style="box-shadow: none;">
+                    <div class="split-pane pane-light parallax-content" style="padding: 3rem 2rem; display: flex; flex-direction: column; justify-content: center;">
+                      <h3 style="font-size: 2.5rem; font-weight: 700; font-family: var(--font-heading); color: var(--text-dark); margin-bottom: 1rem;">Personality</h3>
+                      <p style="font-size: 1.25rem;">Curious by nature, experimental by choice. I like turning strange ideas into things that work, exploring the intersection of technology, design, games, and AI—usually with a few 3 AM ideas along the way.</p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Slide 2: Pros & Cons -->
+                <div class="tab-slide" style="width: 25%;">
+                  <div class="split-card" style="box-shadow: none;">
+                    <div class="split-pane pane-dark parallax-content" style="padding: 3rem 2rem; display: flex; flex-direction: column; justify-content: center;">
+                      <div class="pros" style="margin-bottom: 2rem;">
+                        <h3 style="color: #fff; font-size: 1.5rem; margin-bottom: 1rem;">Strengths</h3>
+                        <ul style="color: rgba(255,255,255,0.8); list-style-position: inside;">
+                          <li style="margin-bottom: 0.5rem;"><strong>Curiosity</strong> — Exploring unfamiliar ideas.</li>
+                          <li><strong>Builder mindset</strong> — Taking ideas to functional concepts.</li>
+                        </ul>
+                      </div>
+                      <div class="cons">
+                        <h3 style="color: #fff; font-size: 1.5rem; margin-bottom: 1rem;">Weaknesses</h3>
+                        <ul style="color: rgba(255,255,255,0.8); list-style-position: inside;">
+                          <li style="margin-bottom: 0.5rem;"><strong>Too curious</strong> — Getting distracted easily.</li>
+                          <li><strong>Overthinking</strong> — Spending too much time planning.</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Slide 3: Career Objective -->
+                <div class="tab-slide" style="width: 25%;">
+                  <div class="split-card" style="box-shadow: none;">
+                    <div class="split-pane pane-dark parallax-content" style="padding: 3rem 2rem; display: flex; flex-direction: column; justify-content: center;">
+                      <h3 style="font-size: 2.5rem; font-weight: 700; font-family: var(--font-heading); color: #fff; margin-bottom: 1rem;">Career Objective</h3>
+                      <p style="font-size: 1.25rem; line-height: 1.6; margin-bottom: 2rem;">I want to build things that are both technically interesting and genuinely enjoyable to use. I'm looking to grow as an engineer while exploring the intersection of software, design, AI, and creative technology.</p>
+                      <a href="/23BAI70549_M.Devasis.Singh.pdf" target="_blank" style="display: inline-block; padding: 1rem 2rem; background: #fff; color: #000; text-decoration: none; border-radius: 8px; font-weight: 600; text-align: center;">View Resume.pdf</a>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Slide 4: Achievements -->
+                <div class="tab-slide" style="width: 25%;">
+                  <div class="split-card" style="box-shadow: none;">
+                    <div class="split-pane pane-light parallax-content" style="padding: 3rem 2rem; display: flex; flex-direction: column; justify-content: center;">
+                      <h3 style="font-size: 2.5rem; font-weight: 700; font-family: var(--font-heading); color: var(--text-dark); margin-bottom: 1rem;">Achievements</h3>
+                      <ul style="font-size: 1.1rem; list-style-position: inside; margin-bottom: 2rem;">
+                        <li style="margin-bottom: 1rem;"><strong>Hackathons</strong> — Won several accolades for creative tech solutions.</li>
+                        <li><strong>Open Source</strong> — Contributed to multiple repositories.</li>
+                      </ul>
+                      <a href="#" style="display: inline-block; padding: 1rem 2rem; background: #000; color: #fff; text-decoration: none; border-radius: 8px; font-weight: 600; text-align: center;">View Full Achievements</a>
                     </div>
                   </div>
                 </div>
@@ -226,15 +278,31 @@
       <div class="container">
         <h2 class="section-title">EXPERIENCE</h2>
         <div class="tabs-viewport">
+          <button class="nav-arrow nav-arrow-left" aria-label="Previous tab">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+          </button>
+          <button class="nav-arrow nav-arrow-right" aria-label="Next tab">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
           <div class="tabs-track" style="width: 200%;">
             
             <div class="tab-slide" style="width: 50%;">
               <div class="split-card" style="box-shadow: none; background: transparent;">
                 <div class="split-pane pane-medium" style="background-image: url('https://placehold.co/600x400/ddd/888'); background-size: cover; background-position: center; border-radius: 12px;"></div>
-                <div class="split-pane pane-light about-details parallax-content" style="background: transparent; padding: 2rem 0;">
-                  <h3 style="font-size: 2rem; font-weight: 700; color: var(--accent); margin-bottom: 0.5rem;">Software Engineer Intern</h3>
-                  <h4 style="font-size: 1.25rem; margin-bottom: 1rem; opacity: 0.8;">Tech Corp Inc.</h4>
-                  <p style="font-size: 1.1rem;">Developed core features for the main web application, improving performance by 20% and implementing responsive design systems.</p>
+                <div class="split-pane pane-light parallax-content" style="padding: 2rem;">
+                  <div style="margin-bottom: 1rem;">
+                    <h3 style="font-size: 2rem; font-weight: 700; color: var(--text-dark); margin-bottom: 0.5rem;">Software Engineer Intern</h3>
+                    <h4 style="font-size: 1.2rem; color: #666;">Tech Startup Inc. | Summer 2024</h4>
+                  </div>
+                  <ul style="font-size: 1.1rem; line-height: 1.6;">
+                    <li style="margin-bottom: 0.5rem;">Developed and maintained full-stack web applications using React and Node.js.</li>
+                    <li style="margin-bottom: 0.5rem;">Optimized database queries, reducing load times by 30%.</li>
+                    <li>Collaborated with design team to implement responsive UI components.</li>
+                  </ul>
                 </div>
               </div>
             </div>
@@ -243,7 +311,7 @@
               <div class="split-card" style="box-shadow: none; background: transparent;">
                 <div class="split-pane pane-medium" style="background-image: url('https://placehold.co/600x400/ddd/888'); background-size: cover; background-position: center; border-radius: 12px;"></div>
                 <div class="split-pane pane-light about-details parallax-content" style="background: transparent; padding: 2rem 0;">
-                  <h3 style="font-size: 2rem; font-weight: 700; color: var(--accent); margin-bottom: 0.5rem;">Freelance Developer</h3>
+                  <h3 style="font-size: 2rem; font-weight: 700; color: var(--text-dark); margin-bottom: 0.5rem;">Freelance Developer</h3>
                   <h4 style="font-size: 1.25rem; margin-bottom: 1rem; opacity: 0.8;">Self-Employed</h4>
                   <p style="font-size: 1.1rem;">Built custom e-commerce solutions for local businesses, focusing on UX/UI design and modern web frameworks.</p>
                 </div>
@@ -279,9 +347,6 @@
       <p>&copy; 2024 Dev Akuma. Designed and Built with ❤️</p>
     </div>
   </footer>
-
-  <!-- Custom Drag Cursor -->
-  <div class="drag-cursor" id="drag-cursor"><span>DRAG</span></div>
 
   <script type="module" src="/src/main.ts"></script>
 </body>

@@ -101,33 +101,14 @@ document.addEventListener('DOMContentLoaded', () => {
   // Trigger scroll event once to set initial states
   window.dispatchEvent(new Event('scroll'));
 
-  // Custom Drag Cursor Logic
-  const dragCursor = document.getElementById('drag-cursor');
-  const tabsViewports = document.querySelectorAll('.tabs-viewport');
-
-  if (dragCursor) {
-    tabsViewports.forEach(tabsViewport => {
-      tabsViewport.addEventListener('mousemove', (e: Event) => {
-        if (window.innerWidth <= 768) return; // Disable cursor on mobile
-        const mouseEvent = e as MouseEvent;
-        dragCursor.style.left = mouseEvent.clientX + 'px';
-        dragCursor.style.top = mouseEvent.clientY + 'px';
-      });
-      tabsViewport.addEventListener('mouseenter', () => {
-        if (window.innerWidth <= 768) return;
-        dragCursor.classList.add('active');
-      });
-      tabsViewport.addEventListener('mouseleave', () => {
-        dragCursor.classList.remove('active');
-        dragCursor.classList.remove('dragging');
-      });
-    });
-  }
-
   // Tab Sliding System (Multiple Tracks)
   const tracks = document.querySelectorAll('.tabs-track');
 
   tracks.forEach(trackElement => {
+    // Skip hidden tracks (like desktop tabs on mobile, or mobile tabs on desktop)
+    if (trackElement.closest('.desktop-tabs') && window.innerWidth <= 768) return;
+    if (trackElement.closest('.mobile-tabs') && window.innerWidth > 768) return;
+
     const track = trackElement as HTMLElement;
     const parallaxContents = track.querySelectorAll('.parallax-content');
     const slides = track.querySelectorAll('.tab-slide');
@@ -156,7 +137,8 @@ document.addEventListener('DOMContentLoaded', () => {
     track.addEventListener('mousemove', touchMove);
 
     function getSlideWidth() {
-      const firstSlide = slides[0] as HTMLElement;
+      // Find the first slide that is actually visible (offsetWidth > 0)
+      const firstSlide = Array.from(slides).find(slide => (slide as HTMLElement).offsetWidth > 0) as HTMLElement;
       return firstSlide ? firstSlide.offsetWidth : window.innerWidth;
     }
 
@@ -164,7 +146,6 @@ document.addEventListener('DOMContentLoaded', () => {
       isDragging = true;
       startX = getPositionX(e);
       track.classList.add('dragging');
-      if (dragCursor && window.innerWidth > 768) dragCursor.classList.add('dragging');
       animationID = requestAnimationFrame(animation);
     }
 
@@ -173,7 +154,6 @@ document.addEventListener('DOMContentLoaded', () => {
       isDragging = false;
       cancelAnimationFrame(animationID);
       track.classList.remove('dragging');
-      if (dragCursor) dragCursor.classList.remove('dragging');
 
       // Determine nearest slide
       const movedBy = currentTranslate - prevTranslate;

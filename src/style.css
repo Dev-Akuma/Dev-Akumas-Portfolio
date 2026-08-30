@@ -58,12 +58,14 @@ h3,
 .logo-text {
   font-family: var(--font-heading);
   font-weight: 700;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.5px;
+  color: var(--text-dark);
 }
 
 .section-title {
   font-size: clamp(2rem, 5vw, 3rem);
   margin-bottom: 2rem;
+  color: var(--text-dark);
 }
 
 /* Floating Navbar */
@@ -171,11 +173,13 @@ h3,
   margin-bottom: 0.5rem;
   max-width: 900px;
   line-height: 1.1;
+  color: var(--text-dark);
 }
 
 .hero-subtitle {
   font-size: clamp(1rem, 3vw, 1.25rem);
   margin-bottom: 4rem;
+  color: var(--text-dark);
 }
 
 .hero-card-wrapper {
@@ -194,6 +198,12 @@ h3,
   position: relative;
   z-index: 2;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+
+.hero-card p {
+  margin-bottom: 1rem;
+  opacity: 0.9;
+  color: #fff;
 }
 
 .hero-orb {
@@ -522,57 +532,22 @@ h3,
   mask-position: 100% 0;
 }
 
-/* Custom Drag Cursor */
-.tabs-viewport {
-  cursor: none; /* Hide default cursor */
-}
-
-.drag-cursor {
-  position: fixed;
-  top: 0; 
-  left: 0;
-  width: 80px; 
-  height: 80px;
-  border-radius: 50%;
-  border: 1.5px solid #fff;
-  color: #fff;
-  display: flex; 
-  justify-content: center; 
-  align-items: center;
-  font-weight: 700; 
-  font-size: 0.9rem;
-  letter-spacing: 1px;
-  pointer-events: none;
-  z-index: 9999;
-  opacity: 0;
-  transform: translate(-50%, -50%) scale(0.5);
-  transition: opacity 0.2s, transform 0.2s, background 0.3s;
-  mix-blend-mode: difference;
-}
-
-.drag-cursor span {
-  display: inline-block;
-}
-
-.drag-cursor.active {
-  opacity: 1;
-  transform: translate(-50%, -50%) scale(1);
-}
-
-.drag-cursor.dragging {
-  transform: translate(-50%, -50%) scale(0.8);
-  background: #fff;
-  color: #000;
+.mobile-tabs {
+  display: none;
 }
 
 /* Mobile Responsiveness */
 @media (max-width: 768px) {
-  .navbar {
+  .desktop-tabs {
     display: none;
   }
   
-  .drag-cursor {
-    display: none !important;
+  .mobile-tabs {
+    display: block;
+  }
+
+  .navbar {
+    display: none;
   }
   
   .hero-content {
