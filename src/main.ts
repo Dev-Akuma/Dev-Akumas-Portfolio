@@ -265,4 +265,68 @@ document.addEventListener('DOMContentLoaded', () => {
       updateTabState(currentIndex);
     });
   });
+
+  // Squarey Maze Image Rotation
+  const squareyMazeImagePane = document.getElementById('squarey-maze-image-pane');
+  const squareyMazeThumbnails = document.querySelectorAll('.sq-thumb');
+  
+  if (squareyMazeImagePane) {
+    const images = [
+      '/Projects/Squarey Maze/0.jpeg',
+      '/Projects/Squarey Maze/1.jpeg',
+      '/Projects/Squarey Maze/2.jpeg',
+      '/Projects/Squarey Maze/3.jpeg',
+      '/Projects/Squarey Maze/4.jpeg',
+      '/Projects/Squarey Maze/5.jpeg'
+    ];
+    let currentImageIndex = 0;
+    let autoRotateInterval: number | undefined;
+
+    const updateThumbnails = () => {
+      squareyMazeThumbnails.forEach((thumb, idx) => {
+        const el = thumb as HTMLElement;
+        if (idx === currentImageIndex) {
+          el.style.border = '2px solid #fff';
+          el.style.opacity = '1';
+        } else {
+          el.style.border = '2px solid transparent';
+          el.style.opacity = '0.5';
+        }
+      });
+    };
+
+    const setImage = (index: number) => {
+      currentImageIndex = index;
+      squareyMazeImagePane.style.backgroundImage = `url('${images[currentImageIndex]}')`;
+      updateThumbnails();
+    };
+
+    const nextImage = () => {
+      setImage((currentImageIndex + 1) % images.length);
+    };
+
+    const startAutoRotate = () => {
+      clearInterval(autoRotateInterval);
+      autoRotateInterval = setInterval(nextImage, 5000);
+    };
+
+    // Initialize auto rotation
+    startAutoRotate();
+
+    // Change image on main pane click
+    squareyMazeImagePane.addEventListener('click', () => {
+      nextImage();
+      startAutoRotate(); // reset timer
+    });
+    
+    // Change image on thumbnail click
+    squareyMazeThumbnails.forEach((thumb) => {
+      thumb.addEventListener('click', (e) => {
+        const index = parseInt((e.target as HTMLElement).getAttribute('data-index') || '0', 10);
+        setImage(index);
+        startAutoRotate(); // reset timer
+      });
+    });
+  }
 });
+
