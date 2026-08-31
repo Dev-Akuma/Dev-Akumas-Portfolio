@@ -53,48 +53,56 @@ document.addEventListener('DOMContentLoaded', () => {
   const aboutSection = document.getElementById('about') as HTMLElement;
   const aboutContainer = aboutSection?.querySelector('.about-panel-container') as HTMLElement;
 
+  let isScrolling = false;
   window.addEventListener('scroll', () => {
-    const scrollY = window.scrollY;
+    if (!isScrolling) {
+      window.requestAnimationFrame(() => {
+        const scrollY = window.scrollY;
 
-    // Hero: Left-Right fade out as we scroll down (0 to 600px)
-    if (heroContent) {
-      const heroProgress = Math.min(1, Math.max(0, scrollY / 600)); // 0 to 1
-      const heroTranslate = scrollY * 0.4; // Slight parallax up
-      
-      heroContent.style.transform = `translateY(${heroTranslate}px)`;
+        // Hero: Left-Right fade out as we scroll down (0 to 600px)
+        if (heroContent) {
+          const heroProgress = Math.min(1, Math.max(0, scrollY / 600)); // 0 to 1
+          const heroTranslate = scrollY * 0.4; // Slight parallax up
+          
+          heroContent.style.transform = `translateY(${heroTranslate}px)`;
 
-      heroContent.style.webkitMaskImage = `linear-gradient(to right, transparent 0%, transparent 33.33%, black 66.66%, black 100%)`;
-      heroContent.style.maskImage = `linear-gradient(to right, transparent 0%, transparent 33.33%, black 66.66%, black 100%)`;
-      heroContent.style.webkitMaskSize = `300% 100%`;
-      heroContent.style.maskSize = `300% 100%`;
-      
-      // Calculate mask position (100% -> visible, 0% -> hidden)
-      const maskPos = (1 - heroProgress) * 100;
-      heroContent.style.webkitMaskPosition = `${maskPos}% 0`;
-      heroContent.style.maskPosition = `${maskPos}% 0`;
-    }
+          heroContent.style.webkitMaskImage = `linear-gradient(to right, transparent 0%, transparent 33.33%, black 66.66%, black 100%)`;
+          heroContent.style.maskImage = `linear-gradient(to right, transparent 0%, transparent 33.33%, black 66.66%, black 100%)`;
+          heroContent.style.webkitMaskSize = `300% 100%`;
+          heroContent.style.maskSize = `300% 100%`;
+          
+          // Calculate mask position (100% -> visible, 0% -> hidden)
+          const maskPos = (1 - heroProgress) * 100;
+          heroContent.style.webkitMaskPosition = `${maskPos}% 0`;
+          heroContent.style.maskPosition = `${maskPos}% 0`;
+        }
 
-    // About: fade in as we scroll down
-    if (aboutSection && aboutContainer) {
-      const aboutTop = aboutSection.offsetTop;
-      const windowHeight = window.innerHeight;
+        // About: fade in as we scroll down
+        if (aboutSection && aboutContainer) {
+          const aboutTop = aboutSection.offsetTop;
+          const windowHeight = window.innerHeight;
 
-      // Calculate how far we've scrolled into the About section
-      // Starts fading in when the top of About enters the bottom of the screen
-      const distanceIntoView = (scrollY + windowHeight) - aboutTop;
+          // Calculate how far we've scrolled into the About section
+          // Starts fading in when the top of About enters the bottom of the screen
+          const distanceIntoView = (scrollY + windowHeight) - aboutTop;
 
-      if (distanceIntoView > 0) {
-        // Map distance to opacity (e.g. fully visible after 600px of scrolling into it)
-        const aboutOpacity = Math.min(1, Math.max(0, distanceIntoView / 600));
-        // Translate from 40px down to 0px
-        const aboutTranslate = Math.max(0, 40 - (distanceIntoView / 600) * 40);
+          if (distanceIntoView > 0) {
+            // Map distance to opacity (e.g. fully visible after 600px of scrolling into it)
+            const aboutOpacity = Math.min(1, Math.max(0, distanceIntoView / 600));
+            // Translate from 40px down to 0px
+            const aboutTranslate = Math.max(0, 40 - (distanceIntoView / 600) * 40);
 
-        aboutContainer.style.opacity = aboutOpacity.toString();
-        aboutContainer.style.transform = `translateY(${aboutTranslate}px)`;
-      } else {
-        aboutContainer.style.opacity = '0';
-        aboutContainer.style.transform = `translateY(40px)`;
-      }
+            aboutContainer.style.opacity = aboutOpacity.toString();
+            aboutContainer.style.transform = `translateY(${aboutTranslate}px)`;
+          } else {
+            aboutContainer.style.opacity = '0';
+            aboutContainer.style.transform = `translateY(40px)`;
+          }
+        }
+        
+        isScrolling = false;
+      });
+      isScrolling = true;
     }
   });
 

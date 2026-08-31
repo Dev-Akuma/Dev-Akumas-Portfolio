@@ -15,9 +15,10 @@ export function initShader() {
   const parent = canvas?.parentElement;
   if (!canvas || !parent) return;
 
-  const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
+  const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: false });
   renderer.setSize(parent.clientWidth, parent.clientHeight);
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  // Cap pixel ratio at 1. Blurry shaders don't need retina resolution and it saves massive GPU overhead.
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1));
 
   const scene = new THREE.Scene();
   const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
