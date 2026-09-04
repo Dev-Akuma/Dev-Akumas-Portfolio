@@ -278,10 +278,18 @@
             <!-- Project 2 -->
             <div class="tab-slide" style="width: 50%;">
               <div class="split-card" style="box-shadow: 0 20px 40px rgba(0,0,0,0.2); background: transparent;">
-                <div class="split-pane pane-medium" style="background-image: url('https://placehold.co/600x400/ddd/888'); background-size: cover; background-position: center; flex: 1;"></div>
+                <div class="split-pane pane-medium" style="flex: 1; display: flex; flex-direction: column; background: #000;">
+                  <div id="compass-image-pane" style="background-image: url('/Projects/The Compass/0.png'); background-size: cover; background-position: center; flex: 1; cursor: pointer; transition: background-image 0.5s ease-in-out;"></div>
+                  <div id="compass-thumbnails" style="display: flex; gap: 0.5rem; padding: 0.5rem; background: rgba(0,0,0,0.8); overflow-x: auto; scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.5) transparent;">
+                    <div class="compass-thumb" data-index="0" style="width: 60px; height: 40px; flex-shrink: 0; background-image: url('/Projects/The Compass/0.png'); background-size: cover; background-position: center; cursor: pointer; border: 2px solid #fff; opacity: 1; border-radius: 4px; transition: all 0.2s;"></div>
+                    <div class="compass-thumb" data-index="1" style="width: 60px; height: 40px; flex-shrink: 0; background-image: url('/Projects/The Compass/1.png'); background-size: cover; background-position: center; cursor: pointer; border: 2px solid transparent; opacity: 0.5; border-radius: 4px; transition: all 0.2s;"></div>
+                    <div class="compass-thumb" data-index="2" style="width: 60px; height: 40px; flex-shrink: 0; background-image: url('/Projects/The Compass/2.png'); background-size: cover; background-position: center; cursor: pointer; border: 2px solid transparent; opacity: 0.5; border-radius: 4px; transition: all 0.2s;"></div>
+                  </div>
+                </div>
                 <div class="split-pane pane-dark project-desc" style="display: flex; flex-direction: column; justify-content: center; flex: 1; padding: 4rem;">
-                  <h3 style="font-size: 2.5rem; font-weight: 700; color: #fff; margin-bottom: 1rem;">AI Chatbot</h3>
-                  <p style="font-size: 1.1rem; color: rgba(255, 255, 255, 0.8);">An intelligent chatbot built with NLP to assist users in customer support scenarios.</p>
+                  <h3 style="font-size: 2.5rem; font-weight: 700; color: #fff; margin-bottom: 1rem;">The Compass - Web Application</h3>
+                  <p style="font-size: 1.1rem; color: rgba(255, 255, 255, 0.8); margin-bottom: 2rem;">A journaling and reflective guidance platform where the user can journal and get guidance, the AI not only replies but remembers the user and the experience to give a more personalized experience.</p>
+                  <a href="https://kgpt-mu.vercel.app" target="_blank" style="display: inline-block; padding: 0.75rem 1.5rem; background: #fff; color: #000; text-decoration: none; border-radius: 8px; font-weight: 600; text-align: center; font-size: 1.1rem; width: fit-content; transition: transform 0.2s ease, background 0.2s ease;" onmouseover="this.style.transform='scale(1.05)'; this.style.background='#f0f0f0';" onmouseout="this.style.transform='scale(1)'; this.style.background='#fff';">Visit Site</a>
                 </div>
               </div>
             </div>

@@ -328,5 +328,64 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
   }
-});
 
+  // Compass Image Rotation
+  const compassImagePane = document.getElementById('compass-image-pane');
+  const compassThumbnails = document.querySelectorAll('.compass-thumb');
+  
+  if (compassImagePane) {
+    const compassImages = [
+      '/Projects/The Compass/0.png',
+      '/Projects/The Compass/1.png',
+      '/Projects/The Compass/2.png'
+    ];
+    let currentCompassImageIndex = 0;
+    let compassAutoRotateInterval: number | undefined;
+
+    const updateCompassThumbnails = () => {
+      compassThumbnails.forEach((thumb, idx) => {
+        const el = thumb as HTMLElement;
+        if (idx === currentCompassImageIndex) {
+          el.style.border = '2px solid #fff';
+          el.style.opacity = '1';
+        } else {
+          el.style.border = '2px solid transparent';
+          el.style.opacity = '0.5';
+        }
+      });
+    };
+
+    const setCompassImage = (index: number) => {
+      currentCompassImageIndex = index;
+      compassImagePane.style.backgroundImage = `url('${compassImages[currentCompassImageIndex]}')`;
+      updateCompassThumbnails();
+    };
+
+    const nextCompassImage = () => {
+      setCompassImage((currentCompassImageIndex + 1) % compassImages.length);
+    };
+
+    const startCompassAutoRotate = () => {
+      clearInterval(compassAutoRotateInterval);
+      compassAutoRotateInterval = setInterval(nextCompassImage, 5000);
+    };
+
+    // Initialize auto rotation
+    startCompassAutoRotate();
+
+    // Change image on main pane click
+    compassImagePane.addEventListener('click', () => {
+      nextCompassImage();
+      startCompassAutoRotate(); // reset timer
+    });
+    
+    // Change image on thumbnail click
+    compassThumbnails.forEach((thumb) => {
+      thumb.addEventListener('click', (e) => {
+        const index = parseInt((e.target as HTMLElement).getAttribute('data-index') || '0', 10);
+        setCompassImage(index);
+        startCompassAutoRotate(); // reset timer
+      });
+    });
+  }
+});
