@@ -5,392 +5,391 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description"
-    content="Dev-Akuma's Portfolio - A Creative Developer who likes ideating and building cool things." />
+    content="Dev-Akuma's Portfolio - AI Engineer, Game Developer & Creative Builder." />
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Space+Grotesk:wght@500;700;800&family=Inter:wght@400;500;600&display=swap"
     rel="stylesheet">
   <link rel="stylesheet" href="/src/style.css">
-  <title>Dev-Akuma's Portfolio</title>
+  <title>Dev.Akuma's Portfolio</title>
 </head>
 
 <body>
-  <!-- Navbar -->
-  <nav class="navbar" id="floating-navbar">
-    <ul class="nav-links">
-      <li><a href="#hero">Home</a></li>
-      <li><a href="#about">About</a></li>
-      <li><a href="#work">Work</a></li>
-      <li><a href="#experience">Experience</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
-  </nav>
+  <!-- Ambient Three.js Background Shader -->
+  <canvas id="shader-canvas"></canvas>
 
-  <main>
-    <div class="shader-background-wrapper">
-      <canvas id="shader-canvas"></canvas>
+  <!-- Pinned Scroll Stages Container -->
+  <main class="scroll-wrapper" id="scroll-wrapper">
+    <div class="sticky-viewport" id="sticky-viewport">
 
-      <!-- Hero -->
-      <section id="hero" class="hero">
-        <div class="hero-logo">
-          <svg width="40" height="40" viewBox="0 0 74 74" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect x="1.5" y="1.5" width="71" height="71" rx="11.5" fill="white" stroke="black" stroke-width="3" />
-            <path
-              d="M62.5558 58.6345H28.7365L30.7706 53.4138C31.3826 52.9966 31.973 52.5569 32.5382 52.0945C34.9883 50.0898 36.9319 47.7098 38.2579 45.0906C39.5839 42.4713 40.2667 39.6639 40.2667 36.8289C40.2667 34.9601 39.9678 33.1041 39.3859 31.3054L45.6466 15.24L62.5558 58.6345ZM13.88 15.24C17.3451 15.24 20.7763 15.7986 23.9777 16.8835C27.179 17.9685 30.088 19.5585 32.5382 21.5632C34.9884 23.5679 36.9319 25.9479 38.2579 28.5671C38.7099 29.4599 39.085 30.3754 39.3859 31.3054L30.7706 53.4138C28.7296 54.8053 26.4406 55.9405 23.9777 56.7751C20.7763 57.86 17.3451 58.4177 13.88 58.4177V15.24Z"
-              fill="black" />
-          </svg>
-          <span class="logo-text">Dev.Akuma's Portfolio</span>
-        </div>
-        <div class="hero-content">
-          <h1 class="hero-title">MAYENGBAM DEVASIS SINGH * DEV-AKUMA</h1>
-          <h2 class="hero-subtitle">THINKER - DESIGNER - DEVELOPER</h2>
-
-          <div class="hero-card-wrapper">
-            <div class="hero-card">
-              <p>A Creative Developer who likes ideating and building cool things.</p>
-              <br>
-              <p>Interested in game-development, cool designs, artificial intelligence and machine learning, and reading
-                random philosophical ideas to keep myself up at 3-o-clock contemplating my life decisions.</p>
-            </div>
-            <div class="hero-orb"></div>
+      <!-- Top Navbar (Static & transparent inside pinned stage) -->
+      <header class="top-header">
+        <div class="brand-wrapper" id="brand-logo-trigger">
+          <div class="brand-logo-box">
+            <svg width="28" height="28" viewBox="0 0 74 74" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M62.5558 58.6345H28.7365L30.7706 53.4138C31.3826 52.9966 31.973 52.5569 32.5382 52.0945C34.9883 50.0898 36.9319 47.7098 38.2579 45.0906C39.5839 42.4713 40.2667 39.6639 40.2667 36.8289C40.2667 34.9601 39.9678 33.1041 39.3859 31.3054L45.6466 15.24L62.5558 58.6345ZM13.88 15.24C17.3451 15.24 20.7763 15.7986 23.9777 16.8835C27.179 17.9685 30.088 19.5585 32.5382 21.5632C34.9884 23.5679 36.9319 25.9479 38.2579 28.5671C38.7099 29.4599 39.085 30.3754 39.3859 31.3054L30.7706 53.4138C28.7296 54.8053 26.4406 55.9405 23.9777 56.7751C20.7763 57.86 17.3451 58.4177 13.88 58.4177V15.24Z" fill="black" />
+            </svg>
           </div>
+          <span class="brand-name">Dev.Akuma's Portflio</span>
         </div>
-      </section>
+        <nav>
+          <ul class="nav-links">
+            <li><a href="#hero" class="nav-anchor" data-section="0">Home</a></li>
+            <li><a href="#skills" class="nav-anchor" data-section="1">Skills</a></li>
+            <li><a href="#work" class="nav-anchor" data-section="2">Work</a></li>
+            <li><a href="#about" class="nav-anchor" data-section="3">About</a></li>
+            <li><a href="#contact" class="nav-anchor-contact">Contact</a></li>
+          </ul>
+        </nav>
+      </header>
 
-      <!-- About Me -->
-      <section id="about" class="section">
-        <div class="about-panel-container">
-          <div class="container">
-            <h2 class="section-title text-dark" style="padding-left: 5%;">ABOUT ME</h2>
-            <div class="tabs-viewport desktop-tabs">
-              <!-- Dynamic Arrows (Desktop) -->
-              <button class="nav-arrow nav-arrow-left" id="nav-arrow-left" aria-label="Previous tab">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <polyline points="15 18 9 12 15 6"></polyline>
-                </svg>
-              </button>
-              <button class="nav-arrow nav-arrow-right" id="nav-arrow-right" aria-label="Next tab">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <polyline points="9 18 15 12 9 6"></polyline>
-                </svg>
-              </button>
+      <div class="horizontal-track" id="horizontal-track">
 
-              <div class="tabs-track" id="tabs-track-desktop">
-                <!-- Tab 1 -->
-                <div class="tab-slide" id="tab-personality">
-                  <div class="split-card">
-                    <div class="split-pane pane-light about-intro parallax-content" style="flex-direction: column; justify-content: center; align-items: flex-start; text-align: left;">
-                      <div style="margin-bottom: 2rem;">
-                        <h3 style="font-size: 2.5rem; font-weight: 700; font-family: var(--font-heading); color: var(--text-dark); letter-spacing: -1px;">Personality</h3>
-                      </div>
-                      <p style="font-size: 1.25rem;">Curious by nature, experimental by choice. I like turning strange ideas into things that work, exploring the intersection of technology, design, games, and AI—usually with a few 3 AM ideas along the way.</p>
-                    </div>
-                    <div class="split-pane pane-dark about-details parallax-content">
-                      <div class="pros-cons">
-                        <div class="pros">
-                          <h3>Strengths</h3>
-                          <ul>
-                            <li><strong>Curiosity</strong> — I enjoy exploring unfamiliar ideas and figuring out how they work.</li>
-                            <li><strong>Builder mindset</strong> — I like taking an idea from concept to something functional.</li>
-                          </ul>
-                        </div>
-                        <div class="cons">
-                          <h3>Weaknesses</h3>
-                          <ul>
-                            <li><strong>Too curious sometimes</strong> — I can get distracted exploring an interesting idea.</li>
-                            <li><strong>Overthinking</strong> — I sometimes spend too much time considering different approaches.</li>
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+        <!-- ================= SECTION 1: HERO ================= -->
+        <section class="section-panel" id="hero">
+          <div class="hero-grid">
+            <div class="hero-text-col">
+              <div class="hero-subtitle">HEY! I'M</div>
+              <h1 class="hero-title">MAYENGBAM DEVASIS SINGH</h1>
+              
+              <!-- Natural traffic-light divider placed below name -->
+              <div class="traffic-dots hero-divider-dots">
+                <span class="dot dot-red"></span>
+                <span class="dot dot-yellow"></span>
+                <span class="dot dot-green"></span>
+              </div>
+
+              <p class="hero-bio">
+                An AI-engineer who likes to learn pretty much everything and creating interesting stuffs.
+              </p>
+              
+              <p class="resume-cta">
+                Here's my super-heavy-multi-page resume: 
+                <a href="/23BAI70549_M.Devasis.Singh.pdf" target="_blank" rel="noopener">link</a>
+              </p>
+
+              <div class="hero-socials">
+                <span class="socials-heading">Want to connect?</span>
+                <div class="socials-list">
+                  <a href="https://github.com/Dev-Akuma" target="_blank" rel="noopener" class="social-link">@Github...</a>
+                  <a href="https://www.linkedin.com/in/m-devasis-7108bb290" target="_blank" rel="noopener" class="social-link">@Linkedin...</a>
+                  <a href="https://www.instagram.com/dev._.akuma/" target="_blank" rel="noopener" class="social-link">@Instagram...</a>
                 </div>
+              </div>
+            </div>
+            <div class="hero-image-wrapper">
+              <div class="hero-portrait-card">
+                <img src="/assets/Mee.png" alt="Mayengbam Devasis Singh (Dev-Akuma)" loading="eager" />
+              </div>
+            </div>
+          </div>
+        </section>
 
-                <!-- Tab 2 -->
-                <div class="tab-slide" id="tab-career">
-                  <div class="split-card">
-                    <div class="split-pane pane-dark about-details parallax-content" style="display: flex; align-items: center; justify-content: center; flex-direction: column; text-align: left;">
-                      <div style="width: 100%; margin-bottom: 1.5rem;">
-                        <h3 style="font-size: 2.5rem; font-weight: 700; font-family: var(--font-heading); color: #fff; letter-spacing: -1px;">Career Objective</h3>
-                      </div>
-                      <p style="font-size: 1.5rem; line-height: 1.6;">I want to build things that are both technically interesting and genuinely enjoyable to use. I'm looking to grow as an engineer while exploring the intersection of software, design, AI, and creative technology.</p>
-                    </div>
-                    <div class="split-pane pane-light about-intro parallax-content" style="justify-content: center;">
-                      <a href="/23BAI70549_M.Devasis.Singh.pdf" target="_blank" class="resume-sticky">
-                        <div class="resume-sticky-icon">📎</div>
-                        <div class="resume-sticky-text">
-                          <h3>Resume.pdf</h3>
-                          <p>Click to open</p>
-                        </div>
-                      </a>
-                    </div>
+        <!-- ================= SECTION 2: SKILLS TREE ================= -->
+        <section class="section-panel" id="skills">
+          <div class="skills-container">
+            <div class="skills-left-col">
+              <h2 class="section-header">
+                SKILL TREE
+                <span class="traffic-dots">
+                  <span class="dot dot-red"></span>
+                  <span class="dot dot-yellow"></span>
+                  <span class="dot dot-green"></span>
+                </span>
+              </h2>
+              <div class="skills-category-list" id="skills-cat-list">
+                <button class="skill-category-btn active" data-cat="ai">
+                  <span>ARTIFICIAL INTELLIGENCE &amp; ML</span>
+                  <span>&gt;</span>
+                </button>
+                <button class="skill-category-btn" data-cat="fundamentals">
+                  <span>FUNDAMENTAL SKILLS</span>
+                  <span>&gt;</span>
+                </button>
+                <button class="skill-category-btn" data-cat="fullstack">
+                  <span>FULL STACK DEVELOPMENT</span>
+                  <span>&gt;</span>
+                </button>
+                <button class="skill-category-btn" data-cat="gamedev">
+                  <span>GAME DEVELOPMENT</span>
+                  <span>&gt;</span>
+                </button>
+                <button class="skill-category-btn" data-cat="uiux">
+                  <span>USER INTERFACE &amp; EXPERIENCE</span>
+                  <span>&gt;</span>
+                </button>
+                <button class="skill-category-btn" data-cat="architecture">
+                  <span>SYSTEM ARCHITECTURE &amp; DESIGN</span>
+                  <span>&gt;</span>
+                </button>
+                <button class="skill-category-btn" data-cat="other">
+                  <span>OTHER SKILLS I COULDN'T CATEGORIZE</span>
+                  <span>&gt;</span>
+                </button>
+              </div>
+            </div>
+            <div class="tablet-perspective-stage">
+              <div class="tablet-3d-chassis" id="tablet-chassis">
+                <div class="tablet-screen">
+                  <div class="tablet-screen-header">
+                    <span class="tablet-screen-title" id="tablet-cat-title">ARTIFICIAL INTELLIGENCE &amp; ML</span>
+                    <span class="tablet-badge" id="tablet-cat-badge">ACTIVE MATRIX</span>
                   </div>
-                </div>
-
-                <!-- Tab 3 (Achievements) -->
-                <div class="tab-slide" id="tab-achievements">
-                  <div class="split-card">
-                    <div class="split-pane pane-light about-intro parallax-content" style="justify-content: center;">
-                      <a href="#" target="_blank" class="resume-sticky" style="background-color: #ffd700; transform: rotate(2deg);">
-                        <div class="resume-sticky-icon">🏆</div>
-                        <div class="resume-sticky-text">
-                          <h3>Certificate.pdf</h3>
-                          <p>Click to view credential</p>
-                        </div>
-                      </a>
-                    </div>
-                    <div class="split-pane pane-dark about-details parallax-content">
-                      <div class="pros-cons">
-                        <div class="pros" style="width: 100%;">
-                          <div style="width: 100%; margin-bottom: 1.5rem;">
-                            <h3 style="font-size: 2.5rem; font-weight: 700; font-family: var(--font-heading); color: #fff; letter-spacing: -1px; text-transform: none;">Achievements</h3>
-                          </div>
-                          <ul>
-                            <li><strong>Hackathons</strong> — Participated in several Hackathons and won several accolades for building creative tech solutions.</li>
-                            <li><strong>Open Source</strong> — Contributed to multiple repositories and built tools loved by developers.</li>
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
+                  <div class="skill-rows" id="tablet-skills-content">
+                    <!-- Dynamically populated via main.ts -->
                   </div>
                 </div>
               </div>
             </div>
+          </div>
+        </section>
 
-            <!-- Mobile Layout (4 Tabs) -->
-            <div class="tabs-viewport mobile-tabs">
-              <!-- Dynamic Arrows (Mobile) -->
-              <button class="nav-arrow nav-arrow-left" aria-label="Previous tab">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <polyline points="15 18 9 12 15 6"></polyline>
-                </svg>
-              </button>
-              <button class="nav-arrow nav-arrow-right" aria-label="Next tab">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <polyline points="9 18 15 12 9 6"></polyline>
-                </svg>
-              </button>
-
-              <div class="tabs-track" style="width: 400%;">
+        <!-- ================= SECTION 3: PROJECTS FEED ================= -->
+        <section class="section-panel" id="work">
+          <div class="projects-container">
+            <div class="projects-left-col">
+              <h2 class="section-header">
+                PROJECTS FEED
+                <span class="traffic-dots">
+                  <span class="dot dot-red"></span>
+                  <span class="dot dot-yellow"></span>
+                  <span class="dot dot-green"></span>
+                </span>
+              </h2>
+              <div class="projects-feed-list" id="projects-feed-list">
+                <div class="project-feed-item active" data-project="squarey">
+                  <span class="project-wire-icon">
+                    <!-- Gamepad wireframe icon -->
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <rect x="2" y="6" width="20" height="12" rx="3"></rect>
+                      <line x1="6" y1="12" x2="10" y2="12"></line>
+                      <line x1="8" y1="10" x2="8" y2="14"></line>
+                      <circle cx="15" cy="11" r="1"></circle>
+                      <circle cx="17" cy="13" r="1"></circle>
+                    </svg>
+                  </span>
+                  <span class="project-name">SQUAREY MAZE</span>
+                </div>
+                <div class="project-feed-item" data-project="compass">
+                  <span class="project-wire-icon">
+                    <!-- Web globe wireframe icon -->
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                      <circle cx="12" cy="12" r="10"></circle>
+                      <line x1="2" y1="12" x2="22" y2="12"></line>
+                      <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                    </svg>
+                  </span>
+                  <span class="project-name">THE COMPASS</span>
+                </div>
+              </div>
+            </div>
+            <div class="projects-right-col">
+              <div class="project-console-card">
+                <!-- Playstore-style main hero showcase & thumbnail selector -->
+                <div class="project-viewer-container">
+                  <div class="project-hero-preview">
+                    <img id="project-main-display" src="/Projects/Squarey Maze/0.jpeg" alt="Project Active Preview" />
+                  </div>
+                  <div class="project-thumbnails-strip" id="project-thumbnails">
+                    <!-- Populated dynamically via main.ts -->
+                  </div>
+                </div>
                 
-                <!-- Slide 1: Personality -->
-                <div class="tab-slide" style="width: 25%;">
-                  <div class="split-card" style="box-shadow: none;">
-                    <div class="split-pane pane-light" style="padding: 3rem 2rem; display: flex; flex-direction: column; justify-content: center;">
-                      <div class="parallax-content">
-                        <h3 style="font-size: 2rem; font-weight: 700; font-family: var(--font-heading); color: var(--text-dark); margin-bottom: 1rem;">Personality</h3>
-                        <p style="font-size: 1.1rem;">Curious by nature, experimental by choice. I like turning strange ideas into things that work, exploring the intersection of technology, design, games, and AI—usually with a few 3 AM ideas along the way.</p>
-                      </div>
+                <div class="project-details-pane">
+                  <div>
+                    <h3 class="project-details-title" id="project-title">SQUAREY MAZE</h3>
+                    <p class="project-details-desc" id="project-desc">
+                      An atmospheric maze adventure featuring custom pathfinding logic, procedural dungeons, dynamic retro lighting and pixel storytelling.
+                    </p>
+                    <div class="project-tags" id="project-tags">
+                      <span class="tag-pill">Game Engine</span>
+                      <span class="tag-pill">Pixel Art</span>
+                      <span class="tag-pill">Procedural Gen</span>
+                      <span class="tag-pill">Pygame</span>
                     </div>
                   </div>
+                  <a href="https://github.com/Dev-Akuma" target="_blank" rel="noopener" class="project-btn" id="project-action-btn">
+                    VIEW PROJECT &gt;
+                  </a>
                 </div>
-
-                <!-- Slide 2: Pros & Cons -->
-                <div class="tab-slide" style="width: 25%;">
-                  <div class="split-card" style="box-shadow: none;">
-                    <div class="split-pane pane-dark" style="padding: 3rem 2rem; display: flex; flex-direction: column; justify-content: center;">
-                      <div class="parallax-content">
-                        <div class="pros" style="margin-bottom: 2rem;">
-                          <h3 style="color: #fff; font-size: 2rem; margin-bottom: 1rem;">Strengths</h3>
-                          <ul style="color: rgba(255,255,255,0.8); list-style-position: inside; font-size: 1.1rem;">
-                            <li style="margin-bottom: 0.5rem;"><strong>Curiosity</strong> — Exploring unfamiliar ideas.</li>
-                            <li><strong>Builder mindset</strong> — Taking ideas to functional concepts.</li>
-                          </ul>
-                        </div>
-                        <div class="cons">
-                          <h3 style="color: #fff; font-size: 2rem; margin-bottom: 1rem;">Weaknesses</h3>
-                          <ul style="color: rgba(255,255,255,0.8); list-style-position: inside; font-size: 1.1rem;">
-                            <li style="margin-bottom: 0.5rem;"><strong>Too curious</strong> — Getting distracted easily.</li>
-                            <li><strong>Overthinking</strong> — Spending too much time planning.</li>
-                          </ul>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Slide 3: Career Objective -->
-                <div class="tab-slide" style="width: 25%;">
-                  <div class="split-card" style="box-shadow: none;">
-                    <div class="split-pane pane-dark" style="padding: 3rem 2rem; display: flex; flex-direction: column; justify-content: center;">
-                      <div class="parallax-content">
-                        <h3 style="font-size: 2rem; font-weight: 700; font-family: var(--font-heading); color: #fff; margin-bottom: 1rem;">Career Objective</h3>
-                        <p style="font-size: 1.1rem; line-height: 1.6; margin-bottom: 2rem;">I want to build things that are both technically interesting and genuinely enjoyable to use. I'm looking to grow as an engineer while exploring the intersection of software, design, AI, and creative technology.</p>
-                        <a href="/23BAI70549_M.Devasis.Singh.pdf" target="_blank" style="display: inline-block; padding: 1rem 2rem; background: #fff; color: #000; text-decoration: none; border-radius: 8px; font-weight: 600; text-align: center; font-size: 1.1rem;">View Resume.pdf</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Slide 4: Achievements -->
-                <div class="tab-slide" style="width: 25%;">
-                  <div class="split-card" style="box-shadow: none;">
-                    <div class="split-pane pane-light" style="padding: 3rem 2rem; display: flex; flex-direction: column; justify-content: center;">
-                      <div class="parallax-content">
-                        <h3 style="font-size: 2rem; font-weight: 700; font-family: var(--font-heading); color: var(--text-dark); margin-bottom: 1rem;">Achievements</h3>
-                        <ul style="font-size: 1.1rem; list-style-position: inside; margin-bottom: 2rem;">
-                          <li style="margin-bottom: 1rem;"><strong>Hackathons</strong> — Won several accolades for creative tech solutions.</li>
-                          <li><strong>Open Source</strong> — Contributed to multiple repositories.</li>
-                        </ul>
-                        <a href="#" style="display: inline-block; padding: 1rem 2rem; background: #000; color: #fff; text-decoration: none; border-radius: 8px; font-weight: 600; text-align: center; font-size: 1.1rem;">View Full Achievements</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
               </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+
+        <!-- ================= SECTION 4: ABOUT ME (STICKY NOTES DESK) ================= -->
+        <section class="section-panel" id="about">
+          <div class="about-desk-wrapper">
+            <h2 class="section-header" style="margin-bottom: 24px;">
+              A LITTLE ABOUT ME
+              <span class="traffic-dots">
+                <span class="dot dot-red"></span>
+                <span class="dot dot-yellow"></span>
+                <span class="dot dot-green"></span>
+              </span>
+            </h2>
+            <p style="color: var(--text-muted); margin-bottom: 24px; font-size: 0.95rem;">
+              [ Click any sticky note to inspect the note in full detail ]
+            </p>
+
+            <div class="sticky-notes-board">
+              <!-- Note 1: Core Mindset -->
+              <div class="sticky-note note-yellow" data-note-id="1" tabindex="0">
+                <div class="note-pin">📌</div>
+                <div class="note-heading">CORE MOTTO</div>
+                <p class="note-snippet">"I don't like being put down to one thing..."</p>
+                <div class="note-tag">#BuilderMindset</div>
+              </div>
+
+              <!-- Note 2: AI & LLM Systems -->
+              <div class="sticky-note note-blue" data-note-id="2" tabindex="0">
+                <div class="note-pin">📎</div>
+                <div class="note-heading">AI &amp; AGENTICS</div>
+                <p class="note-snippet">Exploring neural weights, agentic loops &amp; multi-turn reasoning.</p>
+                <div class="note-tag">#MachineLearning</div>
+              </div>
+
+              <!-- Note 3: Game Dev & Shaders -->
+              <div class="sticky-note note-pink" data-note-id="3" tabindex="0">
+                <div class="note-pin">📍</div>
+                <div class="note-heading">GAMES &amp; GLSL</div>
+                <p class="note-snippet">Procedural generation, tactile retro graphics &amp; real-time shaders.</p>
+                <div class="note-tag">#CreativeCoding</div>
+              </div>
+
+              <!-- Note 4: 3AM Philosophy -->
+              <div class="sticky-note note-green" data-note-id="4" tabindex="0">
+                <div class="note-pin">📌</div>
+                <div class="note-heading">3 AM IDEAS</div>
+                <p class="note-snippet">Contemplating deep questions, weird prototypes &amp; philosophy.</p>
+                <div class="note-tag">#Curiosity</div>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+      </div>
     </div>
-
-    <!-- Projects -->
-    <section id="work" class="section dark-bg">
-      <div class="container">
-        <h2 class="section-title reveal-on-scroll">PROJECTS</h2>
-        <div class="tabs-viewport reveal-on-scroll">
-          <div class="tabs-track" style="width: 200%;">
-            <!-- Project 1 -->
-            <div class="tab-slide" style="width: 50%;">
-              <div class="split-card" style="box-shadow: 0 20px 40px rgba(0,0,0,0.2); background: transparent;">
-                <div class="split-pane pane-medium" style="flex: 1; display: flex; flex-direction: column; background: #000;">
-                  <div id="squarey-maze-image-pane" style="background-image: url('/Projects/Squarey Maze/0.jpeg'); background-size: cover; background-position: center; flex: 1; cursor: pointer; transition: background-image 0.5s ease-in-out;"></div>
-                  <div id="squarey-maze-thumbnails" style="display: flex; gap: 0.5rem; padding: 0.5rem; background: rgba(0,0,0,0.8); overflow-x: auto; scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.5) transparent;">
-                    <div class="sq-thumb" data-index="0" style="width: 60px; height: 40px; flex-shrink: 0; background-image: url('/Projects/Squarey Maze/0.jpeg'); background-size: cover; background-position: center; cursor: pointer; border: 2px solid #fff; opacity: 1; border-radius: 4px; transition: all 0.2s;"></div>
-                    <div class="sq-thumb" data-index="1" style="width: 60px; height: 40px; flex-shrink: 0; background-image: url('/Projects/Squarey Maze/1.jpeg'); background-size: cover; background-position: center; cursor: pointer; border: 2px solid transparent; opacity: 0.5; border-radius: 4px; transition: all 0.2s;"></div>
-                    <div class="sq-thumb" data-index="2" style="width: 60px; height: 40px; flex-shrink: 0; background-image: url('/Projects/Squarey Maze/2.jpeg'); background-size: cover; background-position: center; cursor: pointer; border: 2px solid transparent; opacity: 0.5; border-radius: 4px; transition: all 0.2s;"></div>
-                    <div class="sq-thumb" data-index="3" style="width: 60px; height: 40px; flex-shrink: 0; background-image: url('/Projects/Squarey Maze/3.jpeg'); background-size: cover; background-position: center; cursor: pointer; border: 2px solid transparent; opacity: 0.5; border-radius: 4px; transition: all 0.2s;"></div>
-                    <div class="sq-thumb" data-index="4" style="width: 60px; height: 40px; flex-shrink: 0; background-image: url('/Projects/Squarey Maze/4.jpeg'); background-size: cover; background-position: center; cursor: pointer; border: 2px solid transparent; opacity: 0.5; border-radius: 4px; transition: all 0.2s;"></div>
-                    <div class="sq-thumb" data-index="5" style="width: 60px; height: 40px; flex-shrink: 0; background-image: url('/Projects/Squarey Maze/5.jpeg'); background-size: cover; background-position: center; cursor: pointer; border: 2px solid transparent; opacity: 0.5; border-radius: 4px; transition: all 0.2s;"></div>
-                  </div>
-                </div>
-                <div class="split-pane pane-dark project-desc" style="display: flex; flex-direction: column; justify-content: center; flex: 1; padding: 4rem;">
-                  <h3 style="font-size: 2.5rem; font-weight: 700; color: #fff; margin-bottom: 1rem;">Squarey Maze - Android</h3>
-                  <p style="font-size: 1.1rem; color: rgba(255, 255, 255, 0.8); margin-bottom: 2rem;">A Single Player top-down RPG filled with fun and adventure following the storyline of a square trapped in a scary escape maze. A Parody of the popular game "The Scary Maze".</p>
-                  <a href="https://drive.google.com/file/d/1c2bmYdOZpm8FPiElhGneAiIGRdImomeB/view?usp=drive_link" target="_blank" style="display: inline-block; padding: 0.75rem 1.5rem; background: #fff; color: #000; text-decoration: none; border-radius: 8px; font-weight: 600; text-align: center; font-size: 1.1rem; width: fit-content; transition: transform 0.2s ease, background 0.2s ease;" onmouseover="this.style.transform='scale(1.05)'; this.style.background='#f0f0f0';" onmouseout="this.style.transform='scale(1)'; this.style.background='#fff';">Download Game</a>
-                </div>
-              </div>
-            </div>
-
-            <!-- Project 2 -->
-            <div class="tab-slide" style="width: 50%;">
-              <div class="split-card" style="box-shadow: 0 20px 40px rgba(0,0,0,0.2); background: transparent;">
-                <div class="split-pane pane-medium" style="flex: 1; display: flex; flex-direction: column; background: #000;">
-                  <div id="compass-image-pane" style="background-image: url('/Projects/The Compass/0.png'); background-size: cover; background-position: center; flex: 1; cursor: pointer; transition: background-image 0.5s ease-in-out;"></div>
-                  <div id="compass-thumbnails" style="display: flex; gap: 0.5rem; padding: 0.5rem; background: rgba(0,0,0,0.8); overflow-x: auto; scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.5) transparent;">
-                    <div class="compass-thumb" data-index="0" style="width: 60px; height: 40px; flex-shrink: 0; background-image: url('/Projects/The Compass/0.png'); background-size: cover; background-position: center; cursor: pointer; border: 2px solid #fff; opacity: 1; border-radius: 4px; transition: all 0.2s;"></div>
-                    <div class="compass-thumb" data-index="1" style="width: 60px; height: 40px; flex-shrink: 0; background-image: url('/Projects/The Compass/1.png'); background-size: cover; background-position: center; cursor: pointer; border: 2px solid transparent; opacity: 0.5; border-radius: 4px; transition: all 0.2s;"></div>
-                    <div class="compass-thumb" data-index="2" style="width: 60px; height: 40px; flex-shrink: 0; background-image: url('/Projects/The Compass/2.png'); background-size: cover; background-position: center; cursor: pointer; border: 2px solid transparent; opacity: 0.5; border-radius: 4px; transition: all 0.2s;"></div>
-                  </div>
-                </div>
-                <div class="split-pane pane-dark project-desc" style="display: flex; flex-direction: column; justify-content: center; flex: 1; padding: 4rem;">
-                  <h3 style="font-size: 2.5rem; font-weight: 700; color: #fff; margin-bottom: 1rem;">The Compass - Web Application</h3>
-                  <p style="font-size: 1.1rem; color: rgba(255, 255, 255, 0.8); margin-bottom: 2rem;">A journaling and reflective guidance platform where the user can journal and get guidance, the AI not only replies but remembers the user and the experience to give a more personalized experience.</p>
-                  <a href="https://kgpt-mu.vercel.app" target="_blank" style="display: inline-block; padding: 0.75rem 1.5rem; background: #fff; color: #000; text-decoration: none; border-radius: 8px; font-weight: 600; text-align: center; font-size: 1.1rem; width: fit-content; transition: transform 0.2s ease, background 0.2s ease;" onmouseover="this.style.transform='scale(1.05)'; this.style.background='#f0f0f0';" onmouseout="this.style.transform='scale(1)'; this.style.background='#fff';">Visit Site</a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-
-
-    <!-- Experience -->
-    <section id="experience" class="section light-bg">
-      <div class="container">
-        <h2 class="section-title text-dark">EXPERIENCE</h2>
-        
-        <div style="position: relative;">
-          <!-- Locked Overlay -->
-          <div class="locked-overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10; display: flex; flex-direction: column; align-items: center; justify-content: center;">
-            <div style="background: rgba(15, 23, 42, 0.95); border: 2px solid #facc15; border-radius: 12px; padding: 2rem 3rem; text-align: center; box-shadow: 0 0 40px rgba(250, 204, 21, 0.4); backdrop-filter: blur(8px);">
-              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#facc15" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin: 0 auto 1rem auto; display: block;">
-                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-              </svg>
-              <h3 style="color: #facc15; font-size: 2rem; font-weight: 900; font-family: var(--font-heading); margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 2px;">Experience Locked</h3>
-              <p style="color: #fff; font-size: 1.1rem; margin-bottom: 1.5rem;">This content requires the <strong style="color: #facc15;">'Employment'</strong> DLC.</p>
-              <a href="#contact" style="background: linear-gradient(45deg, #facc15, #eab308); color: #000; padding: 1rem 2.5rem; font-size: 1.2rem; font-weight: 800; border-radius: 8px; text-transform: uppercase; letter-spacing: 1px; text-decoration: none; display: inline-block; box-shadow: 0 4px 15px rgba(250, 204, 21, 0.4); transition: transform 0.2s ease;">Hire to Unlock</a>
-            </div>
-          </div>
-
-          <div class="tabs-viewport" style="filter: grayscale(100%) blur(5px) opacity(0.6); pointer-events: none; user-select: none;">
-          <button class="nav-arrow nav-arrow-left" aria-label="Previous tab">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <polyline points="15 18 9 12 15 6"></polyline>
-            </svg>
-          </button>
-          <button class="nav-arrow nav-arrow-right" aria-label="Next tab">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <polyline points="9 18 15 12 9 6"></polyline>
-            </svg>
-          </button>
-          <div class="tabs-track" style="width: 200%;">
-            
-            <!-- Experience 1 -->
-            <div class="tab-slide" style="width: 50%;">
-              <div class="split-card" style="box-shadow: 0 20px 40px rgba(0,0,0,0.2); background: transparent;">
-                <div class="split-pane pane-medium" style="background-image: url('https://placehold.co/600x400/ddd/888'); background-size: cover; background-position: center; flex: 1;"></div>
-                <div class="split-pane pane-light project-desc" style="display: flex; flex-direction: column; justify-content: center; flex: 1; padding: 4rem;">
-                  <h3 style="font-size: 2.5rem; font-weight: 700; color: var(--text-dark); margin-bottom: 0.5rem;">Software Engineer Intern</h3>
-                  <h4 style="font-size: 1.25rem; color: rgba(0,0,0,0.6); margin-bottom: 1rem;">Tech Startup Inc. | Summer 2024</h4>
-                  <ul style="font-size: 1.1rem; color: var(--text-dark); list-style-position: inside;">
-                    <li style="margin-bottom: 0.5rem;">Developed and maintained full-stack web applications using React and Node.js.</li>
-                    <li style="margin-bottom: 0.5rem;">Optimized database queries, reducing load times by 30%.</li>
-                    <li>Collaborated with design team to implement responsive UI components.</li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-
-            <!-- Experience 2 -->
-            <div class="tab-slide" style="width: 50%;">
-              <div class="split-card" style="box-shadow: 0 20px 40px rgba(0,0,0,0.2); background: transparent;">
-                <div class="split-pane pane-medium" style="background-image: url('https://placehold.co/600x400/ddd/888'); background-size: cover; background-position: center; flex: 1;"></div>
-                <div class="split-pane pane-light project-desc" style="display: flex; flex-direction: column; justify-content: center; flex: 1; padding: 4rem;">
-                  <h3 style="font-size: 2.5rem; font-weight: 700; color: var(--text-dark); margin-bottom: 0.5rem;">Freelance Developer</h3>
-                  <h4 style="font-size: 1.25rem; color: rgba(0,0,0,0.6); margin-bottom: 1rem;">Self-Employed</h4>
-                  <p style="font-size: 1.1rem; color: var(--text-dark);">Built custom e-commerce solutions for local businesses, focusing on UX/UI design and modern web frameworks.</p>
-                </div>
-              </div>
-            </div>
-
-          </div>
-        </div>
-        </div>
-      </div>
-    </section>
   </main>
 
-  <!-- Footer -->
-  <footer id="contact" class="footer dark-bg reveal-on-scroll">
-    <div class="footer-grid">
-      <div class="footer-col" style="grid-column: 1 / -1; align-items: center; text-align: center;">
-        <h3 style="font-size: clamp(2rem, 5vw, 3rem); font-family: var(--font-heading); font-weight: 700; margin-bottom: 1.5rem; letter-spacing: -1px; color: #fff;">Let's Build Something Amazing!</h3>
-        <a href="mailto:m.devasis.singh@gmail.com" style="display: inline-flex; align-items: center; gap: 0.75rem; color: #00d2ff; text-decoration: none; font-size: 1.25rem; font-weight: 500; transition: color 0.2s ease; margin-bottom: 2rem;">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-          m.devasis.singh@gmail.com
-        </a>
-        <div style="display: flex; gap: 2rem; justify-content: center;">
-          <a href="https://github.com/Dev-Akuma" target="_blank" style="color: inherit; text-decoration: none; transition: opacity 0.2s ease; opacity: 0.8;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.8'">
-            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg>
-          </a>
-          <a href="https://www.linkedin.com/in/m-devasis-7108bb290" target="_blank" style="color: inherit; text-decoration: none; transition: opacity 0.2s ease; opacity: 0.8;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.8'">
-            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
-          </a>
-          <a href="https://www.instagram.com/dev._.akuma/" target="_blank" style="color: inherit; text-decoration: none; transition: opacity 0.2s ease; opacity: 0.8;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.8'">
-            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
-          </a>
-        </div>
+  <!-- Sticky Note Modal Preview (Placed at root body so it overlays the active screen) -->
+  <div class="note-modal-overlay" id="note-modal-overlay">
+    <div class="note-modal-card" id="note-modal-card">
+      <button class="note-modal-close" id="note-modal-close" aria-label="Close Note">&times;</button>
+      <div class="note-modal-category" id="note-modal-category">CATEGORY</div>
+      <h3 class="note-modal-title" id="note-modal-title">Note Title</h3>
+      <div class="note-modal-body" id="note-modal-body">
+        Full note content goes here...
       </div>
     </div>
-    <div style="text-align: center; margin-top: 4rem; opacity: 0.5; font-size: 0.9rem;">
-      <p>&copy; 2024 Dev Akuma. Designed and Built with ❤️</p>
+  </div>
+
+  <!-- ================= SECTION 5: UNPINNED CONTACT EXTENSION DRAWER ================= -->
+  <footer class="contact-drawer" id="contact">
+    <div class="contact-inner">
+      <h2 class="contact-title">CONTACT DETAILS AND CHANNELS</h2>
+      <div class="contact-links-grid">
+        <!-- Gmail -->
+        <a href="mailto:m.devasis.singh@gmail.com" class="contact-tile" title="Send email via Gmail">
+          <div class="contact-tile-content">
+            <svg class="contact-brand-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+              <polyline points="22,6 12,13 2,6"></polyline>
+            </svg>
+            <div class="contact-tile-text">
+              <span class="contact-platform">Gmail</span>
+              <span class="contact-detail">m.devasis.singh@gmail.com</span>
+            </div>
+          </div>
+          <span class="contact-arrow">&nearr;</span>
+        </a>
+
+        <!-- GitHub -->
+        <a href="https://github.com/Dev-Akuma" target="_blank" rel="noopener" class="contact-tile" title="Visit GitHub profile">
+          <div class="contact-tile-content">
+            <svg class="contact-brand-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+            </svg>
+            <div class="contact-tile-text">
+              <span class="contact-platform">GitHub</span>
+              <span class="contact-detail">@Dev-Akuma</span>
+            </div>
+          </div>
+          <span class="contact-arrow">&nearr;</span>
+        </a>
+
+        <!-- LinkedIn -->
+        <a href="https://www.linkedin.com/in/m-devasis-7108bb290" target="_blank" rel="noopener" class="contact-tile" title="Connect on LinkedIn">
+          <div class="contact-tile-content">
+            <svg class="contact-brand-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+              <rect x="2" y="9" width="4" height="12"></rect>
+              <circle cx="4" cy="4" r="2"></circle>
+            </svg>
+            <div class="contact-tile-text">
+              <span class="contact-platform">LinkedIn</span>
+              <span class="contact-detail">M. Devasis Singh</span>
+            </div>
+          </div>
+          <span class="contact-arrow">&nearr;</span>
+        </a>
+
+        <!-- LeetCode -->
+        <a href="https://leetcode.com/u/user1649kj/" target="_blank" rel="noopener" class="contact-tile" title="View LeetCode profile">
+          <div class="contact-tile-content">
+            <svg class="contact-brand-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="16 18 22 12 16 6"></polyline>
+              <polyline points="8 6 2 12 8 18"></polyline>
+            </svg>
+            <div class="contact-tile-text">
+              <span class="contact-platform">LeetCode</span>
+              <span class="contact-detail">@user1649kj</span>
+            </div>
+          </div>
+          <span class="contact-arrow">&nearr;</span>
+        </a>
+
+        <!-- Instagram -->
+        <a href="https://www.instagram.com/dev._.akuma/" target="_blank" rel="noopener" class="contact-tile" title="Follow on Instagram">
+          <div class="contact-tile-content">
+            <svg class="contact-brand-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+            </svg>
+            <div class="contact-tile-text">
+              <span class="contact-platform">Instagram</span>
+              <span class="contact-detail">@dev._.akuma</span>
+            </div>
+          </div>
+          <span class="contact-arrow">&nearr;</span>
+        </a>
+
+        <!-- Full Resume PDF -->
+        <a href="/23BAI70549_M.Devasis.Singh.pdf" target="_blank" rel="noopener" class="contact-tile resume-tile" title="Download Full Resume">
+          <div class="contact-tile-content">
+            <svg class="contact-brand-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+              <polyline points="14 2 14 8 20 8"></polyline>
+              <line x1="16" y1="13" x2="8" y2="13"></line>
+              <line x1="16" y1="17" x2="8" y2="17"></line>
+              <polyline points="10 9 9 9 8 9"></polyline>
+            </svg>
+            <div class="contact-tile-text">
+              <span class="contact-platform">Resume PDF</span>
+              <span class="contact-detail">23BAI70549_M.Devasis</span>
+            </div>
+          </div>
+          <span class="contact-arrow">&nearr;</span>
+        </a>
+      </div>
+      <div class="contact-footer-copy">
+        <span>© 2026 Mayengbam Devasis Singh (Dev-Akuma). Designed &amp; built with intention.</span>
+        <span>STATUS: OPEN FOR NEW OPPORTUNITIES</span>
+      </div>
     </div>
   </footer>
 

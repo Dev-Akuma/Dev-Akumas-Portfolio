@@ -1,391 +1,523 @@
-
 import './style.css';
 import { initShader, changeTheme } from './shader';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-document.addEventListener('DOMContentLoaded', () => {
-  console.log('Portfolio loaded');
-  initShader();
+gsap.registerPlugin(ScrollTrigger);
 
-  // Logo Theme Changer
-  const heroLogo = document.querySelector('.hero-logo');
-  if (heroLogo) {
-    heroLogo.addEventListener('click', () => {
-      changeTheme();
-    });
+// ==========================================
+// SKILLS DATA
+// ==========================================
+interface SkillItem {
+  name: string;
+  level: number; // 1 to 10
+  tags: string;
+}
+
+const SKILLS_DATABASE: Record<string, { title: string; skills: SkillItem[] }> = {
+  ai: {
+    title: 'ARTIFICIAL INTELLIGENCE & ML',
+    skills: [
+      { name: 'PyTorch / Neural Nets', level: 9, tags: 'Deep Learning' },
+      { name: 'LLM Agents & Prompt Ops', level: 9, tags: 'GenAI' },
+      { name: 'Computer Vision (OpenCV)', level: 8, tags: 'Vision' },
+      { name: 'Scikit-Learn / Classical ML', level: 8, tags: 'Data Sci' },
+      { name: 'Model Optimization / ONNX', level: 7, tags: 'Inference' },
+    ]
+  },
+  fundamentals: {
+    title: 'FUNDAMENTAL SKILLS',
+    skills: [
+      { name: 'Data Structures & Algorithms', level: 9, tags: 'Core CS' },
+      { name: 'Object Oriented Programming', level: 9, tags: 'Design' },
+      { name: 'Problem Solving & Math', level: 9, tags: 'Theory' },
+      { name: 'Version Control (Git/GitHub)', level: 8, tags: 'Workflow' },
+      { name: 'Operating Systems & Linux', level: 8, tags: 'Systems' },
+    ]
+  },
+  fullstack: {
+    title: 'FULL STACK DEVELOPMENT',
+    skills: [
+      { name: 'TypeScript & Modern JS', level: 9, tags: 'Frontend' },
+      { name: 'Node.js & Express / Fastify', level: 8, tags: 'Backend' },
+      { name: 'React / Next.js / Vite', level: 9, tags: 'UI Framework' },
+      { name: 'PostgreSQL & Supabase', level: 8, tags: 'Database' },
+      { name: 'REST & GraphQL APIs', level: 8, tags: 'Networking' },
+    ]
+  },
+  gamedev: {
+    title: 'GAME DEVELOPMENT',
+    skills: [
+      { name: 'Pygame & 2D Engines', level: 9, tags: 'Indie Dev' },
+      { name: 'Game Physics & Math', level: 8, tags: 'Simulation' },
+      { name: 'C++ & Memory Models', level: 7, tags: 'Performance' },
+      { name: 'Procedural Generation', level: 8, tags: 'Algorithms' },
+      { name: 'Pixel Art & Level Design', level: 8, tags: 'Art' },
+    ]
+  },
+  uiux: {
+    title: 'USER INTERFACE & EXPERIENCE',
+    skills: [
+      { name: 'Design Systems & Tokens', level: 9, tags: 'Design' },
+      { name: 'Micro-interactions & Motion', level: 9, tags: 'Animation' },
+      { name: 'Responsive Web Typography', level: 9, tags: 'Craft' },
+      { name: 'Figma UI Wireframing', level: 8, tags: 'Prototyping' },
+      { name: 'Accessibility & Contrast', level: 8, tags: 'Usability' },
+    ]
+  },
+  architecture: {
+    title: 'SYSTEM ARCHITECTURE & DESIGN',
+    skills: [
+      { name: 'Distributed System Concepts', level: 8, tags: 'Architecture' },
+      { name: 'Microservices & Event Buses', level: 7, tags: 'Backend' },
+      { name: 'Docker & Containerization', level: 8, tags: 'DevOps' },
+      { name: 'Caching Strategies (Redis)', level: 8, tags: 'Scale' },
+      { name: 'Cloud Pipelines (AWS/GCP)', level: 7, tags: 'Cloud' },
+    ]
+  },
+  other: {
+    title: 'OTHER SKILLS & INTERESTS',
+    skills: [
+      { name: 'Technical Writing & Research', level: 9, tags: 'Comms' },
+      { name: 'Creative Ideation & R&D', level: 10, tags: 'Mindset' },
+      { name: 'Late Night Philosophical Pondering', level: 10, tags: '3 AM' },
+      { name: 'Shader Programming (GLSL)', level: 7, tags: 'Graphics' },
+    ]
   }
+};
 
-  // Scroll Reveal Observer
-  const revealElements = document.querySelectorAll('.reveal-on-scroll');
-  const revealObserver = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting && !entry.target.classList.contains('revealed')) {
-        entry.target.classList.add('revealed');
-      }
-    });
-  }, { threshold: 0.15, rootMargin: "0px 0px -50px 0px" });
+// ==========================================
+// REAL PROJECTS DATA (FROM /public/Projects)
+// ==========================================
+interface ProjectItem {
+  id: string;
+  name: string;
+  title: string;
+  desc: string;
+  tags: string[];
+  link: string;
+  images: string[];
+}
 
-  revealElements.forEach(el => revealObserver.observe(el));
-
-  // Navbar ScrollSpy
-  const sections = document.querySelectorAll('section, footer');
-  const navLinks = document.querySelectorAll('.nav-links a');
-
-  const scrollSpyObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const id = entry.target.getAttribute('id');
-        navLinks.forEach(link => {
-          link.classList.remove('active');
-          if (link.getAttribute('href') === `#${id}`) {
-            link.classList.add('active');
-          }
-        });
-      }
-    });
-  }, { rootMargin: '-50% 0px -50% 0px' });
-
-  sections.forEach(section => {
-    scrollSpyObserver.observe(section);
-  });
-
-  // Scroll Scrubbing for Hero and About
-  const heroContent = document.querySelector('.hero-content') as HTMLElement;
-  const aboutSection = document.getElementById('about') as HTMLElement;
-  const aboutContainer = aboutSection?.querySelector('.about-panel-container') as HTMLElement;
-
-  let isScrolling = false;
-  window.addEventListener('scroll', () => {
-    if (!isScrolling) {
-      window.requestAnimationFrame(() => {
-        const scrollY = window.scrollY;
-
-        // Hero: Left-Right fade out as we scroll down (0 to 600px)
-        if (heroContent) {
-          const heroProgress = Math.min(1, Math.max(0, scrollY / 600)); // 0 to 1
-          const heroTranslate = scrollY * 0.4; // Slight parallax up
-          
-          heroContent.style.transform = `translateY(${heroTranslate}px)`;
-
-          heroContent.style.webkitMaskImage = `linear-gradient(to right, transparent 0%, transparent 33.33%, black 66.66%, black 100%)`;
-          heroContent.style.maskImage = `linear-gradient(to right, transparent 0%, transparent 33.33%, black 66.66%, black 100%)`;
-          heroContent.style.webkitMaskSize = `300% 100%`;
-          heroContent.style.maskSize = `300% 100%`;
-          
-          // Calculate mask position (100% -> visible, 0% -> hidden)
-          const maskPos = (1 - heroProgress) * 100;
-          heroContent.style.webkitMaskPosition = `${maskPos}% 0`;
-          heroContent.style.maskPosition = `${maskPos}% 0`;
-        }
-
-        // About: fade in as we scroll down
-        if (aboutSection && aboutContainer) {
-          const aboutTop = aboutSection.offsetTop;
-          const windowHeight = window.innerHeight;
-
-          // Calculate how far we've scrolled into the About section
-          // Starts fading in when the top of About enters the bottom of the screen
-          const distanceIntoView = (scrollY + windowHeight) - aboutTop;
-
-          if (distanceIntoView > 0) {
-            // Map distance to opacity (e.g. fully visible after 600px of scrolling into it)
-            const aboutOpacity = Math.min(1, Math.max(0, distanceIntoView / 600));
-            // Translate from 40px down to 0px
-            const aboutTranslate = Math.max(0, 40 - (distanceIntoView / 600) * 40);
-
-            aboutContainer.style.opacity = aboutOpacity.toString();
-            aboutContainer.style.transform = `translateY(${aboutTranslate}px)`;
-          } else {
-            aboutContainer.style.opacity = '0';
-            aboutContainer.style.transform = `translateY(40px)`;
-          }
-        }
-        
-        isScrolling = false;
-      });
-      isScrolling = true;
-    }
-  });
-
-  // Trigger scroll event once to set initial states
-  window.dispatchEvent(new Event('scroll'));
-
-  // Tab Sliding System (Multiple Tracks)
-  const tracks = document.querySelectorAll('.tabs-track');
-
-  tracks.forEach(trackElement => {
-    // Skip hidden tracks (like desktop tabs on mobile, or mobile tabs on desktop)
-    if (trackElement.closest('.desktop-tabs') && window.innerWidth <= 768) return;
-    if (trackElement.closest('.mobile-tabs') && window.innerWidth > 768) return;
-
-    const track = trackElement as HTMLElement;
-    const parallaxContents = track.querySelectorAll('.parallax-content');
-    const slides = track.querySelectorAll('.tab-slide');
-    if (!slides.length) return;
-
-    let isDragging = false;
-    let startX = 0;
-    let currentTranslate = 0;
-    let prevTranslate = 0;
-    let animationID = 0;
-    let currentIndex = 0;
-
-    const parentViewport = track.closest('.tabs-viewport');
-    const navArrowLeft = parentViewport?.querySelector('.nav-arrow-left') as HTMLElement | null;
-    const navArrowRight = parentViewport?.querySelector('.nav-arrow-right') as HTMLElement | null;
-
-    // Touch Events
-    track.addEventListener('touchstart', touchStart, { passive: true });
-    track.addEventListener('touchend', touchEnd);
-    track.addEventListener('touchmove', touchMove, { passive: true });
-
-    // Mouse Events
-    track.addEventListener('mousedown', touchStart);
-    track.addEventListener('mouseup', touchEnd);
-    track.addEventListener('mouseleave', touchEnd);
-    track.addEventListener('mousemove', touchMove);
-
-    function getSlideWidth() {
-      // Find the first slide that is actually visible (offsetWidth > 0)
-      const firstSlide = Array.from(slides).find(slide => (slide as HTMLElement).offsetWidth > 0) as HTMLElement;
-      return firstSlide ? firstSlide.offsetWidth : window.innerWidth;
-    }
-
-    function touchStart(e: TouchEvent | MouseEvent) {
-      isDragging = true;
-      startX = getPositionX(e);
-      track.classList.add('dragging');
-      animationID = requestAnimationFrame(animation);
-    }
-
-    function touchEnd() {
-      if (!isDragging) return;
-      isDragging = false;
-      cancelAnimationFrame(animationID);
-      track.classList.remove('dragging');
-
-      // Determine nearest slide
-      const movedBy = currentTranslate - prevTranslate;
-
-      // Threshold to switch slide
-      if (movedBy < -100 && currentIndex < slides.length - 1) currentIndex += 1;
-      if (movedBy > 100 && currentIndex > 0) currentIndex -= 1;
-
-      updateTabState(currentIndex);
-    }
-
-    function touchMove(e: TouchEvent | MouseEvent) {
-      if (isDragging) {
-        const currentPosition = getPositionX(e);
-        currentTranslate = prevTranslate + currentPosition - startX;
-      }
-    }
-
-    function getPositionX(event: TouchEvent | MouseEvent) {
-      return event.type.includes('mouse') ? (event as MouseEvent).pageX : (event as TouchEvent).touches[0].clientX;
-    }
-
-    function animation() {
-      setSliderPosition();
-      if (isDragging) requestAnimationFrame(animation);
-    }
-
-    function setSliderPosition() {
-      track.style.transform = `translateX(${currentTranslate}px)`;
-
-      // Parallax effect
-      const slideWidth = getSlideWidth();
-      parallaxContents.forEach((content) => {
-        const slideIndex = Array.from(track.children).indexOf(content.closest('.tab-slide') as Element);
-        const slideOffset = -(slideIndex * slideWidth);
-        const relativeTranslate = currentTranslate - slideOffset;
-
-        // Move content slightly opposite to the drag direction
-        (content as HTMLElement).style.transform = `translateX(${-relativeTranslate * 0.15}px)`;
-      });
-    }
-
-    // Update State when clicking dots or releasing drag
-    function updateTabState(index: number) {
-      currentIndex = index;
-      const slideWidth = getSlideWidth();
-      prevTranslate = currentIndex * -slideWidth;
-      currentTranslate = prevTranslate;
-
-      track.style.transform = `translateX(${currentTranslate}px)`;
-
-      // Reset parallax contents cleanly
-      parallaxContents.forEach(content => {
-        (content as HTMLElement).style.transform = `translateX(0px)`;
-      });
-
-      // Update Dynamic Arrows (if any)
-      const totalTabs = slides.length;
-      
-      if (navArrowLeft) {
-        const tabsLeft = index;
-        if (tabsLeft === 0) {
-          navArrowLeft.style.transform = 'translateY(-50%) scale(0)';
-          navArrowLeft.style.opacity = '0';
-        } else {
-          const scale = 0.8 + (tabsLeft * 0.2);
-          navArrowLeft.style.transform = `translateY(-50%) scale(${scale})`;
-          navArrowLeft.style.opacity = '1';
-        }
-      }
-      
-      if (navArrowRight) {
-        const tabsRight = (totalTabs - 1) - index;
-        if (tabsRight === 0) {
-          navArrowRight.style.transform = 'translateY(-50%) scale(0)';
-          navArrowRight.style.opacity = '0';
-        } else {
-          const scale = 0.8 + (tabsRight * 0.2);
-          navArrowRight.style.transform = `translateY(-50%) scale(${scale})`;
-          navArrowRight.style.opacity = '1';
-        }
-      }
-    }
-
-    // Dynamic Arrows Click Logic
-    if (navArrowLeft) {
-      navArrowLeft.addEventListener('click', () => {
-        if (currentIndex > 0) updateTabState(currentIndex - 1);
-      });
-    }
-    if (navArrowRight) {
-      navArrowRight.addEventListener('click', () => {
-        if (currentIndex < slides.length - 1) updateTabState(currentIndex + 1);
-      });
-    }
-
-    // Initial call to set up track
-    updateTabState(currentIndex);
-
-    window.addEventListener('resize', () => {
-      updateTabState(currentIndex);
-    });
-  });
-
-  // Squarey Maze Image Rotation
-  const squareyMazeImagePane = document.getElementById('squarey-maze-image-pane');
-  const squareyMazeThumbnails = document.querySelectorAll('.sq-thumb');
-  
-  if (squareyMazeImagePane) {
-    const images = [
+const PROJECTS_DATABASE: Record<string, ProjectItem> = {
+  squarey: {
+    id: 'squarey',
+    name: 'SQUAREY MAZE',
+    title: 'SQUAREY MAZE - RETRO ADVENTURE',
+    desc: 'An atmospheric retro puzzle maze adventure featuring custom pathfinding logic, procedural dungeons, dynamic retro lighting and pixel storytelling.',
+    tags: ['Game Engine', 'Pixel Art', 'Procedural Gen', 'Pygame'],
+    link: 'https://github.com/Dev-Akuma',
+    images: [
       '/Projects/Squarey Maze/0.jpeg',
       '/Projects/Squarey Maze/1.jpeg',
       '/Projects/Squarey Maze/2.jpeg',
       '/Projects/Squarey Maze/3.jpeg',
       '/Projects/Squarey Maze/4.jpeg',
       '/Projects/Squarey Maze/5.jpeg'
-    ];
-    let currentImageIndex = 0;
-    let autoRotateInterval: number | undefined;
-
-    const updateThumbnails = () => {
-      squareyMazeThumbnails.forEach((thumb, idx) => {
-        const el = thumb as HTMLElement;
-        if (idx === currentImageIndex) {
-          el.style.border = '2px solid #fff';
-          el.style.opacity = '1';
-        } else {
-          el.style.border = '2px solid transparent';
-          el.style.opacity = '0.5';
-        }
-      });
-    };
-
-    const setImage = (index: number) => {
-      currentImageIndex = index;
-      squareyMazeImagePane.style.backgroundImage = `url('${images[currentImageIndex]}')`;
-      updateThumbnails();
-    };
-
-    const nextImage = () => {
-      setImage((currentImageIndex + 1) % images.length);
-    };
-
-    const startAutoRotate = () => {
-      clearInterval(autoRotateInterval);
-      autoRotateInterval = setInterval(nextImage, 5000);
-    };
-
-    // Initialize auto rotation
-    startAutoRotate();
-
-    // Change image on main pane click
-    squareyMazeImagePane.addEventListener('click', () => {
-      nextImage();
-      startAutoRotate(); // reset timer
-    });
-    
-    // Change image on thumbnail click
-    squareyMazeThumbnails.forEach((thumb) => {
-      thumb.addEventListener('click', (e) => {
-        const index = parseInt((e.target as HTMLElement).getAttribute('data-index') || '0', 10);
-        setImage(index);
-        startAutoRotate(); // reset timer
-      });
-    });
-  }
-
-  // Compass Image Rotation
-  const compassImagePane = document.getElementById('compass-image-pane');
-  const compassThumbnails = document.querySelectorAll('.compass-thumb');
-  
-  if (compassImagePane) {
-    const compassImages = [
+    ]
+  },
+  compass: {
+    id: 'compass',
+    name: 'THE COMPASS',
+    title: 'THE COMPASS - YOUR PERSONAL GUIDE',
+    desc: 'A Platform where you can reflect on your day and life, to make each day a little better and your life a little brighter than yesterday.',
+    tags: ['Web Application', 'Interactive Canvas', 'TypeScript', 'UI/UX'],
+    link: 'https://github.com/Dev-Akuma',
+    images: [
       '/Projects/The Compass/0.png',
       '/Projects/The Compass/1.png',
       '/Projects/The Compass/2.png'
-    ];
-    let currentCompassImageIndex = 0;
-    let compassAutoRotateInterval: number | undefined;
+    ]
+  }
+};
 
-    const updateCompassThumbnails = () => {
-      compassThumbnails.forEach((thumb, idx) => {
-        const el = thumb as HTMLElement;
-        if (idx === currentCompassImageIndex) {
-          el.style.border = '2px solid #fff';
-          el.style.opacity = '1';
-        } else {
-          el.style.border = '2px solid transparent';
-          el.style.opacity = '0.5';
-        }
-      });
-    };
+// ==========================================
+// STICKY NOTES DATA (FOR ABOUT ME SECTION)
+// ==========================================
+const NOTES_DATABASE: Record<string, { category: string; title: string; body: string }> = {
+  '1': {
+    category: 'MINDSET & PHILOSOPHY',
+    title: 'Core Motto: "I don\'t like being put down to one thing."',
+    body: 'I believe in being a multidisciplinary builder. Rather than limiting myself to a single narrow specialization, I thrive at the intersections—where AI models meet playful game mechanics, where mathematical algorithms transform into tactile interfaces, and where code serves human curiosity.'
+  },
+  '2': {
+    category: 'TECHNICAL ARCHITECTURE',
+    title: 'Artificial Intelligence & Agentic Loops',
+    body: 'Passionate about modern AI engineering—from training neural models and fine-tuning representations to architecting deterministic multi-agent orchestration pipelines. I like testing the boundary of LLM reasoning, code-generation agents, and local vision models.'
+  },
+  '3': {
+    category: 'CREATIVE COMPUTING',
+    title: 'Game Development, Graphics & Shaders',
+    body: 'Games are the pinnacle of software craftsmanship because they demand 60FPS deterministic physics, real-time audio/visual syncing, and psychological player engagement. I love designing procedural generation rules, custom GLSL fragment shaders, and nostalgic pixel art.'
+  },
+  '4': {
+    category: 'OBSESSIONS & CURIOSITY',
+    title: 'The 3 AM Curiosity Deep-Dive',
+    body: 'Some of my best prototypes began at 3:00 AM wondering how something works under the hood. Whether it is reading academic papers, dissecting graphics pipelines, or pondering why humans invent tools, curiosity is my perpetual fuel.'
+  }
+};
 
-    const setCompassImage = (index: number) => {
-      currentCompassImageIndex = index;
-      compassImagePane.style.backgroundImage = `url('${compassImages[currentCompassImageIndex]}')`;
-      updateCompassThumbnails();
-    };
+// ==========================================
+// DOM SETUP & INITIALIZATION
+// ==========================================
+document.addEventListener('DOMContentLoaded', () => {
+  // Initialize background Three.js shader
+  initShader();
 
-    const nextCompassImage = () => {
-      setCompassImage((currentCompassImageIndex + 1) % compassImages.length);
-    };
-
-    const startCompassAutoRotate = () => {
-      clearInterval(compassAutoRotateInterval);
-      compassAutoRotateInterval = setInterval(nextCompassImage, 5000);
-    };
-
-    // Initialize auto rotation
-    startCompassAutoRotate();
-
-    // Change image on main pane click
-    compassImagePane.addEventListener('click', () => {
-      nextCompassImage();
-      startCompassAutoRotate(); // reset timer
+  const brandTrigger = document.getElementById('brand-logo-trigger');
+  if (brandTrigger) {
+    brandTrigger.addEventListener('click', () => {
+      changeTheme();
     });
-    
-    // Change image on thumbnail click
-    compassThumbnails.forEach((thumb) => {
-      thumb.addEventListener('click', (e) => {
-        const index = parseInt((e.target as HTMLElement).getAttribute('data-index') || '0', 10);
-        setCompassImage(index);
-        startCompassAutoRotate(); // reset timer
+  }
+
+  // Render initial Skills category
+  renderSkills('ai');
+
+  // Render initial Project details
+  renderProject('squarey');
+
+  // Setup UI event listeners
+  setupSkillsInteractivity();
+  setupProjectsInteractivity();
+  setupTablet3DTilt();
+  setupStickyNotesDesk();
+
+  // Setup GSAP Pinned Scroll with Soft Snapping and Active Navbar Highlighting
+  setupPinnedHorizontalScroll();
+});
+
+// ==========================================
+// SKILLS INTERACTION
+// ==========================================
+function renderSkills(categoryKey: string) {
+  const data = SKILLS_DATABASE[categoryKey];
+  if (!data) return;
+
+  const titleEl = document.getElementById('tablet-cat-title');
+  const contentEl = document.getElementById('tablet-skills-content');
+  if (titleEl) titleEl.textContent = data.title;
+
+  if (contentEl) {
+    contentEl.innerHTML = data.skills
+      .map(
+        (skill) => `
+        <div class="skill-row">
+          <div class="skill-row-top">
+            <span>${skill.name}</span>
+            <span style="color: #79c0ff;">LVL ${skill.level}/10 [${skill.tags}]</span>
+          </div>
+          <div class="skill-meter-bg">
+            <div class="skill-meter-fill" style="width: ${skill.level * 10}%;"></div>
+          </div>
+        </div>
+      `
+      )
+      .join('');
+  }
+}
+
+function setupSkillsInteractivity() {
+  const buttons = document.querySelectorAll('.skill-category-btn');
+  buttons.forEach((btn) => {
+    btn.addEventListener('mouseenter', () => {
+      const cat = btn.getAttribute('data-cat');
+      if (cat) {
+        buttons.forEach((b) => b.classList.remove('active'));
+        btn.classList.add('active');
+        renderSkills(cat);
+      }
+    });
+
+    btn.addEventListener('click', () => {
+      const cat = btn.getAttribute('data-cat');
+      if (cat) {
+        buttons.forEach((b) => b.classList.remove('active'));
+        btn.classList.add('active');
+        renderSkills(cat);
+      }
+    });
+  });
+}
+
+function setupTablet3DTilt() {
+  const chassis = document.getElementById('tablet-chassis');
+  const stage = document.querySelector('.tablet-perspective-stage') as HTMLElement;
+  if (!chassis || !stage) return;
+
+  stage.addEventListener('mousemove', (e) => {
+    const rect = stage.getBoundingClientRect();
+    const x = e.clientX - rect.left - rect.width / 2;
+    const y = e.clientY - rect.top - rect.height / 2;
+    const rotX = -(y / rect.height) * 16 + 4;
+    const rotY = (x / rect.width) * 16 - 4;
+    chassis.style.transform = `rotateX(${rotX.toFixed(2)}deg) rotateY(${rotY.toFixed(2)}deg)`;
+  });
+
+  stage.addEventListener('mouseleave', () => {
+    chassis.style.transform = `rotateX(8deg) rotateY(-8deg) rotateZ(1deg)`;
+  });
+}
+
+// ==========================================
+// PROJECTS INTERACTION (PLAYSTORE-STYLE VIEWER)
+// ==========================================
+function renderProject(projectId: string) {
+  const proj = PROJECTS_DATABASE[projectId];
+  if (!proj) return;
+
+  const titleEl = document.getElementById('project-title');
+  const descEl = document.getElementById('project-desc');
+  const tagsEl = document.getElementById('project-tags');
+  const mainDisplay = document.getElementById('project-main-display') as HTMLImageElement;
+  const thumbnailsStrip = document.getElementById('project-thumbnails');
+  const linkEl = document.getElementById('project-action-btn') as HTMLAnchorElement;
+
+  if (titleEl) titleEl.textContent = proj.title;
+  if (descEl) descEl.textContent = proj.desc;
+  if (linkEl) linkEl.href = proj.link;
+
+  if (tagsEl) {
+    tagsEl.innerHTML = proj.tags.map((t) => `<span class="tag-pill">${t}</span>`).join('');
+  }
+
+  // Set initial main display image
+  if (mainDisplay && proj.images.length > 0) {
+    mainDisplay.src = proj.images[0];
+  }
+
+  // Populate interactive thumbnail selector strip
+  if (thumbnailsStrip) {
+    thumbnailsStrip.innerHTML = proj.images
+      .map(
+        (src, idx) => `
+        <button class="project-thumb-btn ${idx === 0 ? 'active' : ''}" data-img="${src}" aria-label="Select preview image">
+          <img src="${src}" alt="Screenshot thumbnail" loading="lazy" />
+        </button>
+      `
+      )
+      .join('');
+
+    const thumbBtns = thumbnailsStrip.querySelectorAll('.project-thumb-btn');
+    thumbBtns.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        thumbBtns.forEach((b) => b.classList.remove('active'));
+        btn.classList.add('active');
+        const targetSrc = btn.getAttribute('data-img');
+        if (mainDisplay && targetSrc) {
+          mainDisplay.style.opacity = '0.3';
+          setTimeout(() => {
+            mainDisplay.src = targetSrc;
+            mainDisplay.style.opacity = '1';
+          }, 120);
+        }
       });
     });
   }
-});
+}
+
+function setupProjectsInteractivity() {
+  const items = document.querySelectorAll('.project-feed-item');
+  items.forEach((item) => {
+    item.addEventListener('mouseenter', () => {
+      const pid = item.getAttribute('data-project');
+      if (pid) {
+        items.forEach((i) => i.classList.remove('active'));
+        item.classList.add('active');
+        renderProject(pid);
+      }
+    });
+
+    item.addEventListener('click', () => {
+      const pid = item.getAttribute('data-project');
+      if (pid) {
+        items.forEach((i) => i.classList.remove('active'));
+        item.classList.add('active');
+        renderProject(pid);
+      }
+    });
+  });
+}
+
+// ==========================================
+// STICKY NOTES DESK (ABOUT ME)
+// ==========================================
+function setupStickyNotesDesk() {
+  const notes = document.querySelectorAll('.sticky-note');
+  const modalOverlay = document.getElementById('note-modal-overlay');
+  const modalClose = document.getElementById('note-modal-close');
+  const modalCat = document.getElementById('note-modal-category');
+  const modalTitle = document.getElementById('note-modal-title');
+  const modalBody = document.getElementById('note-modal-body');
+
+  notes.forEach((note) => {
+    note.addEventListener('click', () => {
+      const nid = note.getAttribute('data-note-id');
+      if (!nid || !NOTES_DATABASE[nid]) return;
+      const data = NOTES_DATABASE[nid];
+
+      if (modalCat) modalCat.textContent = data.category;
+      if (modalTitle) modalTitle.textContent = data.title;
+      if (modalBody) modalBody.textContent = data.body;
+      if (modalOverlay) modalOverlay.classList.add('open');
+    });
+  });
+
+  if (modalClose && modalOverlay) {
+    modalClose.addEventListener('click', () => {
+      modalOverlay.classList.remove('open');
+    });
+    modalOverlay.addEventListener('click', (e) => {
+      if (e.target === modalOverlay) {
+        modalOverlay.classList.remove('open');
+      }
+    });
+  }
+}
+
+// ==========================================
+// GSAP PINNED HORIZONTAL SCROLL & SOFT SNAPPING
+// ==========================================
+function setupPinnedHorizontalScroll() {
+  const mm = gsap.matchMedia();
+
+  // Desktop (> 1024px)
+  mm.add('(min-width: 1025px)', () => {
+    const track = document.getElementById('horizontal-track');
+    const scrollWrapper = document.getElementById('scroll-wrapper');
+    const navAnchors = document.querySelectorAll('.nav-anchor');
+    if (!track || !scrollWrapper) return;
+
+    // Controlled scroll tween without aggressive multi-section auto-snap
+    const scrollTween = gsap.to(track, {
+      x: () => -(track.scrollWidth - window.innerWidth),
+      ease: 'none',
+      scrollTrigger: {
+        trigger: scrollWrapper,
+        start: 'top top',
+        end: 'bottom bottom',
+        scrub: 0.6,
+        invalidateOnRefresh: true,
+        // Active navbar highlighting based on scroll progress
+        onUpdate: (self) => {
+          const progress = self.progress;
+          let activeIndex = 0;
+          if (progress >= 0.82) activeIndex = 3;
+          else if (progress >= 0.50) activeIndex = 2;
+          else if (progress >= 0.16) activeIndex = 1;
+          else activeIndex = 0;
+
+          navAnchors.forEach((link, idx) => {
+            if (idx === activeIndex) {
+              link.classList.add('active');
+            } else {
+              link.classList.remove('active');
+            }
+          });
+        }
+      }
+    });
+
+    // Intelligent Wheel Snapping & Velocity Damper:
+    // Allows viewing mid-transition freely during gentle scrolling,
+    // but when an aggressive scroll occurs, it clamps and stops cleanly at the next section marker.
+    let wheelTimeout: ReturnType<typeof setTimeout> | null = null;
+    let accumulatedDelta = 0;
+    const sectionThreshold = 180; // distance threshold before snapping to the adjacent section
+
+    window.addEventListener('wheel', (e) => {
+      const maxScroll = scrollWrapper.offsetHeight - window.innerHeight;
+      const currentScroll = window.scrollY;
+
+      // Only engage threshold snapping while inside the pinned stages
+      if (currentScroll < maxScroll) {
+        accumulatedDelta += e.deltaY;
+
+        if (wheelTimeout) clearTimeout(wheelTimeout);
+
+        wheelTimeout = setTimeout(() => {
+          if (Math.abs(accumulatedDelta) > sectionThreshold) {
+            const currentSectionProgress = currentScroll / maxScroll;
+            const step = 1 / 3;
+            let targetIndex = Math.round(currentSectionProgress * 3);
+
+            if (accumulatedDelta > sectionThreshold) {
+              // Scrolling down aggressively -> stop at next section
+              targetIndex = Math.min(3, Math.floor(currentSectionProgress * 3) + 1);
+            } else if (accumulatedDelta < -sectionThreshold) {
+              // Scrolling up aggressively -> stop at previous section
+              targetIndex = Math.max(0, Math.ceil(currentSectionProgress * 3) - 1);
+            }
+
+            const targetY = targetIndex * step * maxScroll;
+            gsap.to(window, {
+              scrollTo: targetY,
+              duration: 0.45,
+              ease: 'power2.out',
+              overwrite: 'auto'
+            });
+          }
+          accumulatedDelta = 0;
+        }, 90);
+      }
+    }, { passive: true });
+
+    // Sync navbar links with scroll position (Navbar bypasses wheel damping freely)
+    navAnchors.forEach((link) => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const sectionIdx = parseInt(link.getAttribute('data-section') || '0', 10);
+        const maxScroll = scrollWrapper.offsetHeight - window.innerHeight;
+        const targetScroll = (sectionIdx / 3) * maxScroll;
+        window.scrollTo({
+          top: targetScroll,
+          behavior: 'smooth'
+        });
+      });
+    });
+
+    // Contact button smooth scroll past pin
+    const contactBtn = document.querySelector('.nav-anchor-contact');
+    if (contactBtn) {
+      contactBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const contactSection = document.getElementById('contact');
+        if (contactSection) {
+          contactSection.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+
+      // Highlight contact when scrolled past the pinned stage
+      ScrollTrigger.create({
+        trigger: '#contact',
+        start: 'top 75%',
+        onEnter: () => {
+          navAnchors.forEach((a) => a.classList.remove('active'));
+          contactBtn.classList.add('active');
+        },
+        onLeaveBack: () => {
+          contactBtn.classList.remove('active');
+        }
+      });
+    }
+
+    return () => {
+      scrollTween.kill();
+    };
+  });
+
+  // Mobile / Tablet (<= 1024px): Standard vertical scroll
+  mm.add('(max-width: 1024px)', () => {
+    const anchors = document.querySelectorAll('.nav-anchor, .nav-anchor-contact');
+    anchors.forEach((link) => {
+      link.addEventListener('click', (e) => {
+        const href = link.getAttribute('href');
+        if (href && href.startsWith('#')) {
+          e.preventDefault();
+          const target = document.querySelector(href);
+          target?.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    });
+  });
+}
