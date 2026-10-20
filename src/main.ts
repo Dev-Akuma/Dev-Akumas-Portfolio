@@ -182,6 +182,7 @@ document.addEventListener('DOMContentLoaded', () => {
   setupProjectsInteractivity();
   setupTablet3DTilt();
   setupStickyNotesDesk();
+  setupHeroPaintbrush();
 
   // Setup GSAP Pinned Scroll with Soft Snapping and Active Navbar Highlighting
   setupPinnedHorizontalScroll();
@@ -373,6 +374,156 @@ function setupStickyNotesDesk() {
       }
     });
   }
+}
+
+// ==========================================
+// HERO PORTRAIT PAINTBRUSH REVEAL EFFECT
+// ==========================================
+function setupHeroPaintbrush() {
+  const card = document.getElementById('hero-portrait-card');
+  const revealLayer = document.getElementById('portrait-paint-reveal');
+  const canvas = document.getElementById('portrait-paint-canvas') as HTMLCanvasElement | null;
+  if (!card || !revealLayer || !canvas) return;
+
+  const ctx = canvas.getContext('2d', { willReadFrequently: true });
+  if (!ctx) return;
+
+  let width = 0;
+  let height = 0;
+  let lastX = -1;
+  let lastY = -1;
+
+  function resizeCanvas() {
+    const rect = card!.getBoundingClientRect();
+    if (rect.width === 0 || rect.height === 0) return;
+    
+    // Use device pixel ratio for smooth high-res brush strokes
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    width = rect.width;
+    height = rect.height;
+
+    canvas!.width = width * dpr;
+    canvas!.height = height * dpr;
+    ctx!.scale(dpr, dpr);
+    ctx!.lineCap = 'round';
+    ctx!.lineJoin = 'round';
+
+    updateCssMask();
+  }
+
+  function updateCssMask() {
+    try {
+      const dataUrl = canvas!.toDataURL('image/png');
+      revealLayer!.style.setProperty('--paint-mask', `url(${dataUrl})`);
+    } catch (_) {
+      // In case of any cross-origin restrictions, fallback seamlessly
+    }
+  }
+
+  function drawStroke(x: number, y: number) {
+    if (!ctx) return;
+    const radius = 45; // Paintbrush radius
+
+    ctx.save();
+    // Soft organic radial brush stamp
+    const grad = ctx.createRadialGradient(x, y, radius * 0.15, x, y, radius);
+    grad.addColorStop(0, 'rgba(0, 0, 0, 1)');
+    grad.addColorStop(0.7, 'rgba(0, 0, 0, 0.85)');
+    grad.addColorStop(1, 'rgba(0, 0, 0, 0)');
+
+    ctx.fillStyle = grad;
+    ctx.beginPath();
+    ctx.arc(x, y, radius, 0, Math.PI * 2);
+    ctx.fill();
+
+    // If mouse was dragging/moving quickly, connect points with a feathered stroke
+    if (lastX >= 0 && lastY >= 0) {
+      ctx.lineWidth = radius * 1.5;
+      ctx.strokeStyle = 'rgba(0, 0, 0, 0.9)';
+      ctx.beginPath();
+      ctx.moveTo(lastX, lastY);
+      ctx.lineTo(x, y);
+      ctx.stroke();
+    }
+    ctx.restore();
+
+    lastX = x;
+    lastY = y;
+  }
+
+  // Paint fade controller:
+  // - Paint stays bright while active
+  // - Once user stops painting or moves pointer away, it stays for ~1.5s before gently evaporating
+  // - Continuous animation loop ensures the fade finishes smoothly even when pointer leaves the region
+  let lastPaintTime = 0;
+  let hasPaintStrokes = false;
+  const FADE_DELAY_MS = 1400; // Delay before starting to fade
+  let maskUpdatePending = false;
+
+  function scheduleMaskUpdate() {
+    if (!maskUpdatePending) {
+      maskUpdatePending = true;
+      requestAnimationFrame(() => {
+        updateCssMask();
+        maskUpdatePending = false;
+      });
+    }
+  }
+
+  function loop() {
+    if (ctx && width > 0 && height > 0 && hasPaintStrokes) {
+      const now = performance.now();
+      // Start fading only after idle delay has elapsed
+      if (now - lastPaintTime > FADE_DELAY_MS) {
+        // Very gentle fade out: slowly evaporates the painted strokes
+        ctx.save();
+        ctx.globalCompositeOperation = 'destination-out';
+        ctx.fillStyle = 'rgba(0, 0, 0, 0.007)'; // silky smooth slow evaporation
+        ctx.fillRect(0, 0, width, height);
+        ctx.restore();
+
+        scheduleMaskUpdate();
+      }
+    }
+    requestAnimationFrame(loop);
+  }
+
+  window.addEventListener('resize', () => {
+    resizeCanvas();
+  });
+
+  // Give DOM a frame to compute natural bounding box
+  setTimeout(() => {
+    resizeCanvas();
+    loop();
+  }, 100);
+
+  // Paintbrush tracking
+  card.addEventListener('pointerenter', (e) => {
+    lastPaintTime = performance.now();
+    hasPaintStrokes = true;
+    const rect = card.getBoundingClientRect();
+    lastX = e.clientX - rect.left;
+    lastY = e.clientY - rect.top;
+    drawStroke(lastX, lastY);
+    scheduleMaskUpdate();
+  });
+
+  card.addEventListener('pointermove', (e) => {
+    lastPaintTime = performance.now();
+    hasPaintStrokes = true;
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    drawStroke(x, y);
+    scheduleMaskUpdate();
+  });
+
+  card.addEventListener('pointerleave', () => {
+    lastX = -1;
+    lastY = -1;
+    // Note: hasPaintStrokes stays true so the loop continues to fade and update mask asynchronously even outside!
+  });
 }
 
 // ==========================================

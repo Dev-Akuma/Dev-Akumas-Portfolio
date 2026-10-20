@@ -80,8 +80,14 @@
               </div>
             </div>
             <div class="hero-image-wrapper">
-              <div class="hero-portrait-card">
-                <img src="/assets/Mee.png" alt="Mayengbam Devasis Singh (Dev-Akuma)" loading="eager" />
+              <div class="hero-portrait-card" id="hero-portrait-card">
+                <!-- Base sketched layer -->
+                <img src="/assets/etch-sketch.png" alt="Mayengbam Devasis Singh (Sketch)" class="portrait-base-sketch" loading="eager" />
+                <!-- Painted full-color reveal layer -->
+                <div class="portrait-paint-reveal" id="portrait-paint-reveal">
+                  <img src="/assets/Mee.png" alt="Mayengbam Devasis Singh (Color)" class="portrait-color-img" loading="eager" />
+                  <canvas id="portrait-paint-canvas" class="portrait-paint-canvas"></canvas>
+                </div>
               </div>
             </div>
           </div>

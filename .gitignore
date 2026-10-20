@@ -27,3 +27,4 @@ dist-ssr
 # Agents Store
 .agents/*
 .agent/*
+.taste-skill/*
