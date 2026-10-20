@@ -219,26 +219,74 @@ function renderSkills(categoryKey: string) {
 }
 
 function setupSkillsInteractivity() {
+  const categoryKeys = Object.keys(SKILLS_DATABASE);
+  let currentCategoryIndex = 0;
   const buttons = document.querySelectorAll('.skill-category-btn');
-  buttons.forEach((btn) => {
-    btn.addEventListener('mouseenter', () => {
-      const cat = btn.getAttribute('data-cat');
-      if (cat) {
-        buttons.forEach((b) => b.classList.remove('active'));
-        btn.classList.add('active');
-        renderSkills(cat);
+
+  function setCategory(index: number) {
+    if (index < 0) index = categoryKeys.length - 1;
+    if (index >= categoryKeys.length) index = 0;
+    currentCategoryIndex = index;
+    const cat = categoryKeys[currentCategoryIndex];
+
+    buttons.forEach((b) => {
+      if (b.getAttribute('data-cat') === cat) {
+        b.classList.add('active');
+      } else {
+        b.classList.remove('active');
       }
+    });
+    renderSkills(cat);
+  }
+
+  buttons.forEach((btn, idx) => {
+    btn.addEventListener('mouseenter', () => {
+      setCategory(idx);
     });
 
     btn.addEventListener('click', () => {
-      const cat = btn.getAttribute('data-cat');
-      if (cat) {
-        buttons.forEach((b) => b.classList.remove('active'));
-        btn.classList.add('active');
-        renderSkills(cat);
-      }
+      setCategory(idx);
     });
   });
+
+  // Next / Prev switcher buttons
+  const prevBtn = document.getElementById('skills-prev-btn');
+  const nextBtn = document.getElementById('skills-next-btn');
+
+  prevBtn?.addEventListener('click', () => {
+    setCategory(currentCategoryIndex - 1);
+  });
+
+  nextBtn?.addEventListener('click', () => {
+    setCategory(currentCategoryIndex + 1);
+  });
+
+  // Touch Swipe on Tablet Chassis (Mobile swipe left/right)
+  const chassis = document.getElementById('tablet-chassis');
+  if (chassis) {
+    let touchStartX = 0;
+    let touchStartY = 0;
+
+    chassis.addEventListener('touchstart', (e) => {
+      touchStartX = e.touches[0].clientX;
+      touchStartY = e.touches[0].clientY;
+    }, { passive: true });
+
+    chassis.addEventListener('touchend', (e) => {
+      const touchEndX = e.changedTouches[0].clientX;
+      const touchEndY = e.changedTouches[0].clientY;
+      const diffX = touchEndX - touchStartX;
+      const diffY = touchEndY - touchStartY;
+
+      if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 35) {
+        if (diffX < 0) {
+          setCategory(currentCategoryIndex + 1);
+        } else {
+          setCategory(currentCategoryIndex - 1);
+        }
+      }
+    }, { passive: true });
+  }
 }
 
 function setupTablet3DTilt() {
@@ -247,6 +295,7 @@ function setupTablet3DTilt() {
   if (!chassis || !stage) return;
 
   stage.addEventListener('mousemove', (e) => {
+    if (window.innerWidth <= 1024) return;
     const rect = stage.getBoundingClientRect();
     const x = e.clientX - rect.left - rect.width / 2;
     const y = e.clientY - rect.top - rect.height / 2;
@@ -256,6 +305,7 @@ function setupTablet3DTilt() {
   });
 
   stage.addEventListener('mouseleave', () => {
+    if (window.innerWidth <= 1024) return;
     chassis.style.transform = `rotateX(8deg) rotateY(-8deg) rotateZ(1deg)`;
   });
 }
@@ -318,26 +368,76 @@ function renderProject(projectId: string) {
 }
 
 function setupProjectsInteractivity() {
+  const projectKeys = Object.keys(PROJECTS_DATABASE);
+  let currentProjectIndex = 0;
   const items = document.querySelectorAll('.project-feed-item');
-  items.forEach((item) => {
-    item.addEventListener('mouseenter', () => {
-      const pid = item.getAttribute('data-project');
-      if (pid) {
-        items.forEach((i) => i.classList.remove('active'));
+
+  function setProject(index: number) {
+    if (index < 0) index = projectKeys.length - 1;
+    if (index >= projectKeys.length) index = 0;
+    currentProjectIndex = index;
+    const pid = projectKeys[currentProjectIndex];
+
+    items.forEach((item) => {
+      if (item.getAttribute('data-project') === pid) {
         item.classList.add('active');
-        renderProject(pid);
+      } else {
+        item.classList.remove('active');
       }
+    });
+    renderProject(pid);
+  }
+
+  items.forEach((item, idx) => {
+    item.addEventListener('mouseenter', () => {
+      setProject(idx);
     });
 
     item.addEventListener('click', () => {
-      const pid = item.getAttribute('data-project');
-      if (pid) {
-        items.forEach((i) => i.classList.remove('active'));
-        item.classList.add('active');
-        renderProject(pid);
-      }
+      setProject(idx);
     });
   });
+
+  // Next / Prev switcher buttons
+  const prevBtn = document.getElementById('projects-prev-btn');
+  const nextBtn = document.getElementById('projects-next-btn');
+
+  prevBtn?.addEventListener('click', () => {
+    setProject(currentProjectIndex - 1);
+  });
+
+  nextBtn?.addEventListener('click', () => {
+    setProject(currentProjectIndex + 1);
+  });
+
+  // Touch Swipe on Project Console Card (Mobile swipe left/right)
+  const consoleCard = document.querySelector('.project-console-card');
+  if (consoleCard) {
+    let touchStartX = 0;
+    let touchStartY = 0;
+
+    consoleCard.addEventListener('touchstart', (e: Event) => {
+      const te = e as TouchEvent;
+      touchStartX = te.touches[0].clientX;
+      touchStartY = te.touches[0].clientY;
+    }, { passive: true });
+
+    consoleCard.addEventListener('touchend', (e: Event) => {
+      const te = e as TouchEvent;
+      const touchEndX = te.changedTouches[0].clientX;
+      const touchEndY = te.changedTouches[0].clientY;
+      const diffX = touchEndX - touchStartX;
+      const diffY = touchEndY - touchStartY;
+
+      if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 35) {
+        if (diffX < 0) {
+          setProject(currentProjectIndex + 1);
+        } else {
+          setProject(currentProjectIndex - 1);
+        }
+      }
+    }, { passive: true });
+  }
 }
 
 // ==========================================
@@ -377,153 +477,227 @@ function setupStickyNotesDesk() {
 }
 
 // ==========================================
-// HERO PORTRAIT PAINTBRUSH REVEAL EFFECT
+// HIGH-PERFORMANCE DIRECT COMPOSITE PAINTBRUSH REVEAL
 // ==========================================
 function setupHeroPaintbrush() {
   const card = document.getElementById('hero-portrait-card');
-  const revealLayer = document.getElementById('portrait-paint-reveal');
   const canvas = document.getElementById('portrait-paint-canvas') as HTMLCanvasElement | null;
-  if (!card || !revealLayer || !canvas) return;
+  const sketchImg = document.getElementById('portrait-base-sketch') as HTMLImageElement | null;
+  if (!card || !canvas) return;
 
-  const ctx = canvas.getContext('2d', { willReadFrequently: true });
+  const ctx = canvas.getContext('2d');
   if (!ctx) return;
 
-  let width = 0;
-  let height = 0;
-  let lastX = -1;
-  let lastY = -1;
+  // Pre-load color image directly into memory (zero DOM insertion, 73KB WebP)
+  const colorImg = new Image();
+  colorImg.src = '/assets/Mee.webp';
+  let colorLoaded = false;
+  colorImg.onload = () => {
+    colorLoaded = true;
+  };
 
-  function resizeCanvas() {
-    const rect = card!.getBoundingClientRect();
-    if (rect.width === 0 || rect.height === 0) return;
-    
-    // Use device pixel ratio for smooth high-res brush strokes
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
-    width = rect.width;
-    height = rect.height;
-
-    canvas!.width = width * dpr;
-    canvas!.height = height * dpr;
-    ctx!.scale(dpr, dpr);
-    ctx!.lineCap = 'round';
-    ctx!.lineJoin = 'round';
-
-    updateCssMask();
-  }
-
-  function updateCssMask() {
-    try {
-      const dataUrl = canvas!.toDataURL('image/png');
-      revealLayer!.style.setProperty('--paint-mask', `url(${dataUrl})`);
-    } catch (_) {
-      // In case of any cross-origin restrictions, fallback seamlessly
-    }
-  }
-
-  function drawStroke(x: number, y: number) {
-    if (!ctx) return;
-    const radius = 45; // Paintbrush radius
-
-    ctx.save();
-    // Soft organic radial brush stamp
-    const grad = ctx.createRadialGradient(x, y, radius * 0.15, x, y, radius);
+  // Offscreen brush stamp buffer to draw organic feathered stamps without recalculating gradients
+  const BRUSH_RADIUS = 50;
+  const stampCanvas = document.createElement('canvas');
+  stampCanvas.width = BRUSH_RADIUS * 2;
+  stampCanvas.height = BRUSH_RADIUS * 2;
+  const stampCtx = stampCanvas.getContext('2d');
+  if (stampCtx) {
+    const grad = stampCtx.createRadialGradient(
+      BRUSH_RADIUS,
+      BRUSH_RADIUS,
+      BRUSH_RADIUS * 0.15,
+      BRUSH_RADIUS,
+      BRUSH_RADIUS,
+      BRUSH_RADIUS
+    );
     grad.addColorStop(0, 'rgba(0, 0, 0, 1)');
     grad.addColorStop(0.7, 'rgba(0, 0, 0, 0.85)');
     grad.addColorStop(1, 'rgba(0, 0, 0, 0)');
+    stampCtx.fillStyle = grad;
+    stampCtx.beginPath();
+    stampCtx.arc(BRUSH_RADIUS, BRUSH_RADIUS, BRUSH_RADIUS, 0, Math.PI * 2);
+    stampCtx.fill();
+  }
 
-    ctx.fillStyle = grad;
-    ctx.beginPath();
-    ctx.arc(x, y, radius, 0, Math.PI * 2);
-    ctx.fill();
+  // Offscreen alpha mask canvas where the user's paint strokes are stamped
+  const maskCanvas = document.createElement('canvas');
+  const maskCtx = maskCanvas.getContext('2d');
 
-    // If mouse was dragging/moving quickly, connect points with a feathered stroke
-    if (lastX >= 0 && lastY >= 0) {
-      ctx.lineWidth = radius * 1.5;
-      ctx.strokeStyle = 'rgba(0, 0, 0, 0.9)';
-      ctx.beginPath();
-      ctx.moveTo(lastX, lastY);
-      ctx.lineTo(x, y);
-      ctx.stroke();
+  let width = 0;
+  let height = 0;
+  let dpr = 1;
+  let lastX = -1;
+  let lastY = -1;
+  let isPointerDownOrHovering = false;
+  let hasActiveStrokes = false;
+  let lastPaintTime = 0;
+  let animFrameId: number | null = null;
+  const FADE_IDLE_DELAY = 1200; // ms before fading begins
+
+  function resize() {
+    const targetEl = sketchImg || card!;
+    const rect = targetEl.getBoundingClientRect();
+    if (rect.width === 0 || rect.height === 0) return;
+
+    dpr = Math.min(window.devicePixelRatio || 1, 1.5);
+    width = Math.round(rect.width);
+    height = Math.round(rect.height);
+
+    canvas!.width = width * dpr;
+    canvas!.height = height * dpr;
+    canvas!.style.width = `${width}px`;
+    canvas!.style.height = `${height}px`;
+
+    maskCanvas.width = width * dpr;
+    maskCanvas.height = height * dpr;
+
+    if (maskCtx) {
+      maskCtx.clearRect(0, 0, maskCanvas.width, maskCanvas.height);
     }
-    ctx.restore();
+    ctx!.clearRect(0, 0, canvas!.width, canvas!.height);
+    hasActiveStrokes = false;
+  }
+
+  function stamp(x: number, y: number) {
+    if (!maskCtx) return;
+    const px = x * dpr;
+    const py = y * dpr;
+
+    maskCtx.drawImage(
+      stampCanvas,
+      px - BRUSH_RADIUS,
+      py - BRUSH_RADIUS,
+      BRUSH_RADIUS * 2,
+      BRUSH_RADIUS * 2
+    );
+
+    // Feather connection between mouse positions
+    if (lastX >= 0 && lastY >= 0) {
+      const pLastX = lastX * dpr;
+      const pLastY = lastY * dpr;
+      const dist = Math.hypot(px - pLastX, py - pLastY);
+      const steps = Math.min(Math.ceil(dist / 12), 20);
+      for (let i = 1; i <= steps; i++) {
+        const ix = pLastX + (px - pLastX) * (i / steps);
+        const iy = pLastY + (py - pLastY) * (i / steps);
+        maskCtx.drawImage(
+          stampCanvas,
+          ix - BRUSH_RADIUS,
+          iy - BRUSH_RADIUS,
+          BRUSH_RADIUS * 2,
+          BRUSH_RADIUS * 2
+        );
+      }
+    }
 
     lastX = x;
     lastY = y;
   }
 
-  // Paint fade controller:
-  // - Paint stays bright while active
-  // - Once user stops painting or moves pointer away, it stays for ~1.5s before gently evaporating
-  // - Continuous animation loop ensures the fade finishes smoothly even when pointer leaves the region
-  let lastPaintTime = 0;
-  let hasPaintStrokes = false;
-  const FADE_DELAY_MS = 1400; // Delay before starting to fade
-  let maskUpdatePending = false;
+  function composite() {
+    if (!ctx || !maskCtx || !colorLoaded) return;
 
-  function scheduleMaskUpdate() {
-    if (!maskUpdatePending) {
-      maskUpdatePending = true;
-      requestAnimationFrame(() => {
-        updateCssMask();
-        maskUpdatePending = false;
-      });
-    }
+    // Render the color image masked by the drawn brush strokes directly in hardware
+    ctx.clearRect(0, 0, canvas!.width, canvas!.height);
+
+    ctx.save();
+    // 1. Draw painted mask
+    ctx.drawImage(maskCanvas, 0, 0);
+
+    // 2. Source-in: Keep color image only where mask is painted
+    ctx.globalCompositeOperation = 'source-in';
+    ctx.drawImage(colorImg, 0, 0, canvas!.width, canvas!.height);
+    ctx.restore();
   }
 
-  function loop() {
-    if (ctx && width > 0 && height > 0 && hasPaintStrokes) {
-      const now = performance.now();
-      // Start fading only after idle delay has elapsed
-      if (now - lastPaintTime > FADE_DELAY_MS) {
-        // Very gentle fade out: slowly evaporates the painted strokes
-        ctx.save();
-        ctx.globalCompositeOperation = 'destination-out';
-        ctx.fillStyle = 'rgba(0, 0, 0, 0.007)'; // silky smooth slow evaporation
-        ctx.fillRect(0, 0, width, height);
-        ctx.restore();
+  function startLoop() {
+    if (animFrameId !== null) return;
+    animFrameId = requestAnimationFrame(loop);
+  }
 
-        scheduleMaskUpdate();
+  // Fade decay controller: fully sleeps when inactive (0% CPU/GPU overhead)
+  let fadeStepCount = 0;
+  function loop(timestamp: number) {
+    animFrameId = null;
+
+    if (!hasActiveStrokes) {
+      return; // Fully sleep
+    }
+
+    // Check if idle delay passed to slowly fade strokes
+    if (!isPointerDownOrHovering && timestamp - lastPaintTime > FADE_IDLE_DELAY) {
+      if (maskCtx) {
+        maskCtx.save();
+        maskCtx.globalCompositeOperation = 'destination-out';
+        maskCtx.fillStyle = 'rgba(0, 0, 0, 0.025)';
+        maskCtx.fillRect(0, 0, maskCanvas.width, maskCanvas.height);
+        maskCtx.restore();
+
+        fadeStepCount++;
+        // After ~70 frames of fading (~1.2s), clear completely and put loop to sleep
+        if (fadeStepCount > 75) {
+          maskCtx.clearRect(0, 0, maskCanvas.width, maskCanvas.height);
+          ctx!.clearRect(0, 0, canvas!.width, canvas!.height);
+          hasActiveStrokes = false;
+          fadeStepCount = 0;
+          return; // sleep
+        }
       }
     }
-    requestAnimationFrame(loop);
+
+    composite();
+
+    if (hasActiveStrokes) {
+      animFrameId = requestAnimationFrame(loop);
+    }
   }
 
-  window.addEventListener('resize', () => {
-    resizeCanvas();
-  });
-
-  // Give DOM a frame to compute natural bounding box
-  setTimeout(() => {
-    resizeCanvas();
-    loop();
-  }, 100);
-
-  // Paintbrush tracking
+  // Handle pointer interactions
   card.addEventListener('pointerenter', (e) => {
+    isPointerDownOrHovering = true;
     lastPaintTime = performance.now();
-    hasPaintStrokes = true;
+    hasActiveStrokes = true;
+    fadeStepCount = 0;
     const rect = card.getBoundingClientRect();
     lastX = e.clientX - rect.left;
     lastY = e.clientY - rect.top;
-    drawStroke(lastX, lastY);
-    scheduleMaskUpdate();
+    stamp(lastX, lastY);
+    composite();
+    startLoop();
   });
 
   card.addEventListener('pointermove', (e) => {
+    isPointerDownOrHovering = true;
     lastPaintTime = performance.now();
-    hasPaintStrokes = true;
+    hasActiveStrokes = true;
+    fadeStepCount = 0;
     const rect = card.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
-    drawStroke(x, y);
-    scheduleMaskUpdate();
+    stamp(x, y);
+    composite();
+    startLoop();
   });
 
   card.addEventListener('pointerleave', () => {
+    isPointerDownOrHovering = false;
     lastX = -1;
     lastY = -1;
-    // Note: hasPaintStrokes stays true so the loop continues to fade and update mask asynchronously even outside!
+    lastPaintTime = performance.now();
+    startLoop(); // Ensure loop runs until fade finishes, then sleeps
   });
+
+  window.addEventListener('resize', () => {
+    resize();
+  });
+
+  // Initial sizing once sketch image is mounted
+  if (sketchImg && !sketchImg.complete) {
+    sketchImg.onload = resize;
+  } else {
+    setTimeout(resize, 60);
+  }
 }
 
 // ==========================================
@@ -539,7 +713,7 @@ function setupPinnedHorizontalScroll() {
     const navAnchors = document.querySelectorAll('.nav-anchor');
     if (!track || !scrollWrapper) return;
 
-    // Controlled scroll tween without aggressive multi-section auto-snap
+    // Controlled scroll tween with precise section snapping
     const scrollTween = gsap.to(track, {
       x: () => -(track.scrollWidth - window.innerWidth),
       ease: 'none',
@@ -547,8 +721,14 @@ function setupPinnedHorizontalScroll() {
         trigger: scrollWrapper,
         start: 'top top',
         end: 'bottom bottom',
-        scrub: 0.6,
+        scrub: 0.5,
         invalidateOnRefresh: true,
+        snap: {
+          snapTo: 1 / 3, // 4 sections (0, 1/3, 2/3, 1)
+          duration: { min: 0.25, max: 0.6 },
+          delay: 0.1,
+          ease: 'power2.out'
+        },
         // Active navbar highlighting based on scroll progress
         onUpdate: (self) => {
           const progress = self.progress;
@@ -568,50 +748,6 @@ function setupPinnedHorizontalScroll() {
         }
       }
     });
-
-    // Intelligent Wheel Snapping & Velocity Damper:
-    // Allows viewing mid-transition freely during gentle scrolling,
-    // but when an aggressive scroll occurs, it clamps and stops cleanly at the next section marker.
-    let wheelTimeout: ReturnType<typeof setTimeout> | null = null;
-    let accumulatedDelta = 0;
-    const sectionThreshold = 180; // distance threshold before snapping to the adjacent section
-
-    window.addEventListener('wheel', (e) => {
-      const maxScroll = scrollWrapper.offsetHeight - window.innerHeight;
-      const currentScroll = window.scrollY;
-
-      // Only engage threshold snapping while inside the pinned stages
-      if (currentScroll < maxScroll) {
-        accumulatedDelta += e.deltaY;
-
-        if (wheelTimeout) clearTimeout(wheelTimeout);
-
-        wheelTimeout = setTimeout(() => {
-          if (Math.abs(accumulatedDelta) > sectionThreshold) {
-            const currentSectionProgress = currentScroll / maxScroll;
-            const step = 1 / 3;
-            let targetIndex = Math.round(currentSectionProgress * 3);
-
-            if (accumulatedDelta > sectionThreshold) {
-              // Scrolling down aggressively -> stop at next section
-              targetIndex = Math.min(3, Math.floor(currentSectionProgress * 3) + 1);
-            } else if (accumulatedDelta < -sectionThreshold) {
-              // Scrolling up aggressively -> stop at previous section
-              targetIndex = Math.max(0, Math.ceil(currentSectionProgress * 3) - 1);
-            }
-
-            const targetY = targetIndex * step * maxScroll;
-            gsap.to(window, {
-              scrollTo: targetY,
-              duration: 0.45,
-              ease: 'power2.out',
-              overwrite: 'auto'
-            });
-          }
-          accumulatedDelta = 0;
-        }, 90);
-      }
-    }, { passive: true });
 
     // Sync navbar links with scroll position (Navbar bypasses wheel damping freely)
     navAnchors.forEach((link) => {

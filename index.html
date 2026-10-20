@@ -4,8 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description"
-    content="Dev-Akuma's Portfolio - AI Engineer, Game Developer & Creative Builder." />
+  <meta name="description" content="Dev-Akuma's Portfolio - AI Engineer, Game Developer & Creative Builder." />
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -29,7 +28,9 @@
         <div class="brand-wrapper" id="brand-logo-trigger">
           <div class="brand-logo-box">
             <svg width="28" height="28" viewBox="0 0 74 74" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M62.5558 58.6345H28.7365L30.7706 53.4138C31.3826 52.9966 31.973 52.5569 32.5382 52.0945C34.9883 50.0898 36.9319 47.7098 38.2579 45.0906C39.5839 42.4713 40.2667 39.6639 40.2667 36.8289C40.2667 34.9601 39.9678 33.1041 39.3859 31.3054L45.6466 15.24L62.5558 58.6345ZM13.88 15.24C17.3451 15.24 20.7763 15.7986 23.9777 16.8835C27.179 17.9685 30.088 19.5585 32.5382 21.5632C34.9884 23.5679 36.9319 25.9479 38.2579 28.5671C38.7099 29.4599 39.085 30.3754 39.3859 31.3054L30.7706 53.4138C28.7296 54.8053 26.4406 55.9405 23.9777 56.7751C20.7763 57.86 17.3451 58.4177 13.88 58.4177V15.24Z" fill="black" />
+              <path
+                d="M62.5558 58.6345H28.7365L30.7706 53.4138C31.3826 52.9966 31.973 52.5569 32.5382 52.0945C34.9883 50.0898 36.9319 47.7098 38.2579 45.0906C39.5839 42.4713 40.2667 39.6639 40.2667 36.8289C40.2667 34.9601 39.9678 33.1041 39.3859 31.3054L45.6466 15.24L62.5558 58.6345ZM13.88 15.24C17.3451 15.24 20.7763 15.7986 23.9777 16.8835C27.179 17.9685 30.088 19.5585 32.5382 21.5632C34.9884 23.5679 36.9319 25.9479 38.2579 28.5671C38.7099 29.4599 39.085 30.3754 39.3859 31.3054L30.7706 53.4138C28.7296 54.8053 26.4406 55.9405 23.9777 56.7751C20.7763 57.86 17.3451 58.4177 13.88 58.4177V15.24Z"
+                fill="black" />
             </svg>
           </div>
           <span class="brand-name">Dev.Akuma's Portflio</span>
@@ -39,7 +40,7 @@
             <li><a href="#hero" class="nav-anchor" data-section="0">Home</a></li>
             <li><a href="#skills" class="nav-anchor" data-section="1">Skills</a></li>
             <li><a href="#work" class="nav-anchor" data-section="2">Work</a></li>
-            <li><a href="#about" class="nav-anchor" data-section="3">About</a></li>
+            <li class="nav-about-item"><a href="#about" class="nav-anchor" data-section="3">About</a></li>
             <li><a href="#contact" class="nav-anchor-contact">Contact</a></li>
           </ul>
         </nav>
@@ -53,7 +54,7 @@
             <div class="hero-text-col">
               <div class="hero-subtitle">HEY! I'M</div>
               <h1 class="hero-title">MAYENGBAM DEVASIS SINGH</h1>
-              
+
               <!-- Natural traffic-light divider placed below name -->
               <div class="traffic-dots hero-divider-dots">
                 <span class="dot dot-red"></span>
@@ -64,30 +65,31 @@
               <p class="hero-bio">
                 An AI-engineer who likes to learn pretty much everything and creating interesting stuffs.
               </p>
-              
+
               <p class="resume-cta">
-                Here's my super-heavy-multi-page resume: 
+                Here's my super-heavy-multi-page resume:
                 <a href="/23BAI70549_M.Devasis.Singh.pdf" target="_blank" rel="noopener">link</a>
               </p>
 
               <div class="hero-socials">
                 <span class="socials-heading">Want to connect?</span>
                 <div class="socials-list">
-                  <a href="https://github.com/Dev-Akuma" target="_blank" rel="noopener" class="social-link">@Github...</a>
-                  <a href="https://www.linkedin.com/in/m-devasis-7108bb290" target="_blank" rel="noopener" class="social-link">@Linkedin...</a>
-                  <a href="https://www.instagram.com/dev._.akuma/" target="_blank" rel="noopener" class="social-link">@Instagram...</a>
+                  <a href="https://github.com/Dev-Akuma" target="_blank" rel="noopener"
+                    class="social-link">@Github...</a>
+                  <a href="https://www.linkedin.com/in/m-devasis-7108bb290" target="_blank" rel="noopener"
+                    class="social-link">@Linkedin...</a>
+                  <a href="https://www.instagram.com/dev._.akuma/" target="_blank" rel="noopener"
+                    class="social-link">@Instagram...</a>
                 </div>
               </div>
             </div>
             <div class="hero-image-wrapper">
               <div class="hero-portrait-card" id="hero-portrait-card">
-                <!-- Base sketched layer -->
-                <img src="/assets/etch-sketch.png" alt="Mayengbam Devasis Singh (Sketch)" class="portrait-base-sketch" loading="eager" />
-                <!-- Painted full-color reveal layer -->
-                <div class="portrait-paint-reveal" id="portrait-paint-reveal">
-                  <img src="/assets/Mee.png" alt="Mayengbam Devasis Singh (Color)" class="portrait-color-img" loading="eager" />
-                  <canvas id="portrait-paint-canvas" class="portrait-paint-canvas"></canvas>
-                </div>
+                <!-- Base sketched layer with bottom fade mask -->
+                <img src="/assets/etch-sketch.webp" alt="Mayengbam Devasis Singh (Sketch)" class="portrait-base-sketch"
+                  id="portrait-base-sketch" loading="eager" />
+                <!-- Hardware accelerated direct paint canvas -->
+                <canvas id="portrait-paint-canvas" class="portrait-paint-canvas"></canvas>
               </div>
             </div>
           </div>
@@ -137,16 +139,39 @@
               </div>
             </div>
             <div class="tablet-perspective-stage">
-              <div class="tablet-3d-chassis" id="tablet-chassis">
-                <div class="tablet-screen">
-                  <div class="tablet-screen-header">
-                    <span class="tablet-screen-title" id="tablet-cat-title">ARTIFICIAL INTELLIGENCE &amp; ML</span>
-                    <span class="tablet-badge" id="tablet-cat-badge">ACTIVE MATRIX</span>
-                  </div>
-                  <div class="skill-rows" id="tablet-skills-content">
-                    <!-- Dynamically populated via main.ts -->
+              <h2 class="section-header section-header-mobile">
+                SKILL TABS
+                <span class="traffic-dots">
+                  <span class="dot dot-red"></span>
+                  <span class="dot dot-yellow"></span>
+                  <span class="dot dot-green"></span>
+                </span>
+              </h2>
+              <div class="tablet-carousel-wrapper">
+                <button class="tablet-nav-btn tablet-nav-prev" id="skills-prev-btn"
+                  aria-label="Previous skill category">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                  </svg>
+                </button>
+                <div class="tablet-3d-chassis" id="tablet-chassis">
+                  <div class="tablet-screen">
+                    <div class="tablet-screen-header">
+                      <span class="tablet-screen-title" id="tablet-cat-title">ARTIFICIAL INTELLIGENCE &amp; ML</span>
+                      <span class="tablet-badge" id="tablet-cat-badge">ACTIVE MATRIX</span>
+                    </div>
+                    <div class="skill-rows" id="tablet-skills-content">
+                      <!-- Dynamically populated via main.ts -->
+                    </div>
                   </div>
                 </div>
+                <button class="tablet-nav-btn tablet-nav-next" id="skills-next-btn" aria-label="Next skill category">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                  </svg>
+                </button>
               </div>
             </div>
           </div>
@@ -168,7 +193,8 @@
                 <div class="project-feed-item active" data-project="squarey">
                   <span class="project-wire-icon">
                     <!-- Gamepad wireframe icon -->
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                      stroke-linecap="round" stroke-linejoin="round">
                       <rect x="2" y="6" width="20" height="12" rx="3"></rect>
                       <line x1="6" y1="12" x2="10" y2="12"></line>
                       <line x1="8" y1="10" x2="8" y2="14"></line>
@@ -181,10 +207,13 @@
                 <div class="project-feed-item" data-project="compass">
                   <span class="project-wire-icon">
                     <!-- Web globe wireframe icon -->
-                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                      stroke-linecap="round" stroke-linejoin="round">
                       <circle cx="12" cy="12" r="10"></circle>
                       <line x1="2" y1="12" x2="22" y2="12"></line>
-                      <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                      <path
+                        d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z">
+                      </path>
                     </svg>
                   </span>
                   <span class="project-name">THE COMPASS</span>
@@ -192,34 +221,58 @@
               </div>
             </div>
             <div class="projects-right-col">
-              <div class="project-console-card">
-                <!-- Playstore-style main hero showcase & thumbnail selector -->
-                <div class="project-viewer-container">
-                  <div class="project-hero-preview">
-                    <img id="project-main-display" src="/Projects/Squarey Maze/0.jpeg" alt="Project Active Preview" />
-                  </div>
-                  <div class="project-thumbnails-strip" id="project-thumbnails">
-                    <!-- Populated dynamically via main.ts -->
-                  </div>
-                </div>
-                
-                <div class="project-details-pane">
-                  <div>
-                    <h3 class="project-details-title" id="project-title">SQUAREY MAZE</h3>
-                    <p class="project-details-desc" id="project-desc">
-                      An atmospheric maze adventure featuring custom pathfinding logic, procedural dungeons, dynamic retro lighting and pixel storytelling.
-                    </p>
-                    <div class="project-tags" id="project-tags">
-                      <span class="tag-pill">Game Engine</span>
-                      <span class="tag-pill">Pixel Art</span>
-                      <span class="tag-pill">Procedural Gen</span>
-                      <span class="tag-pill">Pygame</span>
+              <h2 class="section-header section-header-mobile">
+                PROJECTS
+                <span class="traffic-dots">
+                  <span class="dot dot-red"></span>
+                  <span class="dot dot-yellow"></span>
+                  <span class="dot dot-green"></span>
+                </span>
+              </h2>
+              <div class="project-carousel-wrapper">
+                <button class="project-nav-btn project-nav-prev" id="projects-prev-btn" aria-label="Previous project">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                  </svg>
+                </button>
+                <div class="project-console-card">
+                  <!-- Playstore-style main hero showcase & thumbnail selector -->
+                  <div class="project-viewer-container">
+                    <div class="project-hero-preview">
+                      <img id="project-main-display" src="/Projects/Squarey Maze/0.jpeg" alt="Project Active Preview" />
+                    </div>
+                    <div class="project-thumbnails-strip" id="project-thumbnails">
+                      <!-- Populated dynamically via main.ts -->
                     </div>
                   </div>
-                  <a href="https://github.com/Dev-Akuma" target="_blank" rel="noopener" class="project-btn" id="project-action-btn">
-                    VIEW PROJECT &gt;
-                  </a>
+
+                  <div class="project-details-pane">
+                    <div class="project-details-scrollable">
+                      <h3 class="project-details-title" id="project-title">SQUAREY MAZE</h3>
+                      <p class="project-details-desc" id="project-desc">
+                        An atmospheric maze adventure featuring custom pathfinding logic, dungeons, dynamic retro
+                        lighting and pixel storytelling.
+                      </p>
+                      <div class="project-tags" id="project-tags">
+                        <span class="tag-pill">Godot</span>
+                        <span class="tag-pill">Pixel Art</span>
+                        <span class="tag-pill">RPG Mechanics</span>
+                        <span class="tag-pill">2D Game</span>
+                      </div>
+                    </div>
+                    <a href="https://github.com/Dev-Akuma" target="_blank" rel="noopener" class="project-btn"
+                      id="project-action-btn">
+                      VIEW PROJECT &gt;
+                    </a>
+                  </div>
                 </div>
+                <button class="project-nav-btn project-nav-next" id="projects-next-btn" aria-label="Next project">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                  </svg>
+                </button>
               </div>
             </div>
           </div>
@@ -301,7 +354,8 @@
         <!-- Gmail -->
         <a href="mailto:m.devasis.singh@gmail.com" class="contact-tile" title="Send email via Gmail">
           <div class="contact-tile-content">
-            <svg class="contact-brand-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <svg class="contact-brand-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
               <polyline points="22,6 12,13 2,6"></polyline>
             </svg>
@@ -314,10 +368,14 @@
         </a>
 
         <!-- GitHub -->
-        <a href="https://github.com/Dev-Akuma" target="_blank" rel="noopener" class="contact-tile" title="Visit GitHub profile">
+        <a href="https://github.com/Dev-Akuma" target="_blank" rel="noopener" class="contact-tile"
+          title="Visit GitHub profile">
           <div class="contact-tile-content">
-            <svg class="contact-brand-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+            <svg class="contact-brand-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path
+                d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22">
+              </path>
             </svg>
             <div class="contact-tile-text">
               <span class="contact-platform">GitHub</span>
@@ -328,9 +386,11 @@
         </a>
 
         <!-- LinkedIn -->
-        <a href="https://www.linkedin.com/in/m-devasis-7108bb290" target="_blank" rel="noopener" class="contact-tile" title="Connect on LinkedIn">
+        <a href="https://www.linkedin.com/in/m-devasis-7108bb290" target="_blank" rel="noopener" class="contact-tile"
+          title="Connect on LinkedIn">
           <div class="contact-tile-content">
-            <svg class="contact-brand-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <svg class="contact-brand-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
               <rect x="2" y="9" width="4" height="12"></rect>
               <circle cx="4" cy="4" r="2"></circle>
@@ -344,9 +404,11 @@
         </a>
 
         <!-- LeetCode -->
-        <a href="https://leetcode.com/u/user1649kj/" target="_blank" rel="noopener" class="contact-tile" title="View LeetCode profile">
+        <a href="https://leetcode.com/u/user1649kj/" target="_blank" rel="noopener" class="contact-tile"
+          title="View LeetCode profile">
           <div class="contact-tile-content">
-            <svg class="contact-brand-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <svg class="contact-brand-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <polyline points="16 18 22 12 16 6"></polyline>
               <polyline points="8 6 2 12 8 18"></polyline>
             </svg>
@@ -359,9 +421,11 @@
         </a>
 
         <!-- Instagram -->
-        <a href="https://www.instagram.com/dev._.akuma/" target="_blank" rel="noopener" class="contact-tile" title="Follow on Instagram">
+        <a href="https://www.instagram.com/dev._.akuma/" target="_blank" rel="noopener" class="contact-tile"
+          title="Follow on Instagram">
           <div class="contact-tile-content">
-            <svg class="contact-brand-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <svg class="contact-brand-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
               <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
               <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
@@ -375,9 +439,11 @@
         </a>
 
         <!-- Full Resume PDF -->
-        <a href="/23BAI70549_M.Devasis.Singh.pdf" target="_blank" rel="noopener" class="contact-tile resume-tile" title="Download Full Resume">
+        <a href="/23BAI70549_M.Devasis.Singh.pdf" target="_blank" rel="noopener" class="contact-tile resume-tile"
+          title="Download Full Resume">
           <div class="contact-tile-content">
-            <svg class="contact-brand-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <svg class="contact-brand-icon" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
               <polyline points="14 2 14 8 20 8"></polyline>
               <line x1="16" y1="13" x2="8" y2="13"></line>

@@ -320,7 +320,9 @@ body {
 .hero-portrait-card {
   position: relative;
   max-width: 460px;
-  width: 100%;
+  width: auto;
+  aspect-ratio: 1541 / 1771;
+  max-height: 75vh;
   display: flex;
   justify-content: center;
   align-items: flex-end;
@@ -329,39 +331,22 @@ body {
   box-shadow: none;
   cursor: crosshair;
   user-select: none;
-}
-
-.portrait-base-sketch,
-.portrait-color-img {
-  width: 100%;
-  height: auto;
-  max-height: 75vh;
-  display: block;
-  object-fit: contain;
-  pointer-events: none;
+  /* Smooth organic fade-out at the bottom to eliminate hard edges/abrupt cut for both sketch and color paint */
+  -webkit-mask-image: linear-gradient(to bottom, #000000 0%, #000000 78%, rgba(0, 0, 0, 0.85) 86%, rgba(0, 0, 0, 0.3) 94%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000000 0%, #000000 78%, rgba(0, 0, 0, 0.85) 86%, rgba(0, 0, 0, 0.3) 94%, transparent 100%);
 }
 
 .portrait-base-sketch {
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 1541 / 1771;
+  display: block;
+  object-fit: fill;
+  pointer-events: none;
   position: relative;
   z-index: 1;
   filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.22)) drop-shadow(0 8px 14px rgba(0, 0, 0, 0.14));
   transition: filter 0.3s ease;
-}
-
-.portrait-paint-reveal {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 2;
-  pointer-events: none;
-  /* CSS mask using the paint canvas */
-  -webkit-mask-image: var(--paint-mask, none);
-  mask-image: var(--paint-mask, none);
-  -webkit-mask-size: 100% 100%;
-  mask-size: 100% 100%;
-  -webkit-mask-repeat: no-repeat;
-  mask-repeat: no-repeat;
 }
 
 .portrait-paint-canvas {
@@ -370,8 +355,8 @@ body {
   width: 100%;
   height: 100%;
   pointer-events: auto;
-  z-index: 3;
-  opacity: 0; /* used as mask offscreen or overlaid */
+  z-index: 2;
+  border-radius: 0;
 }
 
 /* ========================================================
@@ -433,12 +418,68 @@ body {
   box-shadow: 4px 4px 0px var(--accent-blue);
 }
 
+/* Mobile section headers (hidden on desktop, revealed on mobile) */
+.section-header-mobile {
+  display: none;
+}
+
 /* 3D Isometric Tablet */
 .tablet-perspective-stage {
   perspective: 1200px;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
+  width: 100%;
+}
+
+.tablet-carousel-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 680px;
+  touch-action: pan-y;
+}
+
+.tablet-nav-btn {
+  display: none; /* revealed on mobile/smaller screens */
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 2px solid #000000;
+  box-shadow: 2px 3px 0px #000000;
+  color: #000000;
+  cursor: pointer;
+  z-index: 10;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.tablet-nav-btn:hover {
+  transform: translateY(calc(-50% - 2px));
+  box-shadow: 3px 4px 0px #000000;
+}
+
+.tablet-nav-btn:active {
+  transform: translateY(-50%);
+  box-shadow: 1px 1px 0px #000000;
+}
+
+.tablet-nav-prev {
+  left: -12px;
+}
+
+.tablet-nav-next {
+  right: -12px;
 }
 
 .tablet-3d-chassis {
@@ -586,6 +627,54 @@ body {
   color: currentColor;
 }
 
+.project-carousel-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  touch-action: pan-y;
+}
+
+.project-nav-btn {
+  display: none; /* shown on mobile */
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 2px solid #000000;
+  box-shadow: 2px 3px 0px #000000;
+  color: #000000;
+  cursor: pointer;
+  z-index: 10;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s ease;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.project-nav-btn:hover {
+  transform: translateY(calc(-50% - 2px));
+  box-shadow: 3px 4px 0px #000000;
+}
+
+.project-nav-btn:active {
+  transform: translateY(-50%);
+  box-shadow: 1px 1px 0px #000000;
+}
+
+.project-nav-prev {
+  left: -12px;
+}
+
+.project-nav-next {
+  right: -12px;
+}
+
 .project-console-card {
   background: #ffffff;
   border: 3px solid #000000;
@@ -595,7 +684,9 @@ body {
   display: grid;
   grid-template-columns: 1.25fr 1fr;
   gap: 24px;
-  align-items: flex-start;
+  align-items: stretch;
+  width: 100%;
+  min-height: 380px;
 }
 
 /* Playstore-style main viewer */
@@ -668,6 +759,29 @@ body {
   justify-content: space-between;
   height: 100%;
   min-height: 290px;
+  overflow: hidden;
+}
+
+.project-details-scrollable {
+  overflow-y: auto;
+  max-height: 260px;
+  padding-right: 6px;
+}
+
+/* Elegant thin scrollbar for project details */
+.project-details-scrollable::-webkit-scrollbar {
+  width: 5px;
+}
+.project-details-scrollable::-webkit-scrollbar-track {
+  background: #f0f2f5;
+  border-radius: 4px;
+}
+.project-details-scrollable::-webkit-scrollbar-thumb {
+  background: #c2c5d1;
+  border-radius: 4px;
+}
+.project-details-scrollable::-webkit-scrollbar-thumb:hover {
+  background: #8e91a0;
 }
 
 .project-details-title {
@@ -1014,20 +1128,140 @@ body {
     padding: 100px 6vw 60px 6vw;
   }
 
-  .hero-grid,
+  /* Completely remove the navigation menu on mobile devices */
+  .top-header nav {
+    display: none !important;
+  }
+
+  /* Completely remove About Me section on smaller screens */
+  #about,
+  .nav-about-item {
+    display: none !important;
+  }
+
+  .top-header {
+    height: 60px;
+    padding: 0 5vw;
+  }
+
+  .brand-name {
+    font-size: 1.05rem;
+  }
+
+  /* Reveal unified mobile section headers following exact design language */
+  .section-header-mobile {
+    display: flex !important;
+    width: 100%;
+    margin-bottom: 20px;
+    font-size: 1.85rem;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    align-items: center;
+  }
+
+  /* Show carousel navigation buttons on mobile */
+  .tablet-nav-btn,
+  .project-nav-btn {
+    display: flex;
+  }
+
+  /* Position nav buttons slightly inside card margin on small screens to avoid horizontal overflow */
+  .tablet-nav-prev,
+  .project-nav-prev {
+    left: -8px;
+  }
+  .tablet-nav-next,
+  .project-nav-next {
+    right: -8px;
+  }
+
+  /* Hide the vertical category lists on mobile so user interacts directly with the tablet & console */
+  .skills-left-col,
+  .projects-left-col {
+    display: none;
+  }
+
   .skills-container,
-  .projects-container,
-  .about-grid,
+  .projects-container {
+    display: block;
+    width: 100%;
+    max-width: 540px;
+    margin: 0 auto;
+  }
+
+  .tablet-3d-chassis {
+    transform: none;
+    box-shadow: 6px 8px 0px #000000;
+    max-width: 100%;
+    padding: 16px;
+  }
+
+  .tablet-screen {
+    padding: 16px;
+    min-height: 380px;
+    max-height: 440px;
+    overflow-y: auto;
+  }
+
+  /* Project Console Card on Mobile: Natural flex layout, no cutting off text */
   .project-console-card {
+    display: flex;
+    flex-direction: column;
+    min-height: auto;
+    height: auto;
+    max-height: none;
+    padding: 18px;
+    box-shadow: 6px 8px 0px #000000;
+    overflow: visible;
+    gap: 16px;
+  }
+
+  .project-viewer-container {
+    width: 100%;
+  }
+
+  .project-hero-preview {
+    height: 190px;
+  }
+
+  .project-details-pane {
+    min-height: auto;
+    height: auto;
+    overflow: visible;
+    gap: 12px;
+  }
+
+  .project-details-scrollable {
+    max-height: none;
+    overflow-y: visible;
+    padding-right: 0;
+  }
+
+  .project-details-title {
+    font-size: 1.15rem;
+    margin-bottom: 6px;
+  }
+
+  .project-details-desc {
+    font-size: 0.88rem;
+    line-height: 1.45;
+    margin-bottom: 10px;
+  }
+
+  .project-tags {
+    margin-bottom: 12px;
+  }
+
+  .project-btn {
+    width: 100%;
+    padding: 12px;
+  }
+
+  .hero-grid {
     grid-template-columns: 1fr;
   }
 
   .hero-title {
     font-size: 2.1rem;
-  }
-
-  .tablet-3d-chassis {
-    transform: none;
-    box-shadow: 8px 8px 0px #000000;
   }
 }
