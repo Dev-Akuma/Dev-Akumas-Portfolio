@@ -385,6 +385,28 @@ body {
   display: flex;
   flex-direction: column;
   gap: 12px;
+  /* Frame sized to clearly show 6 items at a time without pushing content */
+  max-height: 400px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 4px 8px 4px 2px;
+  scroll-behavior: smooth;
+}
+
+/* Clean, modern scrollbar for the skills category list */
+.skills-category-list::-webkit-scrollbar {
+  width: 6px;
+}
+.skills-category-list::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+  border-radius: 4px;
+}
+.skills-category-list::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 4px;
+}
+.skills-category-list::-webkit-scrollbar-thumb:hover {
+  background: #000000;
 }
 
 .skill-category-btn {
@@ -402,6 +424,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-shrink: 0;
 }
 
 .skill-category-btn:hover {

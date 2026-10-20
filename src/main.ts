@@ -18,41 +18,53 @@ const SKILLS_DATABASE: Record<string, { title: string; skills: SkillItem[] }> = 
   ai: {
     title: 'ARTIFICIAL INTELLIGENCE & ML',
     skills: [
-      { name: 'PyTorch / Neural Nets', level: 9, tags: 'Deep Learning' },
-      { name: 'LLM Agents & Prompt Ops', level: 9, tags: 'GenAI' },
-      { name: 'Computer Vision (OpenCV)', level: 8, tags: 'Vision' },
-      { name: 'Scikit-Learn / Classical ML', level: 8, tags: 'Data Sci' },
-      { name: 'Model Optimization / ONNX', level: 7, tags: 'Inference' },
+      { name: 'PyTorch / TensorFlow', level: 4, tags: 'Deep Learning' },
+      { name: 'LLM Agents / MCP / Skills', level: 9, tags: 'GenAI' },
+      { name: 'Computer Vision (OpenCV)', level: 4, tags: 'Vision' },
+      { name: 'Scikit-Learn', level: 5, tags: 'Data Sci' },
+      { name: 'Langchain / LangGraph', level: 4, tags: 'Frameworks' },
+    ]
+  },
+  languages: {
+    title: 'PROGRAMMING LANGUAGES',
+    skills: [
+      { name: 'Python', level: 3, tags: 'Development' },
+      { name: 'C++', level: 7, tags: 'DSA' },
+      { name: 'Go', level: 4, tags: 'Development' },
+      { name: 'JavaScript', level: 6, tags: 'Web Dev' },
+      { name: 'Java', level: 3, tags: 'Development' },
+      { name: 'SQL', level: 5, tags: 'Database' }
     ]
   },
   fundamentals: {
     title: 'FUNDAMENTAL SKILLS',
     skills: [
-      { name: 'Data Structures & Algorithms', level: 9, tags: 'Core CS' },
-      { name: 'Object Oriented Programming', level: 9, tags: 'Design' },
-      { name: 'Problem Solving & Math', level: 9, tags: 'Theory' },
+      { name: 'Data Structures & Algorithms', level: 6, tags: 'Core CS' },
+      { name: 'Object Oriented Programming', level: 7, tags: 'Design' },
+      { name: 'Database Management Systems', level: 5, tags: 'Core CS' },
       { name: 'Version Control (Git/GitHub)', level: 8, tags: 'Workflow' },
-      { name: 'Operating Systems & Linux', level: 8, tags: 'Systems' },
+      { name: 'Operating Systems', level: 4, tags: 'Systems' },
+      { name: 'Computer Networks', level: 3, tags: 'Core CS' }
     ]
   },
   fullstack: {
     title: 'FULL STACK DEVELOPMENT',
     skills: [
-      { name: 'TypeScript & Modern JS', level: 9, tags: 'Frontend' },
-      { name: 'Node.js & Express / Fastify', level: 8, tags: 'Backend' },
-      { name: 'React / Next.js / Vite', level: 9, tags: 'UI Framework' },
-      { name: 'PostgreSQL & Supabase', level: 8, tags: 'Database' },
-      { name: 'REST & GraphQL APIs', level: 8, tags: 'Networking' },
+      { name: 'TypeScript & Modern JS', level: 7, tags: 'Frontend' },
+      { name: 'FastAPI / REST', level: 6, tags: 'Backend' },
+      { name: 'Node.js & Express', level: 5, tags: 'Backend' },
+      { name: 'React / Next.js / Vite', level: 8, tags: 'UI Framework' },
+      { name: 'PostgreSQL & Supabase', level: 7, tags: 'Database' }
     ]
   },
   gamedev: {
     title: 'GAME DEVELOPMENT',
     skills: [
-      { name: 'Pygame & 2D Engines', level: 9, tags: 'Indie Dev' },
+      { name: 'Godot & 2D Engines', level: 7, tags: 'Indie Dev' },
       { name: 'Game Physics & Math', level: 8, tags: 'Simulation' },
       { name: 'C++ & Memory Models', level: 7, tags: 'Performance' },
       { name: 'Procedural Generation', level: 8, tags: 'Algorithms' },
-      { name: 'Pixel Art & Level Design', level: 8, tags: 'Art' },
+      { name: 'Pixel Art & Level Design', level: 8, tags: 'Art' }
     ]
   },
   uiux: {
@@ -62,26 +74,26 @@ const SKILLS_DATABASE: Record<string, { title: string; skills: SkillItem[] }> = 
       { name: 'Micro-interactions & Motion', level: 9, tags: 'Animation' },
       { name: 'Responsive Web Typography', level: 9, tags: 'Craft' },
       { name: 'Figma UI Wireframing', level: 8, tags: 'Prototyping' },
-      { name: 'Accessibility & Contrast', level: 8, tags: 'Usability' },
+      { name: 'Accessibility & Contrast', level: 8, tags: 'Usability' }
     ]
   },
   architecture: {
     title: 'SYSTEM ARCHITECTURE & DESIGN',
     skills: [
-      { name: 'Distributed System Concepts', level: 8, tags: 'Architecture' },
+      { name: 'Distributed System Concepts', level: 7, tags: 'Architecture' },
       { name: 'Microservices & Event Buses', level: 7, tags: 'Backend' },
-      { name: 'Docker & Containerization', level: 8, tags: 'DevOps' },
-      { name: 'Caching Strategies (Redis)', level: 8, tags: 'Scale' },
-      { name: 'Cloud Pipelines (AWS/GCP)', level: 7, tags: 'Cloud' },
+      { name: 'Docker & Containerization', level: 7, tags: 'DevOps' },
+      { name: 'Caching Strategies (Redis)', level: 7, tags: 'Scale' },
+      { name: 'Cloud Pipelines (AWS/GCP)', level: 6, tags: 'Cloud' }
     ]
   },
   other: {
     title: 'OTHER SKILLS & INTERESTS',
     skills: [
-      { name: 'Technical Writing & Research', level: 9, tags: 'Comms' },
+      { name: 'Chess', level: 3, tags: 'Strategy' },
+      { name: 'Technical Writing & Research', level: 7, tags: 'Comms' },
       { name: 'Creative Ideation & R&D', level: 10, tags: 'Mindset' },
-      { name: 'Late Night Philosophical Pondering', level: 10, tags: '3 AM' },
-      { name: 'Shader Programming (GLSL)', level: 7, tags: 'Graphics' },
+      { name: 'Late Night Philosophical Pondering', level: 10, tags: '3 AM' }
     ]
   }
 };
@@ -232,6 +244,7 @@ function setupSkillsInteractivity() {
     buttons.forEach((b) => {
       if (b.getAttribute('data-cat') === cat) {
         b.classList.add('active');
+        b.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
       } else {
         b.classList.remove('active');
       }
